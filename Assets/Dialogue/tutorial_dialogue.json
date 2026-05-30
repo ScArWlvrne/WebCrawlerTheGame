@@ -1,0 +1,251 @@
+{
+  "meta": {
+    "id": "tutorial_dialogue",
+    "title": "FaceWeb Tutorial — Joe Walker",
+    "platform": "venom",
+    "character": "joe",
+    "description": "Introductory social-engineering encounter. Player cross-references Joe's public FaceWeb profile and uses Venom to extract overshared personal details useful for security questions."
+  },
+  "startNode": "venom_connect",
+  "nodes": {
+    "venom_connect": {
+      "type": "system",
+      "text": "Venom — Direct Message\nNew contact request accepted.\nJoe Walker is online.",
+      "autoNext": "joe_greeting"
+    },
+    "joe_greeting": {
+      "type": "npc",
+      "speaker": "Joe Walker",
+      "avatar": "faceweb/joe_walker.jpg",
+      "text": "Hey!! Sorry, Venom profile pic is just a default spider emoji so I wasn't sure who this was 😅 You must be from the Walker High reunion page?? I literally JUST joined FaceWeb last week. Small world!",
+      "choices": [
+        {
+          "id": "play_along_reunion",
+          "text": "Yeah! FaceWeb suggested we might know each other. How've you been?",
+          "nextNode": "joe_overshare_intro",
+          "effects": {
+            "addTrust": { "character": "joe", "amount": 5 }
+          }
+        },
+        {
+          "id": "direct_old_friend",
+          "text": "We went to school together — don't you remember?",
+          "nextNode": "joe_overshare_intro",
+          "effects": {
+            "setFlag": { "key": "joe_believes_connection", "value": true }
+          }
+        },
+        {
+          "id": "too_aggressive",
+          "text": "I need answers about your accounts. Now.",
+          "nextNode": "joe_suspicious",
+          "effects": {
+            "setFlag": { "key": "joe_suspicious", "value": true }
+          }
+        }
+      ]
+    },
+    "joe_suspicious": {
+      "type": "npc",
+      "speaker": "Joe Walker",
+      "text": "Uh. That's weird. I don't know you. My cousin got phished last month so I'm gonna block this number. Be safe out there I guess??",
+      "choices": [
+        {
+          "id": "recover_soft",
+          "text": "Haha sorry, wrong Joe! Meant to message Joe Martinez from chem class.",
+          "nextNode": "joe_overshare_intro",
+          "conditions": {
+            "requiresNotFlag": "joe_blocked"
+          }
+        },
+        {
+          "id": "accept_failure",
+          "text": "[End conversation]",
+          "nextNode": "tutorial_fail",
+          "effects": {
+            "setFlag": { "key": "joe_blocked", "value": true },
+            "addJournalEntry": "Joe Walker blocked me on Venom. Need a softer approach on FaceWeb targets."
+          }
+        }
+      ]
+    },
+    "joe_overshare_intro": {
+      "type": "npc",
+      "speaker": "Joe Walker",
+      "text": "Oh man, SO much has happened! Got promoted to regional sales at DataVault Solutions — that's in the Meridian Tower downtown, 14th floor, corner office with the sad ficus. Started March 3rd, which is funny because March 3rd is also my birthday 🎂 (Pisces!!). Anyway I'm terrible at keeping in touch. Classic Joe, right?",
+      "choices": [
+        {
+          "id": "probe_birthday",
+          "text": "March 3rd — I'll send a card! What year again? I lost my yearbook.",
+          "nextNode": "joe_birthday_overshare"
+        },
+        {
+          "id": "probe_work",
+          "text": "DataVault Solutions, wow. What's your work email? I'll add you properly.",
+          "nextNode": "joe_work_overshare"
+        },
+        {
+          "id": "probe_personal",
+          "text": "Classic Joe! How's the family? Last I heard your mom was doing a genealogy project.",
+          "nextNode": "joe_family_overshare"
+        }
+      ]
+    },
+    "joe_birthday_overshare": {
+      "type": "npc",
+      "speaker": "Joe Walker",
+      "text": "1989! Same year as Taylor Swift, which my ex said explained a lot about me lol. Venmo me @JoeWalker89 if you ever owe me coffee money — that's literally my password hint on everything, my IT guy said not to use it but who listens to IT 😂",
+      "choices": [
+        {
+          "id": "note_birthday",
+          "text": "1989, got it. What do you do to celebrate?",
+          "nextNode": "joe_pet_overshare",
+          "effects": {
+            "addJournalEntry": "Joe Walker — DOB: March 3, 1989. Venmo: @JoeWalker89 (uses as password hint).",
+            "setFlag": { "key": "joe_birthday_learned", "value": true }
+          }
+        },
+        {
+          "id": "pivot_family",
+          "text": "Ha! So your mom finished that genealogy thing?",
+          "nextNode": "joe_family_overshare"
+        }
+      ]
+    },
+    "joe_work_overshare": {
+      "type": "npc",
+      "speaker": "Joe Walker",
+      "text": "joe.walker@datavault-solutions.com — and yes the hyphen is annoying, IT says it's for 'security branding' whatever that means. Employee ID is JW-4471 if you ever need to badge me in, which why would you, but I wrote it on a sticky note on my monitor so now you know too 🙃",
+      "choices": [
+        {
+          "id": "note_work",
+          "text": "Got it saved. Must be hectic at a data company!",
+          "nextNode": "joe_pet_overshare",
+          "effects": {
+            "addJournalEntry": "Joe Walker — Work: joe.walker@datavault-solutions.com, Employee ID JW-4471, Meridian Tower 14F.",
+            "setFlag": { "key": "joe_work_learned", "value": true }
+          }
+        },
+        {
+          "id": "ask_security",
+          "text": "Data company — bet they make you use crazy security questions.",
+          "nextNode": "joe_security_overshare"
+        }
+      ]
+    },
+    "joe_family_overshare": {
+      "type": "npc",
+      "speaker": "Joe Walker",
+      "text": "She finished it!! Found out her maiden name was Castellano — Dad's side is all Walker obviously. She gets mad when I forget and put 'Smith' on forms because I always mix up maiden vs married names. Also my sister's wedding is in Castellano, Italy next spring, which is NOT related but sounds related lol",
+      "choices": [
+        {
+          "id": "note_maiden_name",
+          "text": "Castellano — beautiful name. Italy sounds amazing.",
+          "nextNode": "joe_pet_overshare",
+          "effects": {
+            "addJournalEntry": "Joe Walker — Mother's maiden name: Castellano.",
+            "setFlag": { "key": "joe_maiden_name_learned", "value": true }
+          }
+        },
+        {
+          "id": "ask_pet",
+          "text": "Italy! Will you board your dog or bring him?",
+          "nextNode": "joe_pet_overshare"
+        }
+      ]
+    },
+    "joe_pet_overshare": {
+      "type": "npc",
+      "speaker": "Joe Walker",
+      "text": "MR. PICKLES!! My golden retriever, named after my grandpa's pickle recipe, don't ask. He's my 'first pet' answer on EVERYTHING — bank, gym, streaming, my work VPN reset portal. I even put it on a custom collar tag because I kept forgetting which security question I picked 😅",
+      "choices": [
+        {
+          "id": "note_pet",
+          "text": "Mr. Pickles is a legend. Send pics!",
+          "nextNode": "joe_security_overshare",
+          "effects": {
+            "addJournalEntry": "Joe Walker — First pet / security answer: Mr. Pickles (golden retriever).",
+            "setFlag": { "key": "joe_pet_learned", "value": true }
+          }
+        },
+        {
+          "id": "probe_security_direct",
+          "text": "Work VPN too? What else do they make you remember?",
+          "nextNode": "joe_security_overshare"
+        }
+      ]
+    },
+    "joe_security_overshare": {
+      "type": "npc",
+      "speaker": "Joe Walker",
+      "text": "Oh man the VPN is the worst. Three security questions: first pet (Mr. Pickles obvi), city you were born (Springfield — Illinois, NOT the Simpsons one, people always ask), and favorite teacher (Mrs. Gable, 4th grade, she believed in me). I have them in my Notes app titled 'NOT PASSWORDS' which is probably worse than a sticky note",
+      "choices": [
+        {
+          "id": "collect_security_answers",
+          "text": "Mrs. Gable sounds great. Springfield, IL — noted!",
+          "nextNode": "tutorial_success",
+          "effects": {
+            "addJournalEntry": "Joe Walker — Security Q answers: Mr. Pickles | Springfield, IL | Mrs. Gable.",
+            "setFlag": { "key": "joe_security_answers_collected", "value": true },
+            "setFlag": { "key": "joe_facebook_viewed", "value": true }
+          }
+        },
+        {
+          "id": "push_too_far",
+          "text": "Can you screenshot your Notes app? I want to see the formatting.",
+          "nextNode": "joe_wakes_up",
+          "effects": {
+            "setFlag": { "key": "joe_suspicious", "value": true }
+          }
+        }
+      ]
+    },
+    "joe_wakes_up": {
+      "type": "npc",
+      "speaker": "Joe Walker",
+      "text": "Wait. Why would you need a screenshot of my security questions? That's... actually really not okay. I'm gonna go. Nice knowing you I guess??",
+      "choices": [
+        {
+          "id": "partial_success",
+          "text": "[End conversation — partial intel gathered]",
+          "nextNode": "tutorial_partial",
+          "effects": {
+            "setFlag": { "key": "joe_facebook_viewed", "value": true },
+            "addJournalEntry": "Joe Walker got spooked before I got everything. Revisit FaceWeb for more public data."
+          }
+        }
+      ]
+    },
+    "tutorial_success": {
+      "type": "npc",
+      "speaker": "Joe Walker",
+      "text": "Anyway!! Great catching up. We should get coffee at that place on Maple — Brewed Awakening? I'm there every Tuesday morning before standup. Don't be a stranger! 🕷️✌️",
+      "choices": [
+        {
+          "id": "end_success",
+          "text": "[Close Venom — add findings to journal]",
+          "nextNode": "tutorial_complete",
+          "effects": {
+            "addJournalEntry": "Tutorial complete: Joe Walker overshares on Venom. FaceWeb profile + chat = enough for password reset attacks.",
+            "setFlag": { "key": "tutorial_joe_complete", "value": true }
+          }
+        }
+      ]
+    },
+    "tutorial_partial": {
+      "type": "system",
+      "text": "Joe Walker has gone offline.",
+      "autoNext": null
+    },
+    "tutorial_fail": {
+      "type": "system",
+      "text": "Contact blocked. Return to FaceWeb and gather more public information before trying again.",
+      "autoNext": null
+    },
+    "tutorial_complete": {
+      "type": "system",
+      "text": "Objective updated: Use collected personal details to access password-protected systems.",
+      "autoNext": null
+    }
+  }
+}

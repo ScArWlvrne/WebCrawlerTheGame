@@ -1,0 +1,426 @@
+{
+  "meta": {
+    "id": "lily_venom_dialogue",
+    "title": "Araknyd Insider — Lily Chen",
+    "platform": "venom",
+    "character": "lily",
+    "description": "Multi-path Venom conversation with Lily, a burned-out engineer at chaotic startup Araknyd. Trust gates low, neutral, and high paths. High trust reveals exportCustomerDatabase() in admin dashboard source.",
+    "trustThresholds": {
+      "low": { "max": 34, "label": "hostile" },
+      "neutral": { "min": 35, "max": 69, "label": "guarded" },
+      "high": { "min": 70, "label": "confiding" }
+    }
+  },
+  "startNode": "lily_route_check",
+  "nodes": {
+    "lily_route_check": {
+      "type": "router",
+      "routes": [
+        {
+          "conditions": { "maxTrust": { "character": "lily", "value": 34 } },
+          "nextNode": "lily_low_open"
+        },
+        {
+          "conditions": { "minTrust": { "character": "lily", "value": 70 } },
+          "nextNode": "lily_high_open"
+        },
+        {
+          "conditions": {},
+          "nextNode": "lily_neutral_open"
+        }
+      ]
+    },
+    "lily_low_open": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "avatar": "araknyd/lily_chen.jpg",
+      "text": "who is this",
+      "choices": [
+        {
+          "id": "low_recruit_pitch",
+          "text": "Hi Lily — I'm reaching out about the Araknyd backend role on HackerNest.",
+          "nextNode": "lily_low_dismiss",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": -5 }
+          }
+        },
+        {
+          "id": "low_sympathy",
+          "text": "Saw your late-night commit messages. Rough week?",
+          "nextNode": "lily_low_cold",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": 3 }
+          }
+        },
+        {
+          "id": "low_fake_coworker",
+          "text": "It's Dev from platform — CEO asked me to ping you.",
+          "nextNode": "lily_low_report",
+          "effects": {
+            "setFlag": { "key": "lily_suspicious", "value": true },
+            "addTrust": { "character": "lily", "amount": -15 }
+          }
+        }
+      ]
+    },
+    "lily_low_dismiss": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "I'm not looking. And I didn't post on HackerNest. Delete this number.",
+      "choices": [
+        {
+          "id": "low_end",
+          "text": "[End conversation]",
+          "nextNode": "lily_low_blocked",
+          "effects": {
+            "addJournalEntry": "Lily Chen — trust too low. Build rapport via FaceWeb or Araknyd public channels first."
+          }
+        }
+      ]
+    },
+    "lily_low_cold": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "...every week is rough here. Doesn't mean I talk to randos about it.",
+      "choices": [
+        {
+          "id": "low_back_off",
+          "text": "Fair enough. Sorry to bother you.",
+          "nextNode": "lily_low_blocked"
+        },
+        {
+          "id": "low_push_anyway",
+          "text": "Come on, I just need five minutes about the admin dashboard.",
+          "nextNode": "lily_low_report",
+          "effects": {
+            "setFlag": { "key": "lily_suspicious", "value": true },
+            "addTrust": { "character": "lily", "amount": -10 }
+          }
+        }
+      ]
+    },
+    "lily_low_report": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "There is no Dev on platform. I'm forwarding this thread to our security alias. Do not contact me again.",
+      "choices": [
+        {
+          "id": "low_reported_end",
+          "text": "[Connection terminated]",
+          "nextNode": "lily_reported",
+          "effects": {
+            "addJournalEntry": "Lily flagged me as suspicious. Araknyd security may be watching Venom traffic."
+          }
+        }
+      ]
+    },
+    "lily_low_blocked": {
+      "type": "system",
+      "text": "Lily Chen is no longer responding.",
+      "autoNext": null
+    },
+    "lily_reported": {
+      "type": "system",
+      "text": "Venom — Message failed to deliver.\nThis contact may have restricted your account.",
+      "autoNext": null
+    },
+    "lily_neutral_open": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "avatar": "araknyd/lily_chen.jpg",
+      "text": "If this is about the P0 outage, I already wrote the postmortem. If this is the CEO's 'quick sync' in disguise, tell him I have 200 open tickets and zero patience.",
+      "choices": [
+        {
+          "id": "neutral_empathy",
+          "text": "Neither. I saw your Araknyd blog post on webhook retries — actually helpful.",
+          "nextNode": "lily_neutral_warming",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": 8 }
+          }
+        },
+        {
+          "id": "neutral_admin_probe",
+          "text": "Need access context for the admin dashboard audit. Who owns it?",
+          "nextNode": "lily_neutral_guarded",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": -3 }
+          }
+        },
+        {
+          "id": "neutral_startup_vent",
+          "text": "Araknyd's Glassdoor reviews are brutal. You still there by choice?",
+          "nextNode": "lily_neutral_vent",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": 5 }
+          }
+        }
+      ]
+    },
+    "lily_neutral_warming": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "Ha. Thanks. I wrote that at 2am between deploy rollbacks. Nobody reads eng blog posts here except other exhausted engineers.",
+      "choices": [
+        {
+          "id": "neutral_ask_chaos",
+          "text": "What's burning right now?",
+          "nextNode": "lily_neutral_chaos",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": 5 }
+          }
+        },
+        {
+          "id": "neutral_ask_admin_vague",
+          "text": "Any idea who built the internal admin tools?",
+          "nextNode": "lily_neutral_guarded"
+        }
+      ]
+    },
+    "lily_neutral_vent": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "Stock options vest in August. That's the choice. Also my team is three people doing the work of twelve. Standard startup math.",
+      "choices": [
+        {
+          "id": "neutral_vent_continue",
+          "text": "Three people for the whole platform?",
+          "nextNode": "lily_neutral_chaos",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": 7 }
+          }
+        }
+      ]
+    },
+    "lily_neutral_chaos": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "CEO demo every Friday so we ship half-tested features. Last week he sold 'enterprise-grade data export' to a client. We don't HAVE enterprise-grade anything. I told him. He said 'make it work for the slide.'",
+      "choices": [
+        {
+          "id": "neutral_sympathize",
+          "text": "That sounds miserable. How do you even sleep?",
+          "nextNode": "lily_neutral_almost_trust",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": 10 }
+          }
+        },
+        {
+          "id": "neutral_probe_export",
+          "text": "Enterprise data export — is that in the admin dashboard?",
+          "nextNode": "lily_neutral_guarded",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": -8 },
+            "setFlag": { "key": "lily_suspicious", "value": true }
+          }
+        }
+      ]
+    },
+    "lily_neutral_almost_trust": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "I don't. Coffee, mostly. Look — you're easier to talk to than my manager. But I can't help with internal access stuff. Company policy, and also I like my paycheck.",
+      "choices": [
+        {
+          "id": "neutral_build_more",
+          "text": "Not asking for access. Just trying to understand how Araknyd is wired.",
+          "nextNode": "lily_neutral_hint",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": 5 }
+          }
+        },
+        {
+          "id": "neutral_end_polite",
+          "text": "Understood. Good luck with the P0s.",
+          "nextNode": "lily_neutral_end",
+          "effects": {
+            "addJournalEntry": "Lily Chen (neutral trust) — burned out, tight-lipped on internals. Need more rapport."
+          }
+        }
+      ]
+    },
+    "lily_neutral_guarded": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "Why do you keep asking about admin tools? That's... a weird focus for someone who liked my blog post.",
+      "choices": [
+        {
+          "id": "neutral_recover",
+          "text": "Fair point. Ignore me — lack of sleep talking.",
+          "nextNode": "lily_neutral_chaos",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": 3 }
+          },
+          "conditions": {
+            "requiresNotFlag": "lily_suspicious"
+          }
+        },
+        {
+          "id": "neutral_doubles_down",
+          "text": "I'm doing a security assessment. I need dashboard details.",
+          "nextNode": "lily_low_report",
+          "effects": {
+            "setFlag": { "key": "lily_suspicious", "value": true },
+            "addTrust": { "character": "lily", "amount": -20 }
+          }
+        }
+      ]
+    },
+    "lily_neutral_hint": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "Araknyd is duct tape and prayers. Internal tools live behind SSO — you'd need an @araknyd.io account. I shouldn't say more unless I actually trust you.",
+      "choices": [
+        {
+          "id": "neutral_hint_end",
+          "text": "Appreciate the honesty. I'll leave you to your tickets.",
+          "nextNode": "lily_neutral_end",
+          "effects": {
+            "addJournalEntry": "Lily Chen — Admin tools behind @araknyd.io SSO. Need trust ≥70 for technical details.",
+            "addTrust": { "character": "lily", "amount": 3 }
+          }
+        }
+      ]
+    },
+    "lily_neutral_end": {
+      "type": "system",
+      "text": "Lily Chen — last seen 3m ago",
+      "autoNext": null
+    },
+    "lily_high_open": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "avatar": "araknyd/lily_chen.jpg",
+      "text": "You again. Fine. I have eleven minutes before standup and my manager won't notice if I'm on Venom instead of Jira.",
+      "choices": [
+        {
+          "id": "high_check_in",
+          "text": "How's the post-outage cleanup going?",
+          "nextNode": "lily_high_vent",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": 3 }
+          }
+        },
+        {
+          "id": "high_direct_ask",
+          "text": "I need to know what's in the admin dashboard. You mentioned you might help.",
+          "nextNode": "lily_high_reveal",
+          "conditions": {
+            "minTrust": { "character": "lily", "value": 75 }
+          }
+        },
+        {
+          "id": "high_offer_help",
+          "text": "Want me to look at anything? Fresh eyes sometimes help.",
+          "nextNode": "lily_high_vent"
+        }
+      ]
+    },
+    "lily_high_vent": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "Cleanup is a lie. We rolled forward and called it fixed. CEO sold data export to Meridian Corp — yes, THAT DataVault — and our 'export pipeline' is a button that emails a CSV to whoever clicks it. No audit log. No auth check beyond 'is logged in.'",
+      "choices": [
+        {
+          "id": "high_empathize",
+          "text": "That's negligent. Who wrote it?",
+          "nextNode": "lily_high_reveal",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": 5 }
+          }
+        },
+        {
+          "id": "high_probe_location",
+          "text": "Where does that button live in the codebase?",
+          "nextNode": "lily_high_reveal"
+        }
+      ]
+    },
+    "lily_high_reveal": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "Okay. OFF THE RECORD. Last month I was fixing a null pointer at 3am in the admin dashboard front-end — `/admin/v2/dashboard.js`, the whole thing is unmaintained spaghetti. I saw a function called `exportCustomerDatabase()` just sitting in the source. No comments. Wired to a green button labeled 'Export All Clients.'",
+      "choices": [
+        {
+          "id": "high_ask_details",
+          "text": "exportCustomerDatabase() — is it exposed client-side?",
+          "nextNode": "lily_high_clue",
+          "effects": {
+            "addJournalEntry": "Lily intel: admin dashboard source contains exportCustomerDatabase() in /admin/v2/dashboard.js"
+          }
+        },
+        {
+          "id": "high_ask_auth",
+          "text": "Does it check permissions before exporting?",
+          "nextNode": "lily_high_clue"
+        }
+      ]
+    },
+    "lily_high_clue": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "Client-side. Fully. It hits `/api/internal/export?format=csv` with whatever session cookie you've got. I flagged it in code review — CEO said 'ship it, we'll harden later.' That was 47 deploys ago. View-source on the dashboard if you don't believe me. And DELETE this chat after.",
+      "choices": [
+        {
+          "id": "high_thank_you",
+          "text": "This helps more than you know. I'll keep it quiet.",
+          "nextNode": "lily_high_success",
+          "effects": {
+            "addJournalEntry": "CLUE — View-source /admin/v2/dashboard.js for exportCustomerDatabase(). Endpoint: /api/internal/export?format=csv. Session cookie only, no role check.",
+            "setFlag": { "key": "lily_export_clue_received", "value": true },
+            "addTrust": { "character": "lily", "amount": 5 }
+          }
+        },
+        {
+          "id": "high_ask_screenshot",
+          "text": "Can you send a screenshot of the function?",
+          "nextNode": "lily_high_spooked",
+          "effects": {
+            "addTrust": { "character": "lily", "amount": -15 }
+          }
+        }
+      ]
+    },
+    "lily_high_spooked": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "A screenshot? Are you recording this? I gave you a hint, not evidence for whatever you're doing. We're done.",
+      "choices": [
+        {
+          "id": "high_spooked_end",
+          "text": "[Lily has blocked you on Venom]",
+          "nextNode": "lily_high_partial",
+          "effects": {
+            "addJournalEntry": "Lily spooked — got function name but she blocked further contact.",
+            "setFlag": { "key": "lily_suspicious", "value": true }
+          }
+        }
+      ]
+    },
+    "lily_high_success": {
+      "type": "npc",
+      "speaker": "Lily Chen",
+      "text": "I never said anything. If anyone asks, you learned it from a StackOverflow post like a normal person. Good luck. You'll need it.",
+      "choices": [
+        {
+          "id": "high_end",
+          "text": "[End conversation — clue secured]",
+          "nextNode": "lily_high_complete",
+          "effects": {
+            "setFlag": { "key": "admin_dashboard_unlocked", "value": true },
+            "addJournalEntry": "Objective: Access Araknyd admin dashboard and inspect source for exportCustomerDatabase()."
+          }
+        }
+      ]
+    },
+    "lily_high_partial": {
+      "type": "system",
+      "text": "Clue partially acquired. Lily Chen has restricted contact.",
+      "autoNext": null
+    },
+    "lily_high_complete": {
+      "type": "system",
+      "text": "New lead: Araknyd admin dashboard source code. Function: exportCustomerDatabase()",
+      "autoNext": null
+    }
+  }
+}

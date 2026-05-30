@@ -4,15 +4,19 @@ public class FlagTester : MonoBehaviour
 {
     private void Start()
     {
-        GameStateManager.Instance.SetFlag(
-            "joe_facebook_viewed",
-            true
-        );
+        GameStateManager.Instance.SetFlag("joe_facebook_viewed", true);
 
-        Debug.Log(
-            GameStateManager.Instance.GetFlag(
-                "joe_facebook_viewed"
-            )
-        );
+        GameStateManager.Instance.SetTrust("lily", 50);
+        GameStateManager.Instance.AddTrust("lily", 10);
+
+        GameStateManager.Instance.SaveGame();
+
+        GameStateManager.Instance.State = new GameState();
+
+        Debug.Log(GameStateManager.Instance.GetTrust("lily"));
+
+        GameStateManager.Instance.LoadGame();
+
+        Debug.Log(GameStateManager.Instance.GetTrust("lily"));
     }
 }

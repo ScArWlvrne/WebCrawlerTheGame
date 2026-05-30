@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 270f;
     [SerializeField] private float maxRotationSpeedMultiplier = 2.5f;
     [SerializeField] private Animator animator;
+    [SerializeField] private float interactRange = 1.5f;
+    [SerializeField] private LayerMask interactableLayer;
+    private bool isInteracting = false;
 
     private CharacterController controller;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,6 +23,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isInteracting)
+            return;
         // if (Keyboard.current == null)
         //     {
         //         Debug.Log("No keyboard detected");
@@ -64,10 +70,55 @@ public class PlayerController : MonoBehaviour
             );
         }
 
+        if (
+            Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame ||
+            Gamepad.current != null && Gamepad.current.buttonWest.wasPressedThisFrame
+        )
+        {
+            PlayInteractAnimation();
+            TryInteract();
+        }
         
 
         animator.SetBool("IsMoving", isMoving);
 
         controller.Move(move * moveSpeed * Time.deltaTime);
+    }
+
+    private void TryInteract()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, interactRange, interactableLayer);
+
+        if (hits.Length == 0)
+        {
+            Debug.Log("Nothing to interact with.");
+            return;
+        }
+
+        IInteractable interactable = hits[0].GetComponentInParent<IInteractable>();
+        interactable ??= hits[0].GetComponentInChildren<IInteractable>();
+
+        if (interactable != null)
+        {
+            interactable.Interact();
+        }
+        else
+        {
+            Debug.Log("No interactable component found on hit object.");
+        }
+    }
+
+    private void PlayInteractAnimation()
+    {
+        if (animator != null)
+        {
+            isInteracting = true;
+            animator.SetTrigger("Interact");
+        }
+    }   
+
+    public void EndInteractionAnimation()
+    {
+        isInteracting = false;
     }
 }

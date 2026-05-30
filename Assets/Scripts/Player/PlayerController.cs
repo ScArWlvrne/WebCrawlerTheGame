@@ -9,7 +9,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxRotationSpeedMultiplier = 2.5f;
     [SerializeField] private Animator animator;
     [SerializeField] private float interactRange = 1.5f;
+    [SerializeField] private float interactAngle = 60f;
     [SerializeField] private LayerMask interactableLayer;
+
     private bool isInteracting = false;
 
     private CharacterController controller;
@@ -87,25 +89,51 @@ public class PlayerController : MonoBehaviour
 
     private void TryInteract()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, interactRange, interactableLayer);
+        Collider[] hits = Physics.OverlapSphere(
+            transform.position,
+            interactRange,
+            interactableLayer
+        );
 
-        if (hits.Length == 0)
+        IInteractable bestInteractable = null;
+        float bestDistance = float.PositiveInfinity;
+
+        foreach (Collider hit in hits)
         {
-            Debug.Log("Nothing to interact with.");
+            IInteractable interactable = hit.GetComponentInParent<IInteractable>();
+
+            if (interactable == null)
+                continue;
+
+            Vector3 targetPoint = hit.bounds.center;
+            Vector3 directionToTarget = targetPoint - transform.position;
+            directionToTarget.y = 0f;
+
+            float distance = directionToTarget.magnitude;
+
+            if (distance <= 0.001f)
+                continue;
+
+            float angle = Vector3.Angle(transform.forward, directionToTarget.normalized);
+
+            if (angle > interactAngle * 0.5f)
+                continue;
+
+            if (distance < bestDistance)
+            {
+                bestDistance = distance;
+                bestInteractable = interactable;
+            }
+        }
+
+        if (bestInteractable != null)
+        {
+            PlayInteractAnimation();
+            bestInteractable.Interact();
             return;
         }
 
-        IInteractable interactable = hits[0].GetComponentInParent<IInteractable>();
-        interactable ??= hits[0].GetComponentInChildren<IInteractable>();
-
-        if (interactable != null)
-        {
-            interactable.Interact();
-        }
-        else
-        {
-            Debug.Log("No interactable component found on hit object.");
-        }
+        Debug.Log("Nothing to interact with.");
     }
 
     private void PlayInteractAnimation()
@@ -120,5 +148,18 @@ public class PlayerController : MonoBehaviour
     public void EndInteractionAnimation()
     {
         isInteracting = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, interactRange);
+
+        Vector3 leftDir = Quaternion.Euler(0f, -interactAngle * 0.5f, 0f) * transform.forward;
+        Vector3 rightDir = Quaternion.Euler(0f, interactAngle * 0.5f, 0f) * transform.forward;
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawRay(transform.position, leftDir * interactRange);
+        Gizmos.DrawRay(transform.position, rightDir * interactRange);
     }
 }

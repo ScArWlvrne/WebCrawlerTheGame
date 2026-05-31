@@ -48,56 +48,9 @@ public class GameStateManager : MonoBehaviour
         return false;
     }
 
-    public void AddJournalFile(string path, string content)
+    public void AddJournalEntry(string entry)
     {
-        foreach (JournalFileData file in State.journalFiles)
-        {
-            if (file.path == path)
-            {
-                file.content = content;
-                return;
-            }
-        }
-
-        State.journalFiles.Add(new JournalFileData
-        {
-            path = path,
-            content = content
-        });
-    }
-
-    public bool HasJournalFile(string path)
-    {
-        foreach (JournalFileData file in State.journalFiles)
-        {
-            if (file.path == path)
-                return true;
-        }
-
-        return false;
-    }
-
-    public string GetJournalFileContent(string path)
-    {
-        foreach (JournalFileData file in State.journalFiles)
-        {
-            if (file.path == path)
-                return file.content;
-        }
-
-        return "";
-    }
-
-    public void RemoveJournalFile(string path)
-    {
-        for (int i = State.journalFiles.Count - 1; i >= 0; i--)
-        {
-            if (State.journalFiles[i].path == path)
-            {
-                State.journalFiles.RemoveAt(i);
-                return;
-            }
-        }
+        State.journalEntries.Add(entry);
     }
 
     public void SetTrust(string character, float value)
@@ -134,6 +87,11 @@ public class GameStateManager : MonoBehaviour
         SetTrust(character, GetTrust(character) + amount);
     }
 
+    public bool HasJournalEntry(string entry)
+    {
+        return State.journalEntries.Contains(entry);
+    }
+
     public void SaveGame()
     {
         SaveSystem.Save(State);
@@ -143,6 +101,7 @@ public class GameStateManager : MonoBehaviour
     {
         State = SaveSystem.Load();
     }
+<<<<<<< Updated upstream
 
     public void ExhaustInteractable(string interactableId)
     {
@@ -185,4 +144,6 @@ public class GameStateManager : MonoBehaviour
         State = new GameState();
         DeleteSave();
     }
+=======
+>>>>>>> Stashed changes
 }

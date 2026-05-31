@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22419155}
   - component: {fileID: 22419156}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BirthdayClue
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -1193,7 +1193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 216566248}
   - component: {fileID: 216566249}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MarriageCluePt2
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -1531,11 +1531,10 @@ MonoBehaviour:
 
 
 
-    OBAMA could never have a happier
-    family. We know this. He knows this. My son Donald Musk Jr. has told me that
-    no family could be happier. And others will tell you that we aren''t happy and
-    they are wrong. Losers. That''s what I call them, LOSERS! But not me, Donny.
-    I could never be a loser because Araknyd is great so I am great.
+    OBAMA could never have a happier family. We know this. He knows this. My son Donald
+    Musk Jr. has told me that no family could be happier. And others will tell you
+    that we aren''t happy and they are wrong. Losers. That''s what I call them, LOSERS!
+    But not me, Donny. I could never be a loser because Araknyd is great so I am great.
 
 '
   m_isRightToLeft: 0
@@ -5265,11 +5264,10 @@ MonoBehaviour:
   m_text: "About Me:\n\nAraknyd is the greatest! No one could compete with us. We
     are the best. You know, they tell me, \"Donald, Araknyd is so great that it's
     as great as China.\" And I tell them, I tell them, \"You know, we would never
-    be that great if the people working it weren't great.\" Which makes me great
-    too.\n\nPersonal Information:\n \tWorks at Araknyd\n\tStudied at University of
-    Pennsylvania\n\tLives in Boca Chica, Texas\n\tFrom Pretoria, South Africa\n\tMarried
-    to Marla Maples\n\n\tBirthday 6/28/1971\n\tMale\n\t\nEmail donald@fakegmail.com\nPhone
-    Number (956)-123-4567\n\n\n"
+    be that great if the people working it weren't great.\" Which makes me great too.\n\nPersonal
+    Information:\n \tWorks at Araknyd\n\tStudied at University of Pennsylvania\n\tLives
+    in Boca Chica, Texas\n\tFrom Pretoria, South Africa\n\tMarried to Marla Maples\n\n\tBirthday
+    6/28/1971\n\tMale\n\t\nEmail donald@fakegmail.com\nPhone Number (956)-123-4567\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5744,8 +5742,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Post\n5/10/2026 5:32pm\n\n\nBack for the summer trip. \n\nCelebrating
-    another year with my wife and this little guy. \n\n#5years #laketime #puppylove\n"
+  m_text: "Post\n5/10/2026 5:32pm\n\n\nBack for the summer trip. \n\nCelebrating another
+    year with my wife and this little guy. \n\n#5years #laketime #puppylove\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6673,7 +6671,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1823796882}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Clues
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -2,13 +2,26 @@ using UnityEngine;
 
 /// <summary>
 /// Ensures persistent game services exist when a gameplay scene loads.
-/// Place one instance in scenes like TestScene that do not already have GameStateManager.
+/// Place one instance in scenes like ArnavTestScene that do not already have GameStateManager.
+/// Do not also add GameStateManager manually to this object — bootstrap creates it if missing.
 /// </summary>
+[DefaultExecutionOrder(-100)]
 public class GameBootstrap : MonoBehaviour
 {
     [SerializeField] private bool ensureDialogueUI = true;
+    [SerializeField] private bool ensureJournalUI = true;
 
     private void Awake()
+    {
+        EnsureAllSystems();
+    }
+
+    private void Start()
+    {
+        EnsureAllSystems();
+    }
+
+    public void EnsureAllSystems()
     {
         if (GameStateManager.Instance == null)
         {
@@ -21,6 +34,12 @@ public class GameBootstrap : MonoBehaviour
         {
             DialogueUI.CreateDefaultUI();
             Debug.Log("GameBootstrap: created DialogueSystem");
+        }
+
+        if (ensureJournalUI && JournalUI.Instance == null)
+        {
+            JournalUI.EnsureExists();
+            Debug.Log("GameBootstrap: created JournalSystem");
         }
     }
 }

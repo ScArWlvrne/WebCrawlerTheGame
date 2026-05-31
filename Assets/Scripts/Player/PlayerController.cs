@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private IInteractable currentInteractable;
 
     private bool isInteracting = false;
-    private bool dialogueLocked = false;
+    private bool gameplayInputLocked = false;
     private bool usingGamepad = false;
 
     private CharacterController controller;
@@ -28,20 +28,26 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    public void SetDialogueLocked(bool locked)
+    public void SetGameplayInputLocked(bool locked)
     {
-        dialogueLocked = locked;
+        gameplayInputLocked = locked;
 
         if (locked)
         {
             interactionPromptUI.Hide();
-            animator.SetBool("IsMoving", false);
+            if (animator != null)
+                animator.SetBool("IsMoving", false);
         }
+    }
+
+    public void SetDialogueLocked(bool locked)
+    {
+        SetGameplayInputLocked(locked);
     }
 
     void Update()
     {
-        if (isInteracting || dialogueLocked)
+        if (isInteracting || gameplayInputLocked)
             return;
 
         UpdateCurrentInteractable();
@@ -155,7 +161,7 @@ public class PlayerController : MonoBehaviour
 
     private void TryInteract()
     {
-        if (isInteracting || dialogueLocked)
+        if (isInteracting || gameplayInputLocked)
             return;
 
         if (currentInteractable != null)

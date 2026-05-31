@@ -51,6 +51,12 @@ public class DialogueUI : MonoBehaviour
         HidePanel();
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
     public static void CreateDefaultUI()
     {
         if (Instance != null)
@@ -59,12 +65,31 @@ public class DialogueUI : MonoBehaviour
         GameObject prefab = Resources.Load<GameObject>(ResourcesPrefabPath);
         if (prefab != null)
         {
-            Instantiate(prefab);
+            GameObject instance = Instantiate(prefab);
+            instance.name = "DialogueSystem";
+
+            if (Instance == null && instance.GetComponent<DialogueUI>() == null)
+                instance.AddComponent<DialogueUI>();
+
             return;
         }
 
-        GameObject root = new GameObject("DialogueSystem");
-        root.AddComponent<DialogueUI>();
+        new GameObject("DialogueSystem").AddComponent<DialogueUI>();
+    }
+
+    public static void EnsureExists()
+    {
+        if (Instance != null)
+            return;
+
+        CreateDefaultUI();
+
+        if (Instance != null)
+            return;
+
+        DialogueUI existing = FindFirstObjectByType<DialogueUI>(FindObjectsInactive.Include);
+        if (existing == null)
+            new GameObject("DialogueSystem").AddComponent<DialogueUI>();
     }
 
 #if UNITY_EDITOR
@@ -147,9 +172,16 @@ public class DialogueUI : MonoBehaviour
 
         if (currentVisibleOptions.Count > 0)
         {
+            if (currentVisibleOptions.Count == 1 &&
+                (WasNumberPressed(1) || WasGamepadOptionPressed(0) || WasGamepadConfirmPressed()))
+            {
+                ChooseOption(currentVisibleOptions[0]);
+                return;
+            }
+
             for (int i = 0; i < currentVisibleOptions.Count && i < 9; i++)
             {
-                if (WasNumberPressed(i + 1))
+                if (WasNumberPressed(i + 1) || WasGamepadOptionPressed(i))
                 {
                     ChooseOption(currentVisibleOptions[i]);
                     return;
@@ -205,7 +237,7 @@ public class DialogueUI : MonoBehaviour
             messageText.text = "Conversation ended.";
 
         if (hintText != null)
-            hintText.text = "Press Escape to close and resume play.";
+            hintText.text = GetCloseHintText();
     }
 
     private void ShowDialogue(DialogueNode node, List<DialogueOption> visibleOptions)
@@ -228,9 +260,9 @@ public class DialogueUI : MonoBehaviour
         if (hintText != null)
         {
             if (visibleOptions.Count > 0)
-                hintText.text = "Press 1-" + visibleOptions.Count + " to choose.";
+                hintText.text = GetChoiceHintText(visibleOptions.Count);
             else
-                hintText.text = "Press Space or Enter to continue.";
+                hintText.text = GetContinueHintText();
         }
     }
 
@@ -406,15 +438,91 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
+    private static bool WasGamepadConfirmPressed()
+    {
+        return Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame;
+    }
+
     private static bool WasContinuePressed()
     {
-        return Keyboard.current != null &&
-               (Keyboard.current.spaceKey.wasPressedThisFrame ||
-                Keyboard.current.enterKey.wasPressedThisFrame);
+        if (Keyboard.current != null &&
+            (Keyboard.current.spaceKey.wasPressedThisFrame ||
+             Keyboard.current.enterKey.wasPressedThisFrame))
+        {
+            return true;
+        }
+
+        return WasGamepadConfirmPressed();
     }
 
     private static bool WasClosePressed()
     {
-        return Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame;
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            return true;
+
+        return Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame;
+    }
+
+    private static bool WasGamepadOptionPressed(int optionIndex)
+    {
+        if (Gamepad.current == null || optionIndex < 0 || optionIndex > 2)
+            return false;
+
+        switch (optionIndex)
+        {
+            case 0:
+                return Gamepad.current.buttonNorth.wasPressedThisFrame;
+            case 1:
+                return Gamepad.current.buttonEast.wasPressedThisFrame;
+            case 2:
+                return Gamepad.current.buttonSouth.wasPressedThisFrame;
+            default:
+                return false;
+        }
+    }
+
+    private static bool IsGamepadInUse()
+    {
+        if (Gamepad.current == null)
+            return false;
+
+        Gamepad pad = Gamepad.current;
+        return pad.leftStick.ReadValue().sqrMagnitude > 0.04f ||
+               pad.rightStick.ReadValue().sqrMagnitude > 0.04f ||
+               pad.dpad.ReadValue().sqrMagnitude > 0.04f ||
+               pad.buttonSouth.wasPressedThisFrame ||
+               pad.buttonEast.wasPressedThisFrame ||
+               pad.buttonWest.wasPressedThisFrame ||
+               pad.buttonNorth.wasPressedThisFrame ||
+               pad.startButton.wasPressedThisFrame ||
+               pad.selectButton.wasPressedThisFrame;
+    }
+
+    private static string GetContinueHintText()
+    {
+        return IsGamepadInUse()
+            ? "Press A to continue."
+            : "Press Space or Enter to continue.";
+    }
+
+    private static string GetCloseHintText()
+    {
+        return IsGamepadInUse()
+            ? "Press B to close and resume play."
+            : "Press Escape to close and resume play.";
+    }
+
+    private static string GetChoiceHintText(int optionCount)
+    {
+        if (IsGamepadInUse())
+        {
+            if (optionCount >= 3)
+                return "Y: option 1  |  B: option 2  |  A: option 3";
+            if (optionCount == 2)
+                return "Y: option 1  |  B: option 2";
+            return "Press Y or A for option 1.";
+        }
+
+        return "Press 1-" + optionCount + " to choose.";
     }
 }

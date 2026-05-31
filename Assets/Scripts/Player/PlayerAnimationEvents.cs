@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpiderAnimationEvents : MonoBehaviour
+public class PlayerAnimationEvents : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
 

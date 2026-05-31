@@ -53,6 +53,7 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
         if (dialogueUI != null)
             return dialogueUI;
 
+        DialogueUI.EnsureExists();
         return DialogueUI.Instance;
     }
 

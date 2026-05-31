@@ -100,7 +100,7 @@ public class BrowserAdminDashboardGate : MonoBehaviour
 
     private TMP_Text FindTextByGameObjectName(string objectName)
     {
-        TMP_Text[] texts = FindObjectsOfType<TMP_Text>(true);
+        TMP_Text[] texts = FindObjectsByType<TMP_Text>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
         foreach (TMP_Text text in texts)
         {
@@ -121,7 +121,7 @@ public class BrowserAdminDashboardGate : MonoBehaviour
 
         TextMeshPro display = displayObject.AddComponent<TextMeshPro>();
         display.fontSize = 8f;
-        display.enableWordWrapping = true;
+        display.textWrappingMode = TextWrappingModes.Normal;
         display.alignment = TextAlignmentOptions.TopLeft;
         display.rectTransform.sizeDelta = new Vector2(30f, 20f);
 

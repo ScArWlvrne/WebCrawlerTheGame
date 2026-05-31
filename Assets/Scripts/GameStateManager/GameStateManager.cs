@@ -169,4 +169,20 @@ public class GameStateManager : MonoBehaviour
     {
         return State.uncommentedCodeBlocks.Contains(codeBlockId);
     }
+
+    public bool HasSave()
+    {
+        return SaveSystem.HasSave();
+    }
+
+    public void DeleteSave()
+    {
+        SaveSystem.DeleteSave();
+    }
+
+    public void NewGame()
+    {
+        State = new GameState();
+        DeleteSave();
+    }
 }

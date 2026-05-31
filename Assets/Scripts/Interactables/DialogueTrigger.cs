@@ -6,6 +6,8 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
     {
         LilyTest,
         AraknydCrawlerTest
+        LilyE2E,
+        WebInspectorE2E
     }
 
     [Header("Dialogue")]
@@ -61,6 +63,10 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
             case ConversationPreset.AraknydCrawlerTest:
                 return DialogueConversationFactory.GetAraknydCrawlerTestConversation();
 
+            case ConversationPreset.LilyE2E:
+                return DialogueConversationFactory.GetLilyE2EConversation();
+            case ConversationPreset.WebInspectorE2E:
+                return DialogueConversationFactory.GetWebInspectorE2EConversation();
             case ConversationPreset.LilyTest:
             default:
                 return DialogueConversationFactory.GetLilyTestConversation();

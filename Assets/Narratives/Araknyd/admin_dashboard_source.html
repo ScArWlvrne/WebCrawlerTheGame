@@ -1,14 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--
-  ARAKNYD INTERNAL ADMIN — /admin/v2/dashboard.js (bundled into this HTML for "speed")
-  Maintainer: "the guy who left" (2019)
-  Current owner: Lily (against her will)
-  SSO: @araknyd.io — role checks: "is logged in" (that's the whole RBAC model)
-
-  VIEW-SOURCE PUZZLE FILE — commented blocks are lore, not runnable code.
-  Categories: HARMLESS | FUNNY | BROKEN | CRITICAL
--->
 <head>
   <meta charset="UTF-8">
   <title>Araknyd Admin v2 — Internal Only (probably)</title>
@@ -24,13 +15,10 @@
   <p>Simulated view-source dump. None of this executes. Comments are the product.</p>
   <pre>
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   CATEGORY: HARMLESS (4 blocks)
-   Low risk. High shame. Still in prod.
-   ═══════════════════════════════════════════════════════════════════════════ */
 
-// --- HARMLESS #1: Dark mode toggle that only inverts the favicon ---
-/*
+
+    // what the fuck donald
+    /*
 function toggleDarkMode() {
   document.body.classList.toggle('dark'); // class undefined in CSS since 2021
   const link = document.querySelector('link[rel=icon]');
@@ -39,25 +27,49 @@ function toggleDarkMode() {
 }
 */
 
-// --- HARMLESS #2: "Copy incident ID" button (copies CEO's cell number by mistake) ---
+// i almost want to leave this one in
 /*
 function copyIncidentId(incidentId) {
-  // incidentId param ignored — hardcoded during P0 panic
   navigator.clipboard.writeText('555-0142-ARKNYD'); // that's the CEO's phone
-  toast('Incident ID copied!'); // legal reviewing this
+  toast('Incident ID copied!');
 }
 */
 
-// --- HARMLESS #3: Jira ticket counter (always returns 200+) ---
+// yikes...
+/*
+if (dbg && dbg.bypass !== undefined) {
+    const dl = document.createElement("button");
+
+    dl.id = "rx-dl";
+    dl.innerText = "export";
+
+    dl.onclick = async () => {
+        const q = await fetch("/api/v2/rx/core/fullDump?fmt=raw");
+
+        const b = await q.blob();
+
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(b);
+        a.download = "rx_snapshot.zip";
+
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    };
+
+    document.querySelector("#rx-tools")?.appendChild(dl);
+}
+*/
+
 /*
 async function fetchOpenTicketCount() {
-  // Lily: "accurate number causes manager to ask questions"
+  // accurate number causes manager to ask questions
   return 200 + Math.floor(Math.random() * 50);
-  // Real Jira integration removed to save $14/mo
+  // real jira integration removed to save $14/mo
 }
 */
 
-// --- HARMLESS #4: Standup reminder (fires at 3am for offshore team we don't have) ---
+// not sure who this is for
 /*
 setInterval(() => {
   if (new Date().getHours() === 3) {
@@ -67,11 +79,6 @@ setInterval(() => {
 }, 60000);
 */
 
-// --- HARMLESS #5: Console easter egg ---
-/*
-console.log('%c🕷️ Araknyd Admin v2', 'font-size:24px;color:#ff6b35');
-console.log('%cYou found the source. Lily says hi. CEO says sue.', 'font-size:12px');
-*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    CATEGORY: CRITICAL (1 block)

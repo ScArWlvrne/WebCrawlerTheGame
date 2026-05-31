@@ -54,7 +54,12 @@ public class GameStateManager : MonoBehaviour
         {
             if (file.path == path)
             {
-                file.content = content;
+                if (!string.IsNullOrEmpty(file.content))
+                {
+                    file.content += "\n";
+                }
+
+                file.content += content;
                 return;
             }
         }

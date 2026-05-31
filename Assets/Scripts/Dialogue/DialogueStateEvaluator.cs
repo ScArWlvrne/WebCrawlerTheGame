@@ -13,6 +13,8 @@ public static class DialogueStateEvaluator
 
         if (!string.IsNullOrEmpty(option.requiredNotFlag) &&
             GameStateManager.Instance.GetFlag(option.requiredNotFlag))
+        if (!string.IsNullOrEmpty(option.suppressIfFlag) &&
+            GameStateManager.Instance.GetFlag(option.suppressIfFlag))
         {
             return false;
         }

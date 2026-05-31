@@ -58,6 +58,7 @@ public class DialogueOption
 
     public string requiredFlag;
     public string requiredNotFlag;
+    public string suppressIfFlag;
     public string requiredJournalFile;
     public string requiredUncommentedCodeBlock;
     public string requiredExhaustedInteractable;

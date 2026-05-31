@@ -1,8 +1,14 @@
 fileFormatVersion: 2
 guid: 701e577af2ba48b689972d42efb95456
 folderAsset: yes
+<<<<<<< HEAD
 DefaultImporter:
   externalObjects: {}
+=======
+timeCreated: 1488176891
+licenseType: Pro
+DefaultImporter:
+>>>>>>> c72142e (untracked)
   userData: 
   assetBundleName: 
   assetBundleVariant: 

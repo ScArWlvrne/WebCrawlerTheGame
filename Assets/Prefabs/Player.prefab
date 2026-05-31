@@ -1376,4 +1376,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f3b98ac4d3b674daa0ac50c4cefea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneTransitionEntry
-  transition: {fileID: 0}
+  transition: {fileID: 2689416760036939375, guid: 036bc2efe1d5b2748943cf8e597a866c, type: 3}

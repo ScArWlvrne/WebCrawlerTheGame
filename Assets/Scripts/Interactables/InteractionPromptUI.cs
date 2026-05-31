@@ -1,10 +1,8 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InteractionPromptUI : MonoBehaviour
 {
-    [SerializeField] private GameObject promptRoot;
     [SerializeField] private Image buttonIcon;
     [SerializeField] private Sprite keyboardSprite;
     [SerializeField] private Sprite gamepadSprite;
@@ -12,7 +10,7 @@ public class InteractionPromptUI : MonoBehaviour
 
     public void Show(bool usingGamepad, Transform anchor)
     {
-        promptRoot.SetActive(true);
+        gameObject.SetActive(true);
 
         buttonIcon.sprite = usingGamepad ? gamepadSprite : keyboardSprite;
 
@@ -26,6 +24,6 @@ public class InteractionPromptUI : MonoBehaviour
 
     public void Hide()
     {
-        promptRoot.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

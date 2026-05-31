@@ -130,12 +130,13 @@ public class PlayerController : MonoBehaviour
 
         if (currentInteractable != null)
         {
-            
+            // Debug.Log("Calling prompt Show on " + currentInteractable);
             interactionPromptUI.Show(usingGamepad, currentInteractable.GetPromptAnchor());
-            return;
         }
-
-        interactionPromptUI.Hide();
+        else     {
+            // Debug.Log("Calling prompt Hide");
+            interactionPromptUI.Hide();
+        }
     }
 
     private void TryInteract()

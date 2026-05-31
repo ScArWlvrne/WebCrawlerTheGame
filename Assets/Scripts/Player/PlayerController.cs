@@ -131,13 +131,12 @@ public class PlayerController : MonoBehaviour
 
         if (currentInteractable != null)
         {
+            
             interactionPromptUI.Show(usingGamepad, currentInteractable.GetPromptAnchor());
-        }
-        else
-        {
-            interactionPromptUI.Hide();
+            return;
         }
 
+        interactionPromptUI.Hide();
     }
 
     private void TryInteract()
@@ -158,6 +157,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator PlayInteractAnimationThenInteract(IInteractable interactable)
     {
         isInteracting = true;
+        interactionPromptUI.Hide();
 
         if (animator != null)
         {
@@ -167,6 +167,7 @@ public class PlayerController : MonoBehaviour
 
         while (isInteracting)
         {
+            interactionPromptUI.Hide();
             yield return null;
         }
 
@@ -175,6 +176,7 @@ public class PlayerController : MonoBehaviour
 
     public void EndInteractionAnimation()
     {
+        interactionPromptUI.Hide();
         isInteracting = false;
     }
 

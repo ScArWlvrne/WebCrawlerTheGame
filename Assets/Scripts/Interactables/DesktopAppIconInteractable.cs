@@ -12,6 +12,7 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
     [SerializeField] private MonoBehaviour playerControllerScript;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private InteractionPromptUI interactionPromptUI;
     [SerializeField] private Transform promptAnchor;
 
     [Header("Player Positioning")]
@@ -58,11 +59,12 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
 
     public Transform GetPromptAnchor()
     {
-        return promptAnchor;
+        return isRunning ? null : promptAnchor;
     }
 
     private IEnumerator OpenAppSequence()
     {
+        Destroy(interactionPromptUI.gameObject);
         isRunning = true;
 
         if (playerControllerScript != null)

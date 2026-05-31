@@ -54,7 +54,12 @@ public class GameStateManager : MonoBehaviour
         {
             if (file.path == path)
             {
-                file.content = content;
+                if (!string.IsNullOrEmpty(file.content))
+                {
+                    file.content += "\n";
+                }
+
+                file.content += content;
                 return;
             }
         }
@@ -86,6 +91,17 @@ public class GameStateManager : MonoBehaviour
         }
 
         return "";
+    }
+
+    public void AddJournalEntry(string entry)
+    {
+        if (State.journalEntries == null)
+            State.journalEntries = new System.Collections.Generic.List<string>();
+
+        if (string.IsNullOrEmpty(entry) || State.journalEntries.Contains(entry))
+            return;
+
+        State.journalEntries.Add(entry);
     }
 
     public void RemoveJournalFile(string path)
@@ -142,6 +158,22 @@ public class GameStateManager : MonoBehaviour
     public void LoadGame()
     {
         State = SaveSystem.Load();
+    }
+
+    public bool HasSave()
+    {
+        return SaveSystem.HasSave();
+    }
+
+    public void DeleteSave()
+    {
+        SaveSystem.DeleteSave();
+    }
+
+    public void NewGame()
+    {
+        State = new GameState();
+        DeleteSave();
     }
 
     public void ExhaustInteractable(string interactableId)

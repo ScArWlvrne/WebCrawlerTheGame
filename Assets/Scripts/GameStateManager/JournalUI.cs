@@ -76,6 +76,9 @@ public class JournalUI : MonoBehaviour
         if (Keyboard.current[toggleKey].wasPressedThisFrame)
             Toggle();
 
+        if (Gamepad.current != null && Gamepad.current.dpad.up.wasPressedThisFrame)
+            Toggle();
+
         if (isVisible && Keyboard.current.escapeKey.wasPressedThisFrame)
             Hide();
     }

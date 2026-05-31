@@ -1227,11 +1227,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e5f6a7b8c9488990abcdef1234567b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JournalEntryInteractable
-  journalOwner: 4
-  fileName: test_note.txt
-  content: This is a test journal entry collected from ArnavTestScene.
-  promptAnchor: {fileID: 0}
-  interactableId: arnav_test_journal_entry
+  journalOwner: 0
+  fileName: security_questions.txt
+  content: Married for 5 years
+  promptAnchor: {fileID: 216566248}
+  interactableId: marriage_clue_2
   exhaustAfterUse: 1
   showJournalOnPickup: 1
   journalUI: {fileID: 0}
@@ -1444,7 +1444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &287664385
 Transform:
   m_ObjectHideFlags: 0
@@ -1718,7 +1718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 329700112}
   - component: {fileID: 329700113}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MarriageCluePt1
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -1752,11 +1752,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e5f6a7b8c9488990abcdef1234567b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JournalEntryInteractable
-  journalOwner: 4
-  fileName: test_note.txt
-  content: This is a test journal entry collected from ArnavTestScene.
-  promptAnchor: {fileID: 0}
-  interactableId: arnav_test_journal_entry
+  journalOwner: 0
+  fileName: security_questions.txt
+  content: Anniversary post made on 5/10/2026
+  promptAnchor: {fileID: 329700112}
+  interactableId: marriage_clue_1
   exhaustAfterUse: 1
   showJournalOnPickup: 1
   journalUI: {fileID: 0}
@@ -4785,9 +4785,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e5f6a7b8c9488990abcdef1234567b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JournalEntryInteractable
-  journalOwner: 4
-  fileName: test_note.txt
-  content: This is a test journal entry collected from ArnavTestScene.
+  journalOwner: 0
+  fileName: security_questions.txt
+  content: 'Email: jfosho@silkmail.com'
   promptAnchor: {fileID: 1256038416}
   interactableId: arnav_test_journal_entry
   exhaustAfterUse: 1

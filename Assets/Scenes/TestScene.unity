@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 414417907}
   - component: {fileID: 414417906}
   - component: {fileID: 414417910}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TestTextInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ MonoBehaviour:
   promptAnchor: {fileID: 414417909}
   JournalEntryPath: test_note.txt
   ExpectedEntryContent: This is a test journal entry collected from ArnavTestScene.
-  InputTextField: {fileID: 0}
+  InputTextField: {fileID: 414417907}
   InputTextFieldContent: 
 --- !u!114 &414417907
 MonoBehaviour:
@@ -518,16 +518,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414417905}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 3.95}
+  m_LocalRotation: {x: 0.67559016, y: 0, z: 0, w: 0.7372774}
+  m_LocalPosition: {x: 0, y: 0, z: 3.921}
   m_LocalScale: {x: 0.14284222, y: 0.14284222, z: 0.14284222}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 85, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.7806, y: 0.61}
+  m_AnchoredPosition: {x: -4.7806, y: 0.342}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!65 &414417910

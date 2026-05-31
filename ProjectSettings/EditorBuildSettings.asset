@@ -11,6 +11,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScene 2.unity
     guid: ecd67a3e3b31af648ac2850f9f96f6d9
+  - enabled: 1
+    path: Assets/Scenes/Browser.unity
+    guid: fb495e46350d34ac9897aebdea2eadd5
+  - enabled: 1
+    path: Assets/Scenes/DesktopHub.unity
+    guid: ffe1a2c44a4704cedaef7d8f081fb285
+  - enabled: 1
+    path: Assets/Scenes/Donald.unity
+    guid: 2b7417fdca26f42da9bf0159f075e3cc
+  - enabled: 1
+    path: Assets/Scenes/Joe.unity
+    guid: 8e84c5c4dd4234d5394d820b20f1ce06
+  - enabled: 1
+    path: Assets/Scenes/Lily.unity
+    guid: 7c930682f4c55465dadce458663b10bb
+  - enabled: 1
+    path: Assets/Scenes/SystemTesting.unity
+    guid: 7b7e969b066e3449a9755ad869263df4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

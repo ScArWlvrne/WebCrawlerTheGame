@@ -1227,6 +1227,7 @@ GameObject:
   - component: {fileID: 231151171}
   - component: {fileID: 231151170}
   - component: {fileID: 231151169}
+  - component: {fileID: 231151173}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -1328,6 +1329,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &231151173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231151168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809f77334ad83ba4fa7dc80aab932dd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrowserStartup
+  objectsToDeactivate:
+  - {fileID: 853526187}
+  - {fileID: 173793445}
+  - {fileID: 287664384}
 --- !u!1001 &238672194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1407,7 +1424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &287664385
 Transform:
   m_ObjectHideFlags: 0

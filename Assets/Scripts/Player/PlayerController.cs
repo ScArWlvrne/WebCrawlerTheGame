@@ -12,8 +12,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float interactRange = 1.5f;
     [SerializeField] private float interactAngle = 60f;
     [SerializeField] private LayerMask interactableLayer;
+    [SerializeField] private InteractionPromptUI interactionPromptUI;
+    private IInteractable currentInteractable;
 
     private bool isInteracting = false;
+    private bool usingGamepad = false;
 
     private CharacterController controller;
 
@@ -28,17 +31,24 @@ public class PlayerController : MonoBehaviour
         if (isInteracting)
             return;
 
+        UpdateCurrentInteractable();
         Vector2 input = Vector2.zero;
 
         if (Keyboard.current != null)
         {
             input.x = Keyboard.current.aKey.isPressed ? -1 : Keyboard.current.dKey.isPressed ? 1 : 0;
             input.y = Keyboard.current.wKey.isPressed ? 1 : Keyboard.current.sKey.isPressed ? -1 : 0;
+
+            if (Keyboard.current.anyKey.isPressed)
+            {
+                usingGamepad = false;
+            }
         }
 
         if (Gamepad.current != null && Gamepad.current.leftStick.ReadValue().magnitude > 0.2f && input == Vector2.zero)
         {
             input = Gamepad.current.leftStick.ReadValue();
+            usingGamepad = true;
         }
 
         input = Vector2.ClampMagnitude(input, 1f);
@@ -74,14 +84,11 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("IsMoving", isMoving);
 
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        controller.Move(moveSpeed * Time.deltaTime * move);
     }
 
-    private void TryInteract()
+    private void UpdateCurrentInteractable()
     {
-        if (isInteracting)
-            return;
-
         Collider[] hits = Physics.OverlapSphere(
             transform.position,
             interactRange,
@@ -89,6 +96,7 @@ public class PlayerController : MonoBehaviour
         );
 
         IInteractable bestInteractable = null;
+        currentInteractable = null;
         float bestDistance = float.PositiveInfinity;
 
         foreach (Collider hit in hits)
@@ -119,13 +127,32 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (bestInteractable != null)
+        currentInteractable = bestInteractable;
+
+        if (currentInteractable != null)
         {
-            StartCoroutine(PlayInteractAnimationThenInteract(bestInteractable));
-            return;
+            interactionPromptUI.Show(usingGamepad, currentInteractable.GetPromptAnchor());
+        }
+        else
+        {
+            interactionPromptUI.Hide();
         }
 
-        Debug.Log("Nothing to interact with.");
+    }
+
+    private void TryInteract()
+    {
+        if (isInteracting)
+            return;
+
+        if (currentInteractable != null)
+        {
+            StartCoroutine(PlayInteractAnimationThenInteract(currentInteractable));
+        }
+        else
+        {
+            Debug.Log("Nothing to interact with.");
+        }
     }
 
     private IEnumerator PlayInteractAnimationThenInteract(IInteractable interactable)

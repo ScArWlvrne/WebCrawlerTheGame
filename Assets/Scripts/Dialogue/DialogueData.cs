@@ -14,6 +14,7 @@ public class DialogueNode
 {
     public string nodeId;
     public string speaker;
+    public string portraitCharacterId;
     public string message;
     public string nextNodeId;
     public List<DialogueOption> options = new List<DialogueOption>();

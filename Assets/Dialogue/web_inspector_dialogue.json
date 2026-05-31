@@ -1,0 +1,532 @@
+{
+  "meta": {
+    "id": "web_inspector_dialogue",
+    "title": "Web Inspector — Code Maintenance Spider",
+    "platform": "in_world",
+    "character": "web_inspector",
+    "description": "Roadblock NPC who maintains broken web code. Covers first meeting, catching the player cheating by editing source directly, and repairing corrupted code blocks.",
+    "encounters": {
+      "first_meeting": "meet_intro",
+      "caught_cheating": "cheat_caught",
+      "code_repair": "repair_intake"
+    }
+  },
+  "startNode": "encounter_router",
+  "nodes": {
+    "encounter_router": {
+      "type": "router",
+      "routes": [
+        {
+          "conditions": { "requiresFlag": "player_caught_cheating" },
+          "nextNode": "cheat_caught"
+        },
+        {
+          "conditions": { "requiresFlag": "code_block_broken" },
+          "nextNode": "repair_intake"
+        },
+        {
+          "conditions": { "requiresNotFlag": "web_inspector_met" },
+          "nextNode": "meet_intro"
+        },
+        {
+          "conditions": {},
+          "nextNode": "meet_return"
+        }
+      ]
+    },
+    "meet_intro": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "avatar": "npcs/web_inspector.png",
+      "animation": "wave",
+      "text": "*adjusts hard hat* Halt, crawler. Name's Web Inspector — licensed structural engineer for the DOM. I patch load-bearing divs, reroute broken event listeners, and evict nesting violations. You look new. First time in the render tree?",
+      "choices": [
+        {
+          "id": "meet_yes_new",
+          "text": "First time. What does a code maintenance spider do exactly?",
+          "nextNode": "meet_explain_role"
+        },
+        {
+          "id": "meet_skip_small_talk",
+          "text": "I need to get through. Step aside.",
+          "nextNode": "meet_firm_boundary"
+        },
+        {
+          "id": "meet_flatter",
+          "text": "Nice hard hat. OSHA-compliant arachnid — respect.",
+          "nextNode": "meet_warmed",
+          "effects": {
+            "addTrust": { "character": "web_inspector", "amount": 5 }
+          }
+        }
+      ]
+    },
+    "meet_explain_role": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "This hub runs on hand-written HTML, CSS, and JS held together by optimism. When a page crashes — missing semicolon, orphaned tag, script that throws — I get the work order. I don't write features. I keep the web from collapsing on commuters like you.",
+      "choices": [
+        {
+          "id": "meet_ask_rules",
+          "text": "Any rules I should know?",
+          "nextNode": "meet_rules"
+        },
+        {
+          "id": "meet_ask_help",
+          "text": "What if I find broken code?",
+          "nextNode": "meet_repair_offer"
+        }
+      ]
+    },
+    "meet_warmed": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "*chitters approvingly* Finally, someone who appreciates PPE on the information superhighway. Most crawlers sprint past like `<div>` tags grow on trees. They don't. I planted half of them.",
+      "choices": [
+        {
+          "id": "meet_warmed_continue",
+          "text": "So you're the one who fixes things when pages break?",
+          "nextNode": "meet_explain_role",
+          "effects": {
+            "addTrust": { "character": "web_inspector", "amount": 3 }
+          }
+        }
+      ]
+    },
+    "meet_firm_boundary": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "*blocks path with clipboard* Negative. Unsafe passage. Unchecked crawlers corrupt the stylesheet registry. Talk first, crawl second.",
+      "choices": [
+        {
+          "id": "meet_apologize",
+          "text": "Fair enough. Introduce yourself then.",
+          "nextNode": "meet_explain_role"
+        },
+        {
+          "id": "meet_force_past",
+          "text": "[Try to push past]",
+          "nextNode": "meet_blocked",
+          "effects": {
+            "setFlag": { "key": "web_inspector_annoyed", "value": true }
+          }
+        }
+      ]
+    },
+    "meet_blocked": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "*deploys caution tape across the URL* You're on my list now. Come back when you can behave like a semantic element.",
+      "choices": [
+        {
+          "id": "meet_blocked_end",
+          "text": "[Leave for now]",
+          "nextNode": "meet_blocked_end_node"
+        }
+      ]
+    },
+    "meet_blocked_end_node": {
+      "type": "system",
+      "text": "Web Inspector is blocking the path. Try a friendlier approach.",
+      "autoNext": null
+    },
+    "meet_rules": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "Three rules. One: don't edit live source to skip puzzles — that's cheating and it breaks cascade integrity. Two: if you find corrupted markup, bring it to me. Three: always close your tags. I've seen `<div>` left open since 2019. Still haunts me.",
+      "choices": [
+        {
+          "id": "meet_rules_ack",
+          "text": "Edit source = bad. Got it.",
+          "nextNode": "meet_complete",
+          "effects": {
+            "setFlag": { "key": "web_inspector_met", "value": true },
+            "addJournalEntry": "Web Inspector — DOM maintenance NPC. Fixes broken code. Do NOT edit live source to bypass puzzles."
+          }
+        },
+        {
+          "id": "meet_rules_ask_cheat",
+          "text": "What happens if I edit source anyway?",
+          "nextNode": "meet_cheat_warning"
+        }
+      ]
+    },
+    "meet_cheat_warning": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "*slow chitter* I inspect. It's in the name. DevTools leaves footprints — modified attributes, injected nodes, console history. I will catch you. And I will revert your changes by hand while you watch.",
+      "choices": [
+        {
+          "id": "meet_cheat_ack",
+          "text": "Message received. No source edits.",
+          "nextNode": "meet_complete",
+          "effects": {
+            "setFlag": { "key": "web_inspector_met", "value": true },
+            "addJournalEntry": "Web Inspector monitors DevTools tampering. Source edits will be caught and reverted."
+          }
+        }
+      ]
+    },
+    "meet_repair_offer": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "Bring me the broken block — corrupted script tag, mangled form handler, whatever. I'll rebuild it if you provide the missing pieces. Think of it as pair programming, except I have eight legs and a union card.",
+      "choices": [
+        {
+          "id": "meet_repair_ack",
+          "text": "Good to know. I'll come find you if something's broken.",
+          "nextNode": "meet_complete",
+          "effects": {
+            "setFlag": { "key": "web_inspector_met", "value": true },
+            "addJournalEntry": "Web Inspector can repair broken code blocks if player supplies missing syntax."
+          }
+        }
+      ]
+    },
+    "meet_complete": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "Safe crawling, commuter. *taps hard hat* If you see a `<script>` crying in a corner, send it my way.",
+      "choices": [
+        {
+          "id": "meet_end",
+          "text": "[Continue]",
+          "nextNode": "meet_end_node",
+          "effects": {
+            "setFlag": { "key": "web_inspector_met", "value": true }
+          }
+        }
+      ]
+    },
+    "meet_end_node": {
+      "type": "system",
+      "text": "Web Inspector has cleared the path.",
+      "autoNext": null
+    },
+    "meet_return": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "*looks up from clipboard* Back again. Road's clear unless you broke something. Did you break something?",
+      "choices": [
+        {
+          "id": "return_repair",
+          "text": "I've got a broken code block.",
+          "nextNode": "repair_intake",
+          "conditions": {
+            "requiresFlag": "code_block_broken"
+          }
+        },
+        {
+          "id": "return_chat",
+          "text": "Just checking in. Everything stable?",
+          "nextNode": "meet_return_stable"
+        },
+        {
+          "id": "return_leave",
+          "text": "All good. Carry on.",
+          "nextNode": "meet_return_end"
+        }
+      ]
+    },
+    "meet_return_stable": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "Stable is relative. Login page lost a closing brace this morning. Other than that — fine day on the web.",
+      "choices": [
+        {
+          "id": "return_stable_end",
+          "text": "[Continue]",
+          "nextNode": "meet_return_end"
+        }
+      ]
+    },
+    "meet_return_end": {
+      "type": "system",
+      "text": "Web Inspector returns to inspecting.",
+      "autoNext": null
+    },
+    "cheat_caught": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "animation": "confront",
+      "text": "*SNAP* Clipboard shut. Hard hat tilted at accusatory angle. I KNEW that `<input type=\"hidden\" value=\"authenticated\">` wasn't there thirty seconds ago. DevTools. View-source edit. Console injection. Pick your poison — I logged all three.",
+      "choices": [
+        {
+          "id": "cheat_deny",
+          "text": "That was always there. Must be a caching issue.",
+          "nextNode": "cheat_deny_response"
+        },
+        {
+          "id": "cheat_confess",
+          "text": "...Okay, I edited the source to skip the login.",
+          "nextNode": "cheat_confess_response"
+        },
+        {
+          "id": "cheat_blame_lag",
+          "text": "The page glitched. I was fixing YOUR broken code.",
+          "nextNode": "cheat_blame_response"
+        }
+      ]
+    },
+    "cheat_deny_response": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "Caching issue. Right. My audit trail timestamps every DOM mutation to the millisecond. You're holding a `<span style=\"display:none\">authenticated</span>` like it's a get-out-of-jail-free card. Reverting now.",
+      "choices": [
+        {
+          "id": "cheat_deny_punish",
+          "text": "[Watch the revert]",
+          "nextNode": "cheat_punishment",
+          "effects": {
+            "setFlag": { "key": "player_cheating_reverted", "value": true },
+            "addJournalEntry": "Web Inspector caught source tampering. Changes reverted. Must solve puzzles legitimately."
+          }
+        }
+      ]
+    },
+    "cheat_confess_response": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "Honesty. Points for that. Still a violation. The login puzzle exists because weak auth is how real breaches start — you don't skip the lesson, you learn it. I'm reverting your edits and adding a integrity checksum to this node.",
+      "choices": [
+        {
+          "id": "cheat_confess_accept",
+          "text": "Fair. I'll do it properly.",
+          "nextNode": "cheat_redemption",
+          "effects": {
+            "setFlag": { "key": "player_cheating_reverted", "value": true },
+            "setFlag": { "key": "player_caught_cheating", "value": false },
+            "addTrust": { "character": "web_inspector", "amount": 5 },
+            "addJournalEntry": "Confessed to Web Inspector. Source edits reverted — solve login puzzle through social engineering instead."
+          }
+        }
+      ]
+    },
+    "cheat_blame_response": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "*eight eyes narrow* Broken code gets reported to ME. Not patched by commuters with delusions of senior engineer. You introduced TWO syntax errors fixing a typo that didn't exist. Sit down. Watch a professional work.",
+      "choices": [
+        {
+          "id": "cheat_blame_punish",
+          "text": "[Submit to the lecture]",
+          "nextNode": "cheat_punishment",
+          "effects": {
+            "setFlag": { "key": "web_inspector_annoyed", "value": true },
+            "addTrust": { "character": "web_inspector", "amount": -10 }
+          }
+        }
+      ]
+    },
+    "cheat_punishment": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "*reverts changes in visible real-time* There. Back to spec. I'm leaving a `<meta name=\"integrity-check\" content=\"web-inspector-watching\">` tag on this page. Try again — the right way. Passwords from people, not from DOM hacks.",
+      "choices": [
+        {
+          "id": "cheat_punish_end",
+          "text": "Understood.",
+          "nextNode": "cheat_complete",
+          "effects": {
+            "setFlag": { "key": "player_caught_cheating", "value": false },
+            "setFlag": { "key": "player_cheating_reverted", "value": true }
+          }
+        }
+      ]
+    },
+    "cheat_redemption": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "Good. Collect information. Exploit misconfigurations. That's the game. But the DOM is MY jurisdiction. Cross me again and I'll redirect you to a 404 until you apologize in valid XML.",
+      "choices": [
+        {
+          "id": "cheat_redemption_end",
+          "text": "[Return to hub]",
+          "nextNode": "cheat_complete"
+        }
+      ]
+    },
+    "cheat_complete": {
+      "type": "system",
+      "text": "Page integrity restored. Login puzzle reset.",
+      "autoNext": null
+    },
+    "repair_intake": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "animation": "inspect",
+      "text": "*flips clipboard* Work order received. Broken code block — let me see the damage. Missing semicolon? Unclosed function? Don't tell me someone nested a `<form>` inside a `<form>` again.",
+      "choices": [
+        {
+          "id": "repair_syntax_error",
+          "text": "Script throws 'Unexpected token' — I think a brace is missing.",
+          "nextNode": "repair_syntax_case",
+          "conditions": {
+            "requiresFlag": "broken_syntax_block"
+          }
+        },
+        {
+          "id": "repair_event_handler",
+          "text": "Button click handler doesn't fire. onclick looks corrupted.",
+          "nextNode": "repair_event_case",
+          "conditions": {
+            "requiresFlag": "broken_event_handler"
+          }
+        },
+        {
+          "id": "repair_generic",
+          "text": "Here's the corrupted snippet — can you fix it?",
+          "nextNode": "repair_generic_case"
+        }
+      ]
+    },
+    "repair_syntax_case": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "Classic. Line 47 — `function validateLogin({` never closes. You need `});` not just `}`. Also that arrow function on line 52 is missing its fat arrow entirely. Amateur hour at Araknyd, if I had to guess.",
+      "choices": [
+        {
+          "id": "repair_syntax_player_fix",
+          "text": "I'll add the closing brace and arrow. Check my work?",
+          "nextNode": "repair_player_attempt",
+          "effects": {
+            "setFlag": { "key": "repair_puzzle_active", "value": true }
+          }
+        },
+        {
+          "id": "repair_syntax_ask_hint",
+          "text": "What should the corrected block look like?",
+          "nextNode": "repair_hint",
+          "effects": {
+            "addTrust": { "character": "web_inspector", "amount": -3 }
+          }
+        }
+      ]
+    },
+    "repair_event_case": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "Someone wrote `onclick=\"submitForm()\"` but the function is named `handleSubmit`. Name mismatch. Either rename the function or fix the attribute. While you're in there, swap inline handlers for addEventListener — 2010 called, they want their anti-pattern back.",
+      "choices": [
+        {
+          "id": "repair_event_player_fix",
+          "text": "Renaming to handleSubmit. Verifying the listener.",
+          "nextNode": "repair_player_attempt"
+        },
+        {
+          "id": "repair_event_delegate",
+          "text": "Can you just patch it? I have places to crawl.",
+          "nextNode": "repair_auto_fix",
+          "effects": {
+            "addTrust": { "character": "web_inspector", "amount": -5 }
+          }
+        }
+      ]
+    },
+    "repair_generic_case": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "*adjusts magnifying lens over code* Mm. Corrupted alright. I'll walk you through it — you type the fix, I stamp the approval. Union rules. I don't touch keyboards, only clipboards.",
+      "choices": [
+        {
+          "id": "repair_generic_start",
+          "text": "Walk me through it.",
+          "nextNode": "repair_player_attempt"
+        }
+      ]
+    },
+    "repair_hint": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "Fine. ONE hint: count your braces. Every `{` needs a `}`. Every `(` needs a `)`. The parser doesn't care about your intentions — only your syntax. Now fix it yourself.",
+      "choices": [
+        {
+          "id": "repair_hint_try",
+          "text": "[Open code editor and fix the block]",
+          "nextNode": "repair_player_attempt"
+        }
+      ]
+    },
+    "repair_player_attempt": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "* peers over clipboard * Alright, commuter. Submit your patch. I'll run lint, parse check, and a vibe inspection.",
+      "choices": [
+        {
+          "id": "repair_submit_correct",
+          "text": "[Submit corrected code]",
+          "nextNode": "repair_success",
+          "conditions": {
+            "requiresFlag": "repair_code_correct"
+          },
+          "effects": {
+            "setFlag": { "key": "code_block_broken", "value": false },
+            "setFlag": { "key": "repair_puzzle_active", "value": false },
+            "addTrust": { "character": "web_inspector", "amount": 10 },
+            "addJournalEntry": "Web Inspector approved code repair. Page functionality restored."
+          }
+        },
+        {
+          "id": "repair_submit_wrong",
+          "text": "[Submit attempted fix]",
+          "nextNode": "repair_fail",
+          "conditions": {
+            "requiresNotFlag": "repair_code_correct"
+          }
+        }
+      ]
+    },
+    "repair_fail": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "*STAMP: REJECTED* Still broken. Parser error on line 53 — you closed the wrong block. The function ends BEFORE the event listener, not after. Try again. My hard hat stays on until this compiles.",
+      "choices": [
+        {
+          "id": "repair_retry",
+          "text": "[Revise and resubmit]",
+          "nextNode": "repair_player_attempt"
+        },
+        {
+          "id": "repair_give_up",
+          "text": "I can't figure it out.",
+          "nextNode": "repair_hint"
+        }
+      ]
+    },
+    "repair_auto_fix": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "text": "*sighs in arachnid* Fine. Emergency patch deployed. But you're adding 'I owe Web Inspector a coffee' to your journal. I don't drink coffee — I drink the tears of sloppy developers.",
+      "choices": [
+        {
+          "id": "repair_auto_end",
+          "text": "[Accept the patch]",
+          "nextNode": "repair_success",
+          "effects": {
+            "setFlag": { "key": "code_block_broken", "value": false },
+            "addJournalEntry": "Web Inspector emergency-patched broken code. Owe him one.",
+            "addTrust": { "character": "web_inspector", "amount": -3 }
+          }
+        }
+      ]
+    },
+    "repair_success": {
+      "type": "npc",
+      "speaker": "Web Inspector",
+      "animation": "stamp_approve",
+      "text": "*STAMP: APPROVED* Clean parse. No warnings. Page is live. *tips hard hat* Not bad for a crawler. Next time report bugs early — before the whole login form collapses into a `<marquee>` tag.",
+      "choices": [
+        {
+          "id": "repair_success_end",
+          "text": "[Continue — page unlocked]",
+          "nextNode": "repair_complete"
+        }
+      ]
+    },
+    "repair_complete": {
+      "type": "system",
+      "text": "Code block repaired. Page functionality restored.",
+      "autoNext": null
+    }
+  }
+}

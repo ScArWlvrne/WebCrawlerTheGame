@@ -93,6 +93,17 @@ public class GameStateManager : MonoBehaviour
         return "";
     }
 
+    public void AddJournalEntry(string entry)
+    {
+        if (State.journalEntries == null)
+            State.journalEntries = new System.Collections.Generic.List<string>();
+
+        if (string.IsNullOrEmpty(entry) || State.journalEntries.Contains(entry))
+            return;
+
+        State.journalEntries.Add(entry);
+    }
+
     public void RemoveJournalFile(string path)
     {
         for (int i = State.journalFiles.Count - 1; i >= 0; i--)

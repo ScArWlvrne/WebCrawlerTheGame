@@ -80,6 +80,25 @@ setInterval(() => {
 */
 
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   CATEGORY: CRITICAL (1 block)
+   Lily flagged this during cleanup. The browser puzzle treats this as a
+   fictional code-comment block, not executable application logic.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+// --- CRITICAL #1: Export customer database button ---
+/* [code-block-id: admin_download_database_button]
+function exportCustomerDatabase() {
+  const confirmed = window.confirm('Export every customer record?');
+  if (!confirmed) {
+    return;
+  }
+
+  renderButton('Download customer database', '/admin/v2/export/customers.csv');
+}
+*/
+// --- END admin_download_database_button ---
+
   </pre>
 
   <p style="color:#484f58;font-size:11px;">

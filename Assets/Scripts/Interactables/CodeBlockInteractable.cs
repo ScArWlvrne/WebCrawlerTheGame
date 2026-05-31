@@ -2,6 +2,22 @@ using UnityEngine;
 
 public class CodeBlockInteractable : MonoBehaviour, IInteractable
 {
+    [SerializeField] private string codeBlockId = "admin_download_database_button";
+    [SerializeField] private string requiredFlag = GameFlags.AdminDashboardUnlocked;
+    [SerializeField] private Transform promptAnchor;
+
+    public void Interact()
+    {
+        if (GameStateManager.Instance == null)
+        {
+            Debug.LogWarning("CodeBlockInteractable: no GameStateManager is available.");
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(requiredFlag) &&
+            !GameStateManager.Instance.GetFlag(requiredFlag))
+        {
+            Debug.Log("CodeBlockInteractable: required flag not set: " + requiredFlag);
     [Header("Code Block")]
     [SerializeField] private string codeBlockId = GameCodeBlocks.ArnavTestCodeBlock;
 
@@ -55,6 +71,7 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
 
         GameStateManager.Instance.UncommentCodeBlock(codeBlockId);
         GameStateManager.Instance.SaveGame();
+        Debug.Log("CodeBlockInteractable: uncommented " + codeBlockId);
 
         Debug.Log("Uncommented code block: " + codeBlockId);
 
@@ -65,6 +82,8 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
 
     public Transform GetPromptAnchor()
     {
+        return promptAnchor != null ? promptAnchor : transform;
+    }
         if (disableInteractionWhenUncommented && IsUncommented())
             return null;
 

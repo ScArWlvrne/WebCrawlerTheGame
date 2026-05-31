@@ -12,17 +12,27 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
     [SerializeField] private MonoBehaviour playerControllerScript;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Animator playerAnimator;
+<<<<<<< HEAD
     [SerializeField] private InteractionPromptUI interactionPromptUI;
     [SerializeField] private Transform promptAnchor;
 
     [Header("Player Positioning")]
+=======
+
+    [Header("Player Positioning")]
+    [SerializeField] private Transform playerLaunchPoint;
+>>>>>>> 4c20a054 (Finished desktop icon interactable template)
     [SerializeField] private float minDistanceFromPivot = 3f;
 
     [Header("Icon Trapdoor")]
     [SerializeField] private Transform iconPivot;
+<<<<<<< HEAD
     [SerializeField] private float openAngleXAxis = 0f;
     [SerializeField] private float openAngleYAxis = 0f;
     [SerializeField] private float openAngleZAxis = 0f;
+=======
+    [SerializeField] private float openAngle = 90f;
+>>>>>>> 4c20a054 (Finished desktop icon interactable template)
     [SerializeField] private float openDuration = 0.4f;
 
     [Header("Player Leap")]
@@ -38,7 +48,11 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
 
     private bool isRunning;
 
+<<<<<<< HEAD
     public string GetPromptText()
+=======
+    public string GetPrompt()
+>>>>>>> 4c20a054 (Finished desktop icon interactable template)
     {
         return "Open";
     }
@@ -51,12 +65,17 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
         if (PlayerIsTooCloseToPivot())
         {
             Debug.LogWarning("Too close to pivot!");
+<<<<<<< HEAD
+=======
+            // TODO: Error sound or something idfk
+>>>>>>> 4c20a054 (Finished desktop icon interactable template)
             return;
         }
 
         StartCoroutine(OpenAppSequence());
     }
 
+<<<<<<< HEAD
     public Transform GetPromptAnchor()
     {
         return isRunning ? null : promptAnchor;
@@ -65,6 +84,10 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
     private IEnumerator OpenAppSequence()
     {
         Destroy(interactionPromptUI.gameObject);
+=======
+    private IEnumerator OpenAppSequence()
+    {
+>>>>>>> 4c20a054 (Finished desktop icon interactable template)
         isRunning = true;
 
         if (playerControllerScript != null)
@@ -93,7 +116,11 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
     private IEnumerator SwingIconOpen()
     {
         Quaternion startRot = iconPivot.localRotation;
+<<<<<<< HEAD
         Quaternion endRot = startRot * Quaternion.Euler(openAngleXAxis, openAngleYAxis, openAngleZAxis);
+=======
+        Quaternion endRot = startRot * Quaternion.Euler(0f, 0f, openAngle);
+>>>>>>> 4c20a054 (Finished desktop icon interactable template)
 
         float timer = 0f;
 

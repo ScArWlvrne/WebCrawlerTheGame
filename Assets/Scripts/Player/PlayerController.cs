@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+<<<<<<< HEAD
     public void SetGameplayInputLocked(bool locked)
     {
         gameplayInputLocked = locked;
@@ -45,6 +46,8 @@ public class PlayerController : MonoBehaviour
         SetGameplayInputLocked(locked);
     }
 
+=======
+>>>>>>> 4c20a054 (Finished desktop icon interactable template)
     void Update()
     {
         if (isInteracting || gameplayInputLocked)
@@ -108,6 +111,9 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateCurrentInteractable()
     {
+        if (isInteracting)
+            return;
+
         Collider[] hits = Physics.OverlapSphere(
             transform.position,
             interactRange,
@@ -146,7 +152,15 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+<<<<<<< HEAD
         currentInteractable = bestInteractable;
+=======
+        if (bestInteractable != null)
+        {
+            StartCoroutine(PlayInteractAnimationThenInteract(bestInteractable));
+            return;
+        }
+>>>>>>> 4c20a054 (Finished desktop icon interactable template)
 
         if (currentInteractable != null)
         {
@@ -159,6 +173,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     private void TryInteract()
     {
         if (isInteracting || gameplayInputLocked)
@@ -185,10 +200,19 @@ public class PlayerController : MonoBehaviour
         bool waitForAnimationEvent = animator != null;
         if (waitForAnimationEvent)
         {
+=======
+    private IEnumerator PlayInteractAnimationThenInteract(IInteractable interactable)
+    {
+        isInteracting = true;
+
+        if (animator != null)
+        {
+>>>>>>> 4c20a054 (Finished desktop icon interactable template)
             animator.SetBool("IsMoving", false);
             animator.SetTrigger("Interact");
         }
 
+<<<<<<< HEAD
         float elapsed = 0f;
         while (isInteracting && waitForAnimationEvent && elapsed < interactAnimationTimeout)
         {
@@ -201,6 +225,13 @@ public class PlayerController : MonoBehaviour
             Debug.LogWarning("Interact animation timed out — calling Interact() anyway.");
 
         isInteracting = false;
+=======
+        while (isInteracting)
+        {
+            yield return null;
+        }
+
+>>>>>>> 4c20a054 (Finished desktop icon interactable template)
         interactable.Interact();
     }
 

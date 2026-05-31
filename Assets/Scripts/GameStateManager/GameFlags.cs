@@ -11,5 +11,6 @@ public static class GameFlags
     public const string LilyE2EUrlsRevealed = "lily_e2e_urls_revealed";
     public const string LilyE2EMediumHintGiven = "lily_e2e_medium_hint_given";
     public const string LilyE2EHighHintGiven = "lily_e2e_high_hint_given";
+    public const string JoeSecurityQuestionsInJournal = "joe_security_questions_in_journal";
 }
 

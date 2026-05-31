@@ -29,6 +29,11 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+    public void ConfigureRuntime(LayerMask runtimeInteractableLayer)
+    {
+        interactableLayer = runtimeInteractableLayer;
+    }
+
     public void SetGameplayInputLocked(bool locked)
     {
         gameplayInputLocked = locked;

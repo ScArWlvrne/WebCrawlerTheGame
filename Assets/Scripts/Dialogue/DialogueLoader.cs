@@ -140,6 +140,16 @@ public static class DialogueLoader
                         journalEntry = journalEntry
                     });
                 }
+
+                Dictionary<string, object> addJournalFile = GetObject(effects, "addJournalFile");
+                if (addJournalFile != null)
+                {
+                    option.effects.Add(new DialogueEffect
+                    {
+                        journalFilePath = GetString(addJournalFile, "path"),
+                        journalFileContent = GetString(addJournalFile, "content")
+                    });
+                }
             }
         }
 
@@ -155,6 +165,9 @@ public static class DialogueLoader
 
         conditions.requiredFlag = GetString(dto, "requiresFlag");
         conditions.requiredNotFlag = GetString(dto, "requiresNotFlag");
+        conditions.requiredJournalFile = GetString(dto, "requiresJournalFile");
+        conditions.requiredUncommentedCodeBlock = GetString(dto, "requiresUncommentedCodeBlock");
+        conditions.requiredExhaustedInteractable = GetString(dto, "requiresExhaustedInteractable");
 
         Dictionary<string, object> minTrust = GetObject(dto, "minTrust");
         if (minTrust != null)
@@ -184,6 +197,9 @@ public static class DialogueLoader
 
         option.requiredFlag = conditions.requiredFlag;
         option.requiredNotFlag = conditions.requiredNotFlag;
+        option.requiredJournalFile = conditions.requiredJournalFile;
+        option.requiredUncommentedCodeBlock = conditions.requiredUncommentedCodeBlock;
+        option.requiredExhaustedInteractable = conditions.requiredExhaustedInteractable;
         option.trustCharacter = conditions.trustCharacter;
         option.hasMinTrust = conditions.hasMinTrust;
         option.minTrust = conditions.minTrust;

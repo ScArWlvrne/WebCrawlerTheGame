@@ -27,6 +27,15 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
 
     private Collider interactionCollider;
 
+    public void Configure(string newCodeBlockId, string newRequiredFlag = null, bool disableWhenUncommented = true)
+    {
+        codeBlockId = newCodeBlockId;
+        requiredFlag = newRequiredFlag;
+        disableInteractionWhenUncommented = disableWhenUncommented;
+        SyncVisualState();
+        ApplyInteractionState();
+    }
+
     private void Awake()
     {
         interactionCollider = GetComponent<Collider>();
@@ -62,12 +71,20 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
         }
 
         GameStateManager.Instance.UncommentCodeBlock(codeBlockId);
+        if (codeBlockId == GameCodeBlocks.AdminDownloadDatabaseButton)
+            GameStateManager.Instance.SetFlag(GameFlags.AraknydFinaleUnlocked, true);
+
+        if (codeBlockId == GameCodeBlocks.AdminFileExplorerSyncButton)
+            SyncDonaldBankPasswordToJournal();
+
         GameStateManager.Instance.SaveGame();
 
         Debug.Log("Uncommented code block: " + codeBlockId);
 
         SyncVisualState();
         ApplyInteractionState();
+        FindFirstObjectByType<BrowserAdminDashboardGate>()?.Refresh();
+        FindFirstObjectByType<BrowserXBankGate>()?.Refresh();
         TryStartPostUncommentDialogue();
     }
 
@@ -142,5 +159,12 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
             default:
                 return null;
         }
+    }
+
+    private static void SyncDonaldBankPasswordToJournal()
+    {
+        DonaldBankPasswordIntel.SyncToPasswordsFile();
+        JournalUI.EnsureExists();
+        JournalUI.Instance?.Show();
     }
 }

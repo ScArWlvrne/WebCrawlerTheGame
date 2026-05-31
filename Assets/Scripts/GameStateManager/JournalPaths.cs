@@ -5,6 +5,8 @@ public static class JournalPaths
         Joe,
         Lily,
         Donald,
+        CEO,
+        XBank,
         WebDirector,
         Test
     }
@@ -18,6 +20,7 @@ public static class JournalPaths
     public const string WebInspector = "web_inspector";
     public const string Araknyd = "araknyd";
     public const string CEO = "ceo";
+    public const string XBank = "xbank";
     public const string Test = "test";
 
     public static string Build(string characterOrTarget, string fileName)
@@ -40,6 +43,10 @@ public static class JournalPaths
                 return Lily;
             case JournalOwner.Donald:
                 return Donald;
+            case JournalOwner.CEO:
+                return CEO;
+            case JournalOwner.XBank:
+                return XBank;
             case JournalOwner.WebDirector:
                 return WebDirector;
             case JournalOwner.Test:

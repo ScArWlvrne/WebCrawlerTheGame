@@ -7,17 +7,28 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
         LilyTest,
         AraknydCrawlerTest,
         LilyE2E,
-        WebInspectorE2E
+        WebInspectorE2E,
+        XBankCrawler,
+        WebInspectorXBank,
+        HaleyXBank
     }
 
     [Header("Dialogue")]
     [SerializeField] private DialogueUI dialogueUI;
     [SerializeField] private ConversationPreset conversationPreset = ConversationPreset.LilyTest;
+    [SerializeField] private TextAsset dialogueAsset;
 
     [Header("Interaction")]
     [SerializeField] private Transform promptAnchor;
     [SerializeField] private string interactableId = "test_scene_lily_dialogue";
     [SerializeField] private bool exhaustAfterDialogue = true;
+
+    public void Configure(ConversationPreset preset, string newInteractableId, bool exhaust = true)
+    {
+        conversationPreset = preset;
+        interactableId = newInteractableId;
+        exhaustAfterDialogue = exhaust;
+    }
 
     public void Interact()
     {
@@ -59,6 +70,9 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
 
     private DialogueConversation BuildConversation()
     {
+        if (dialogueAsset != null)
+            return DialogueDocumentLoader.Load(dialogueAsset);
+
         switch (conversationPreset)
         {
             case ConversationPreset.AraknydCrawlerTest:
@@ -67,6 +81,12 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
                 return DialogueConversationFactory.GetLilyE2EConversation();
             case ConversationPreset.WebInspectorE2E:
                 return DialogueConversationFactory.GetWebInspectorE2EConversation();
+            case ConversationPreset.XBankCrawler:
+                return DialogueConversationFactory.GetXBankCrawlerConversation();
+            case ConversationPreset.WebInspectorXBank:
+                return DialogueConversationFactory.GetWebInspectorXBankSourceConversation();
+            case ConversationPreset.HaleyXBank:
+                return DialogueConversationFactory.GetHaleyXBankConversation();
             case ConversationPreset.LilyTest:
             default:
                 return DialogueConversationFactory.GetLilyTestConversation();

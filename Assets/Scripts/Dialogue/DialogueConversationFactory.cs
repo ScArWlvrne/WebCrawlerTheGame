@@ -7,6 +7,11 @@ public static class DialogueConversationFactory
     private const string AraknydAdminBetaUrl = "https://www.araknyd.io/admin-beta";
     private const string AraknydRobotsContent = "User-agent: *\nAllow: /\nDisallow: /admin-beta/\nDisallow: /tmp/\nDisallow: /internal-export/\nSitemap: https://www.araknyd.io/sitemap.xml";
     private const string AraknydBlogComment = "Lily Chen blog footer comment: /admin-beta is the staging shell they never took down. /admin/v2 is production.";
+    private const string XBankCrawlerSpeaker = "spider-crawl";
+    private const string XBankJournalSpeaker = "Journal Shell";
+    private const string XBankExecutivePortalUrl = "https://online.xbank.com/executive";
+    private const string XBankRobotsContent = "User-agent: *\nAllow: /\nDisallow: /portal/private-banking/\nDisallow: /executive/\n# Executive portal moved to online.xbank.com/executive";
+    private const string XBankSecurityFaqContent = "X Bank security FAQ: executive customers use a username, password, and two profile questions. Common questions include mother's maiden name, first pet, and primary phone.";
 
     public static DialogueConversation GetLilyTestConversation()
     {
@@ -454,6 +459,317 @@ public static class DialogueConversationFactory
                     speaker = "Web Inspector",
                     portraitCharacterId = GameCharacters.WebInspector,
                     message = "You uncommented the DATABASE EXPORT?! I'm coming to patch that— eventually.",
+                    nextNodeId = null
+                }
+            }
+        };
+    }
+
+    public static DialogueConversation GetXBankCrawlerConversation()
+    {
+        string urlsPath = JournalPaths.Build(JournalPaths.XBank, "urls.txt");
+        string robotsPath = JournalPaths.Build(JournalPaths.XBank, "robots.txt");
+        string faqPath = JournalPaths.Build(JournalPaths.XBank, "security_faq.txt");
+
+        return new DialogueConversation
+        {
+            conversationId = "xbank_crawler",
+            startNodeId = "terminal_start",
+            nodes = new List<DialogueNode>
+            {
+                new DialogueNode
+                {
+                    nodeId = "terminal_start",
+                    speaker = XBankCrawlerSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "spider-crawl v0.4.1 -- read-only link harvester. Current allowlist: xbank.com, *.xbank.com. Start here: crawl https://www.xbank.com",
+                    options = new List<DialogueOption>
+                    {
+                        new DialogueOption
+                        {
+                            optionText = "help",
+                            nextNodeId = "help_output"
+                        },
+                        new DialogueOption
+                        {
+                            optionText = "crawl https://www.xbank.com",
+                            nextNodeId = "homepage_output",
+                            flagToSet = GameFlags.XBankHomeCrawled
+                        },
+                        new DialogueOption
+                        {
+                            optionText = "Review the X Bank executive URL already saved in the journal.",
+                            nextNodeId = "known_url_summary",
+                            requiredJournalFile = urlsPath
+                        }
+                    }
+                },
+                new DialogueNode
+                {
+                    nodeId = "help_output",
+                    speaker = XBankCrawlerSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "Commands: crawl <url>, urls, cat <cache-id|url>, history. Notes: same-origin links are queued automatically; external links are recorded but never fetched; this tool cannot log in, submit forms, or run scripts.",
+                    options = new List<DialogueOption>
+                    {
+                        new DialogueOption
+                        {
+                            optionText = "crawl https://www.xbank.com",
+                            nextNodeId = "homepage_output",
+                            flagToSet = GameFlags.XBankHomeCrawled
+                        }
+                    }
+                },
+                new DialogueNode
+                {
+                    nodeId = "homepage_output",
+                    speaker = XBankCrawlerSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "[GET] https://www.xbank.com/ -> 200 OK. Title: X Bank -- private banking for public titans. Extracted links: /help/security, /business/executive, /robots.txt. External links recorded, not fetched.",
+                    options = new List<DialogueOption>
+                    {
+                        new DialogueOption
+                        {
+                            optionText = "crawl https://www.xbank.com/robots.txt",
+                            nextNodeId = "robots_output",
+                            journalFileToAddPath = robotsPath,
+                            journalFileToAddContent = XBankRobotsContent
+                        },
+                        new DialogueOption
+                        {
+                            optionText = "cat https://www.xbank.com/help/security",
+                            nextNodeId = "faq_output",
+                            journalFileToAddPath = faqPath,
+                            journalFileToAddContent = XBankSecurityFaqContent
+                        },
+                        new DialogueOption
+                        {
+                            optionText = "urls",
+                            nextNodeId = "urls_after_home"
+                        }
+                    }
+                },
+                new DialogueNode
+                {
+                    nodeId = "urls_after_home",
+                    speaker = XBankCrawlerSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "Discovered: https://www.xbank.com/help/security, /business/executive, /robots.txt. Cached: [1] https://www.xbank.com/. Tip: robots.txt sometimes names private paths the public homepage does not link.",
+                    options = new List<DialogueOption>
+                    {
+                        new DialogueOption
+                        {
+                            optionText = "crawl https://www.xbank.com/robots.txt",
+                            nextNodeId = "robots_output",
+                            journalFileToAddPath = robotsPath,
+                            journalFileToAddContent = XBankRobotsContent
+                        }
+                    }
+                },
+                new DialogueNode
+                {
+                    nodeId = "faq_output",
+                    speaker = XBankCrawlerSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "[GET] https://www.xbank.com/help/security -> 200 OK. FAQ says executive customers verify username, password, and profile questions: mother's maiden name, first pet, and primary phone. Journal hint saved.",
+                    options = new List<DialogueOption>
+                    {
+                        new DialogueOption
+                        {
+                            optionText = "crawl https://www.xbank.com/robots.txt",
+                            nextNodeId = "robots_output",
+                            journalFileToAddPath = robotsPath,
+                            journalFileToAddContent = XBankRobotsContent
+                        }
+                    }
+                },
+                new DialogueNode
+                {
+                    nodeId = "robots_output",
+                    speaker = XBankCrawlerSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "[GET] https://www.xbank.com/robots.txt -> 200 OK. Disallow: /portal/private-banking/. Comment: Executive portal moved to online.xbank.com/executive.",
+                    options = new List<DialogueOption>
+                    {
+                        new DialogueOption
+                        {
+                            optionText = "crawl https://www.xbank.com/portal/private-banking",
+                            nextNodeId = "portal_output",
+                            flagToSet = GameFlags.XBankPortalDiscovered
+                        }
+                    }
+                },
+                new DialogueNode
+                {
+                    nodeId = "portal_output",
+                    speaker = XBankCrawlerSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "[GET] https://www.xbank.com/portal/private-banking -> 403 Forbidden. HTML comment: exec login moved to online.xbank.com/executive. The terminal stops here; use the browser for forms.",
+                    options = new List<DialogueOption>
+                    {
+                        new DialogueOption
+                        {
+                            optionText = "Write the executive portal URL to the journal.",
+                            nextNodeId = "terminal_complete",
+                            flagToSet = GameFlags.JournalUrlsXBankUpdated,
+                            journalFileToAddPath = urlsPath,
+                            journalFileToAddContent = XBankExecutivePortalUrl
+                        }
+                    }
+                },
+                new DialogueNode
+                {
+                    nodeId = "known_url_summary",
+                    speaker = XBankJournalSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "Journal file usr/xbank/urls.txt already contains the X Bank executive portal. Next beat: collect Donald's account details, then open X Bank in Spider Edge.",
+                    nextNodeId = null
+                },
+                new DialogueNode
+                {
+                    nodeId = "terminal_complete",
+                    speaker = XBankJournalSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "Saved usr/xbank/urls.txt. The executive portal is discoverable, but spider-crawl cannot log in or submit forms.",
+                    nextNodeId = null
+                }
+            }
+        };
+    }
+
+    public static DialogueConversation GetWebInspectorXBankSourceConversation()
+    {
+        return new DialogueConversation
+        {
+            conversationId = "web_inspector_xbank_source",
+            startNodeId = "start",
+            nodes = new List<DialogueNode>
+            {
+                new DialogueNode
+                {
+                    nodeId = "start",
+                    speaker = "Web Inspector",
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "X Bank's login page is leaning on a client-side MFA script. I can open the source, but only if you prove this is a page bug and not a real bank attack.",
+                    options = new List<DialogueOption>
+                    {
+                        new DialogueOption
+                        {
+                            optionText = "The security FAQ and source hint show the MFA check is client-side-only.",
+                            nextNodeId = "grant_source",
+                            requiredJournalFile = JournalPaths.Build(JournalPaths.XBank, "security_faq.txt"),
+                            suppressIfFlag = GameFlags.WebInspectorXBankSourceGranted,
+                            flagToSet = GameFlags.WebInspectorXBankSourceGranted
+                        },
+                        new DialogueOption
+                        {
+                            optionText = "I'll gather more proof first.",
+                            nextNodeId = "leave"
+                        }
+                    }
+                },
+                new DialogueNode
+                {
+                    nodeId = "grant_source",
+                    speaker = "Web Inspector",
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "Fine. View source is unlocked. Look for the X Bank MFA validation block, and remember: this only works in our tiny fake web.",
+                    nextNodeId = null
+                },
+                new DialogueNode
+                {
+                    nodeId = "leave",
+                    speaker = "Web Inspector",
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "Bring me the public FAQ or a journal clue that proves the bug exists.",
+                    nextNodeId = null
+                }
+            }
+        };
+    }
+
+    public static DialogueConversation GetHaleyXBankConversation()
+    {
+        string passwordPath = JournalPaths.Build(JournalPaths.CEO, "temp_password.txt");
+
+        return new DialogueConversation
+        {
+            conversationId = "haley_xbank",
+            startNodeId = "start",
+            nodes = new List<DialogueNode>
+            {
+                new DialogueNode
+                {
+                    nodeId = "start",
+                    speaker = "Haley Delgado",
+                    portraitCharacterId = GameCharacters.Haley,
+                    message = "Donald told me to ignore unknown Venom messages. If this is about another password reset, be specific.",
+                    options = new List<DialogueOption>
+                    {
+                        new DialogueOption
+                        {
+                            optionText = "I saw the IT ticket. Donald keeps reusing the same password pattern.",
+                            nextNodeId = "medium_hint",
+                            requiredJournalFile = JournalPaths.Build(JournalPaths.CEO, "password_habit.txt"),
+                            trustChangeCharacter = GameCharacters.Haley,
+                            trustChange = 35
+                        },
+                        new DialogueOption
+                        {
+                            optionText = "Lily said the X Bank audit is tomorrow and Donald still has not changed it.",
+                            nextNodeId = "high_reveal",
+                            requiredJournalFile = JournalPaths.Build(JournalPaths.CEO, "audit_memo.txt"),
+                            trustCharacter = GameCharacters.Haley,
+                            minTrust = 30,
+                            flagToSet = GameFlags.HaleyTrustHigh,
+                            journalFileToAddPath = passwordPath,
+                            journalFileToAddContent = DonaldBankPasswordIntel.TempPasswordJournalHint
+                        },
+                        new DialogueOption
+                        {
+                            optionText = "Give me Donald's bank password.",
+                            nextNodeId = "bad",
+                            flagToSet = GameFlags.HaleySuspicious,
+                            trustChangeCharacter = GameCharacters.Haley,
+                            trustChange = -30
+                        },
+                        new DialogueOption
+                        {
+                            optionText = "Never mind.",
+                            nextNodeId = "bye"
+                        }
+                    }
+                },
+                new DialogueNode
+                {
+                    nodeId = "medium_hint",
+                    speaker = "Haley Delgado",
+                    portraitCharacterId = GameCharacters.Haley,
+                    message = "He reuses the same IT temp-password email on every account. Same tempPword template Venom sends everyone.",
+                    nextNodeId = "start"
+                },
+                new DialogueNode
+                {
+                    nodeId = "high_reveal",
+                    speaker = "Haley Delgado",
+                    portraitCharacterId = GameCharacters.Haley,
+                    message = "Fine. IT sent tempPword123! again for the audit reset. He was supposed to change it. He did not.",
+                    nextNodeId = null
+                },
+                new DialogueNode
+                {
+                    nodeId = "bad",
+                    speaker = "Haley Delgado",
+                    portraitCharacterId = GameCharacters.Haley,
+                    message = "Absolutely not. I am forwarding this to security.",
+                    nextNodeId = null
+                },
+                new DialogueNode
+                {
+                    nodeId = "bye",
+                    speaker = "Haley Delgado",
+                    portraitCharacterId = GameCharacters.Haley,
+                    message = "Good.",
                     nextNodeId = null
                 }
             }

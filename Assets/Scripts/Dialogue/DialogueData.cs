@@ -42,6 +42,9 @@ public class DialogueConditionSet
 {
     public string requiredFlag;
     public string requiredNotFlag;
+    public string requiredJournalFile;
+    public string requiredUncommentedCodeBlock;
+    public string requiredExhaustedInteractable;
 
     public string trustCharacter;
     public bool hasMinTrust;
@@ -90,4 +93,6 @@ public class DialogueEffect
     public bool flagValue = true;
 
     public string journalEntry;
+    public string journalFilePath;
+    public string journalFileContent;
 }

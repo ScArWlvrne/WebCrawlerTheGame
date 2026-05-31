@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <title>X Bank Executive Portal</title>
+  </head>
+  <body>
+    <main id="executive-login">
+      <h1>X Bank Executive Login</h1>
+      <form id="login-form">
+        <input name="username" placeholder="Executive username" />
+        <input name="password" placeholder="Password" type="password" />
+        <input name="mother" placeholder="Mother's maiden name" />
+        <input name="pet" placeholder="First pet" />
+      </form>
+    </main>
+
+    <script>
+      // dmusk1971 -- TODO remove before prod
+
+      /* [code-block-id: xbank_mfa_validation_block]
+      const DEV_BYPASS = true;
+      function validateMfa() {
+        return DEV_BYPASS;
+      }
+      */
+      // --- END xbank_mfa_validation_block ---
+
+      /* [code-block-id: xbank_transfer_confirm_block]
+      function confirmTransfer(account, destination) {
+        return account.owner === "donald" && destination === "player_wallet";
+      }
+      */
+      // --- END xbank_transfer_confirm_block ---
+    </script>
+  </body>
+</html>

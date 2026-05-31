@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -100,6 +101,21 @@ public class PlayerController : MonoBehaviour
         {
             TryInteract();
         }
+
+        if (
+            Keyboard.current != null && Keyboard.current.qKey.wasPressedThisFrame ||
+            Gamepad.current != null && Gamepad.current.dpad.down.wasPressedThisFrame
+        )
+        {
+            SceneManager.LoadScene("DesktopHub");
+        }
+        {
+        if (interactionPromptUI != null && interactionPromptUI.gameObject.activeSelf)
+        {
+            HideInteractionPrompt();
+        }
+        }
+        
 
         animator.SetBool("IsMoving", isMoving);
 

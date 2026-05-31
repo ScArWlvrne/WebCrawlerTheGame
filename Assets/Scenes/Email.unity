@@ -6713,9 +6713,10 @@ MonoBehaviour:
       m_Calls: []
   m_text: "**************************************************************************\nTicket
     #123456\n\nHey boss, \n\nWe got a ticket from your assistant that a company password
-    has been leaked and the account is not SOC2 compliant. Please reach out when
-    you can to set an appointment that fits both of our schedules to get this fixed.\n\nBest,\nJosh
-    Sanes\nIT Deptment"
+    has been leaked and the account is not SOC2 compliant. Your temporary password
+    is:\n\n\t\t\t\ttempPword123!\n\nWhen you sign in, change your password. This
+    password is only available for 1 hour.\n\nPlease reach out when you can if you
+  need help rotating it after that.\n\nBest,\nJosh Sanes\nIT Deptment"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7788,7 +7789,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Dear all deptments, \n\nCorporate has had a recent SOC2 audit! Over this
-    next week someone from Loyd's Bank will come ask you questions about Data Security.
+    next week someone from X Bank will come ask you questions about Data Security.
     Please be at your BEST behavior while the cybersecurity department handles the
     technicalities and such...\n\nMid Day,\nLily Pad\nIT Deptment\n\n\n"
   m_isRightToLeft: 0

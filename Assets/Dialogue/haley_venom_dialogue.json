@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "id": "haley_xbank_dialogue",
+    "title": "X Bank Reset - Haley Delgado",
+    "platform": "venom",
+    "character": "haley",
+    "description": "Trust-gated Venom conversation with Donald's assistant. High trust reveals the temporary password pattern for the X Bank finale."
+  },
+  "startNode": "start",
+  "nodes": {
+    "start": {
+      "type": "npc",
+      "speaker": "Haley Delgado",
+      "text": "Donald told me to ignore unknown Venom messages. If this is about another password reset, be specific.",
+      "choices": [
+        {
+          "id": "password_habit",
+          "text": "I saw the IT ticket. Donald keeps reusing the same password pattern.",
+          "nextNode": "medium_hint",
+          "conditions": {
+            "requiresJournalFile": "usr/ceo/password_habit.txt"
+          },
+          "effects": {
+            "addTrust": {
+              "character": "haley",
+              "amount": 35
+            }
+          }
+        },
+        {
+          "id": "audit_pressure",
+          "text": "Lily said the X Bank audit is tomorrow and Donald still has not changed it.",
+          "nextNode": "high_reveal",
+          "conditions": {
+            "requiresJournalFile": "usr/ceo/audit_memo.txt",
+            "minTrust": {
+              "character": "haley",
+              "value": 30
+            }
+          },
+          "effects": {
+            "setFlag": {
+              "key": "haley_trust_high",
+              "value": true
+            },
+            "addJournalFile": {
+              "path": "usr/ceo/temp_password.txt",
+              "content": "Donald Musk temporary password: tempPword123! (standard IT reset template from email; Haley says he reuses it everywhere)."
+            }
+          }
+        },
+        {
+          "id": "too_direct",
+          "text": "Give me Donald's bank password.",
+          "nextNode": "bad",
+          "effects": {
+            "setFlag": {
+              "key": "haley_suspicious",
+              "value": true
+            },
+            "addTrust": {
+              "character": "haley",
+              "amount": -30
+            }
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Never mind.",
+          "nextNode": "bye"
+        }
+      ]
+    },
+    "medium_hint": {
+      "type": "npc",
+      "speaker": "Haley Delgado",
+      "text": "He reuses the same IT temp-password email on every account. Same tempPword template Venom sends everyone.",
+      "autoNext": "start"
+    },
+    "high_reveal": {
+      "type": "npc",
+      "speaker": "Haley Delgado",
+      "text": "Fine. IT sent tempPword123! again for the audit reset. He was supposed to change it. He did not."
+    },
+    "bad": {
+      "type": "npc",
+      "speaker": "Haley Delgado",
+      "text": "Absolutely not. I am forwarding this to security."
+    },
+    "bye": {
+      "type": "npc",
+      "speaker": "Haley Delgado",
+      "text": "Good."
+    }
+  }
+}

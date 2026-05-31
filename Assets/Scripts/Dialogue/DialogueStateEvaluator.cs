@@ -13,6 +13,10 @@ public static class DialogueStateEvaluator
 
         if (!string.IsNullOrEmpty(option.requiredNotFlag) &&
             GameStateManager.Instance.GetFlag(option.requiredNotFlag))
+        {
+            return false;
+        }
+
         if (!string.IsNullOrEmpty(option.suppressIfFlag) &&
             GameStateManager.Instance.GetFlag(option.suppressIfFlag))
         {
@@ -82,6 +86,24 @@ public static class DialogueStateEvaluator
             return false;
         }
 
+        if (!string.IsNullOrEmpty(conditions.requiredJournalFile) &&
+            !GameStateManager.Instance.HasJournalFile(conditions.requiredJournalFile))
+        {
+            return false;
+        }
+
+        if (!string.IsNullOrEmpty(conditions.requiredUncommentedCodeBlock) &&
+            !GameStateManager.Instance.IsCodeBlockUncommented(conditions.requiredUncommentedCodeBlock))
+        {
+            return false;
+        }
+
+        if (!string.IsNullOrEmpty(conditions.requiredExhaustedInteractable) &&
+            !GameStateManager.Instance.IsInteractableExhausted(conditions.requiredExhaustedInteractable))
+        {
+            return false;
+        }
+
         if (!string.IsNullOrEmpty(conditions.trustCharacter) &&
             conditions.hasMinTrust &&
             GameStateManager.Instance.GetTrust(conditions.trustCharacter) < conditions.minTrust)
@@ -146,6 +168,11 @@ public static class DialogueStateEvaluator
             if (!string.IsNullOrEmpty(effect.journalEntry))
             {
                 GameStateManager.Instance.AddJournalEntry(effect.journalEntry);
+            }
+
+            if (!string.IsNullOrEmpty(effect.journalFilePath))
+            {
+                GameStateManager.Instance.AddJournalFile(effect.journalFilePath, effect.journalFileContent);
             }
         }
     }

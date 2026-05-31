@@ -20,6 +20,20 @@ public class JournalEntryInteractable : MonoBehaviour, IInteractable
 
     private Collider interactionCollider;
 
+    public void Configure(
+        JournalPaths.JournalOwner owner,
+        string targetFileName,
+        string targetContent,
+        string targetInteractableId,
+        bool showOnPickup = true)
+    {
+        journalOwner = owner;
+        fileName = targetFileName;
+        content = targetContent;
+        interactableId = targetInteractableId;
+        showJournalOnPickup = showOnPickup;
+    }
+
     private void Awake()
     {
         interactionCollider = GetComponent<Collider>();

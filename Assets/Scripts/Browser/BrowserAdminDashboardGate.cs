@@ -5,7 +5,8 @@ public class BrowserAdminDashboardGate : MonoBehaviour
 {
     private const string AdminBetaUrl = "https://www.araknyd.io/admin-beta";
     private const string AdminUrlsPath = "usr/araknyd/urls.txt";
-    private const string AdminDownloadCodeBlockId = "admin_download_database_button";
+    private const string AdminDownloadCodeBlockId = GameCodeBlocks.AdminDownloadDatabaseButton;
+    private const string AdminFileExplorerCodeBlockId = GameCodeBlocks.AdminFileExplorerSyncButton;
 
     [SerializeField] private TMP_Text urlText;
     [SerializeField] private TMP_Text sourceText;
@@ -16,6 +17,7 @@ public class BrowserAdminDashboardGate : MonoBehaviour
     [SerializeField] private bool createSourceDisplayWhenMissing = true;
 
     private GameObject exportCodeBlockObject;
+    private GameObject fileExplorerCodeBlockObject;
 
     private void Start()
     {
@@ -44,7 +46,7 @@ public class BrowserAdminDashboardGate : MonoBehaviour
         if (statusText != null)
         {
             statusText.text = dashboardUnlocked
-                ? "View-source clue unlocked. Uncomment exportCustomerDatabase()."
+                ? "View-source clues unlocked. Uncomment exportCustomerDatabase() and syncPasswordsToFileExplorer()."
                 : "Dashboard located. Lily's intel is still needed for the export clue.";
         }
 
@@ -54,7 +56,9 @@ public class BrowserAdminDashboardGate : MonoBehaviour
         if (unlockedStateRoot != null)
             unlockedStateRoot.SetActive(discovered);
 
-        EnsureExportCodeBlock(discovered && dashboardUnlocked);
+        bool actionable = discovered && dashboardUnlocked;
+        EnsureExportCodeBlock(actionable);
+        EnsureFileExplorerCodeBlock(actionable);
     }
 
     private bool IsAdminBetaDiscovered()
@@ -79,13 +83,22 @@ public class BrowserAdminDashboardGate : MonoBehaviour
 
         string source = adminDashboardSource.text;
 
-        if (GameStateManager.Instance != null &&
-            GameStateManager.Instance.IsCodeBlockUncommented(AdminDownloadCodeBlockId))
+        if (GameStateManager.Instance != null)
         {
-            source = source.Replace("/* [code-block-id: admin_download_database_button]\n", "");
-            source = source.Replace("\n*/\n// --- END admin_download_database_button ---", "\n// --- END admin_download_database_button ---");
+            if (GameStateManager.Instance.IsCodeBlockUncommented(AdminDownloadCodeBlockId))
+                source = UncommentBlock(source, AdminDownloadCodeBlockId);
+
+            if (GameStateManager.Instance.IsCodeBlockUncommented(AdminFileExplorerCodeBlockId))
+                source = UncommentBlock(source, AdminFileExplorerCodeBlockId);
         }
 
+        return source;
+    }
+
+    private static string UncommentBlock(string source, string codeBlockId)
+    {
+        source = source.Replace("/* [code-block-id: " + codeBlockId + "]\n", "");
+        source = source.Replace("\n*/\n// --- END " + codeBlockId + " ---", "\n// --- END " + codeBlockId + " ---");
         return source;
     }
 
@@ -143,5 +156,24 @@ public class BrowserAdminDashboardGate : MonoBehaviour
         }
 
         exportCodeBlockObject.SetActive(discovered);
+    }
+
+    private void EnsureFileExplorerCodeBlock(bool discovered)
+    {
+        if (fileExplorerCodeBlockObject == null)
+        {
+            fileExplorerCodeBlockObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            fileExplorerCodeBlockObject.name = "Admin File Explorer Code Block";
+            fileExplorerCodeBlockObject.layer = 3;
+            fileExplorerCodeBlockObject.transform.SetParent(transform, false);
+            fileExplorerCodeBlockObject.transform.localPosition = new Vector3(0.55f, -0.35f, 0.65f);
+            fileExplorerCodeBlockObject.transform.localRotation = Quaternion.identity;
+            fileExplorerCodeBlockObject.transform.localScale = new Vector3(0.6f, 0.08f, 0.18f);
+
+            CodeBlockInteractable codeBlock = fileExplorerCodeBlockObject.AddComponent<CodeBlockInteractable>();
+            codeBlock.Configure(AdminFileExplorerCodeBlockId);
+        }
+
+        fileExplorerCodeBlockObject.SetActive(discovered);
     }
 }

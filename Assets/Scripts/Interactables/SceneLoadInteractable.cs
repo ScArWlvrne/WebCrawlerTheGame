@@ -5,16 +5,35 @@ using UnityEngine.SceneManagement;
 public class SceneLoadInteractable : MonoBehaviour, IInteractable
 {
     [SerializeField] private string sceneName = "DesktopHub";
+    [SerializeField] private string requiredFlag;
+    [SerializeField] private string lockedMessage = "Locked.";
     [SerializeField] private Transform promptAnchor;
     [SerializeField] private CircleHoleTransition circleTransition;
     [SerializeField] private float transitionDelay = 0.2f;
 
     private bool isLoading;
 
+    public void Configure(string targetSceneName)
+    {
+        sceneName = targetSceneName;
+    }
+
+    public void Configure(string targetSceneName, string newRequiredFlag)
+    {
+        sceneName = targetSceneName;
+        requiredFlag = newRequiredFlag;
+    }
+
     public void Interact()
     {
         if (isLoading)
             return;
+
+        if (!CanLoad())
+        {
+            Debug.Log(lockedMessage);
+            return;
+        }
 
         StartCoroutine(LoadSceneSequence());
     }

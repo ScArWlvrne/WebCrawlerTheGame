@@ -46,6 +46,9 @@ public class DialogueConditionsDto
 {
     public string requiresFlag;
     public string requiresNotFlag;
+    public string requiresJournalFile;
+    public string requiresUncommentedCodeBlock;
+    public string requiresExhaustedInteractable;
     public DialogueTrustCheckDto minTrust;
     public DialogueTrustCheckDto maxTrust;
 }
@@ -61,6 +64,7 @@ public class DialogueEffectsDto
     public DialogueTrustChangeDto addTrust;
     public DialogueFlagSetDto setFlag;
     public string addJournalEntry;
+    public DialogueJournalFileDto addJournalFile;
 }
 
 public class DialogueTrustChangeDto
@@ -73,4 +77,10 @@ public class DialogueFlagSetDto
 {
     public string key;
     public bool value;
+}
+
+public class DialogueJournalFileDto
+{
+    public string path;
+    public string content;
 }

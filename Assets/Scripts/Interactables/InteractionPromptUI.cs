@@ -12,15 +12,17 @@ public class InteractionPromptUI : MonoBehaviour
 
     public void Show(bool usingGamepad, Transform anchor)
     {
+        Debug.Log("Prompt Show running");
+
         promptRoot.SetActive(true);
 
         buttonIcon.sprite = usingGamepad ? gamepadSprite : keyboardSprite;
 
-        transform.position = anchor.position;
+        promptRoot.transform.position = anchor.position;
 
         if (mainCamera != null)
         {
-            transform.rotation = mainCamera.transform.rotation;
+            promptRoot.transform.rotation = mainCamera.transform.rotation;
         }
     }
 

@@ -16,12 +16,13 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
     [SerializeField] private Transform promptAnchor;
 
     [Header("Player Positioning")]
-    [SerializeField] private Transform playerLaunchPoint;
     [SerializeField] private float minDistanceFromPivot = 3f;
 
     [Header("Icon Trapdoor")]
     [SerializeField] private Transform iconPivot;
-    [SerializeField] private float openAngle = 90f;
+    [SerializeField] private float openAngleXAxis = 0f;
+    [SerializeField] private float openAngleYAxis = 0f;
+    [SerializeField] private float openAngleZAxis = 0f;
     [SerializeField] private float openDuration = 0.4f;
 
     [Header("Player Leap")]
@@ -92,7 +93,7 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
     private IEnumerator SwingIconOpen()
     {
         Quaternion startRot = iconPivot.localRotation;
-        Quaternion endRot = startRot * Quaternion.Euler(0f, 0f, openAngle);
+        Quaternion endRot = startRot * Quaternion.Euler(openAngleXAxis, openAngleYAxis, openAngleZAxis);
 
         float timer = 0f;
 

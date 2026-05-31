@@ -9,6 +9,7 @@ using UnityEngine;
 public class GameBootstrap : MonoBehaviour
 {
     [SerializeField] private bool ensureDialogueUI = true;
+    [SerializeField] private GameObject dialogueUIPrefab;
     [SerializeField] private bool ensureJournalUI = true;
 
     private void Awake()

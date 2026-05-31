@@ -103,7 +103,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2656137409011647600}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0, z: 0.016292691}
+  m_LocalPosition: {x: 0, y: 0, z: -3.1113174}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -112,7 +112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -6.1550503, y: 1.07}
+  m_AnchoredPosition: {x: -57.9327, y: 1.2350354}
   m_SizeDelta: {x: 1119.5, y: 630}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8903767479894275551
@@ -190,7 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc357b964872a5498f2eff58e2d1395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionPromptUI
-  promptRoot: {fileID: 2656137409011647600}
   buttonIcon: {fileID: 8093688380642582683}
   keyboardSprite: {fileID: 21300000, guid: 3b60f18d9a1ea8d45b28277d20794055, type: 3}
   gamepadSprite: {fileID: 21300000, guid: 4ee82a45009705b4d9e5d567010ea69e, type: 3}

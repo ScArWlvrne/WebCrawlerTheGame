@@ -144,6 +144,22 @@ public class GameStateManager : MonoBehaviour
         State = SaveSystem.Load();
     }
 
+    public bool HasSave()
+    {
+        return SaveSystem.HasSave();
+    }
+
+    public void DeleteSave()
+    {
+        SaveSystem.DeleteSave();
+    }
+
+    public void NewGame()
+    {
+        State = new GameState();
+        DeleteSave();
+    }
+
     public void ExhaustInteractable(string interactableId)
     {
         if (!State.exhaustedInteractables.Contains(interactableId))

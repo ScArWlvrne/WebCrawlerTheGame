@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ARAKNYD INTERNAL ADMIN — /admin/v2/dashboard.js (bundled into this HTML for "speed")
+  Maintainer: "the guy who left" (2019)
+  Current owner: Lily (against her will)
+  SSO: @araknyd.io — role checks: "is logged in" (that's the whole RBAC model)
+
+  VIEW-SOURCE PUZZLE FILE — commented blocks are lore, not runnable code.
+  Categories: HARMLESS | FUNNY | BROKEN | CRITICAL
+-->
+<head>
+  <meta charset="UTF-8">
+  <title>Araknyd Admin v2 — Internal Only (probably)</title>
+  <style>
+    body { font-family: Consolas, monospace; background: #0d1117; color: #8b949e; }
+    .banner { background: #ff6b35; color: #000; padding: 8px; font-weight: bold; }
+    pre { white-space: pre-wrap; font-size: 12px; }
+    .cat { color: #58a6ff; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <div class="banner">⚠ INTERNAL — IF YOU CAN READ THIS, SO CAN MERIDIAN CORP (apparently)</div>
+  <p>Simulated view-source dump. None of this executes. Comments are the product.</p>
+  <pre>
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CATEGORY: HARMLESS (4 blocks)
+   Low risk. High shame. Still in prod.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+// --- HARMLESS #1: Dark mode toggle that only inverts the favicon ---
+/*
+function toggleDarkMode() {
+  document.body.classList.toggle('dark'); // class undefined in CSS since 2021
+  const link = document.querySelector('link[rel=icon]');
+  link.href = link.href.includes('dark') ? '/favicon.ico' : '/favicon-dark.ico'; // file missing
+  localStorage.setItem('theme', 'dark'); // always dark. user choice is an illusion.
+}
+*/
+
+// --- HARMLESS #2: "Copy incident ID" button (copies CEO's cell number by mistake) ---
+/*
+function copyIncidentId(incidentId) {
+  // incidentId param ignored — hardcoded during P0 panic
+  navigator.clipboard.writeText('555-0142-ARKNYD'); // that's the CEO's phone
+  toast('Incident ID copied!'); // legal reviewing this
+}
+*/
+
+// --- HARMLESS #3: Jira ticket counter (always returns 200+) ---
+/*
+async function fetchOpenTicketCount() {
+  // Lily: "accurate number causes manager to ask questions"
+  return 200 + Math.floor(Math.random() * 50);
+  // Real Jira integration removed to save $14/mo
+}
+*/
+
+// --- HARMLESS #4: Standup reminder (fires at 3am for offshore team we don't have) ---
+/*
+setInterval(() => {
+  if (new Date().getHours() === 3) {
+    playSound('/assets/airhorn.mp3'); // removed after HR complaint, call remains
+    alert('Standup in 5 minutes!!!'); // timezone: "founder o'clock"
+  }
+}, 60000);
+*/
+
+// --- HARMLESS #5: Console easter egg ---
+/*
+console.log('%c🕷️ Araknyd Admin v2', 'font-size:24px;color:#ff6b35');
+console.log('%cYou found the source. Lily says hi. CEO says sue.', 'font-size:12px');
+*/
+
+  </pre>
+
+  <p style="color:#484f58;font-size:11px;">
+    File path (in-universe): /admin/v2/dashboard.js ·
+    Clue for players: search source for <code>exportCustomerDatabase</code>
+  </p>
+</body>
+</html>

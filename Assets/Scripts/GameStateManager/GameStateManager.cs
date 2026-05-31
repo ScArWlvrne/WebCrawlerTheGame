@@ -201,4 +201,9 @@ public class GameStateManager : MonoBehaviour
     {
         return State.uncommentedCodeBlocks.Contains(codeBlockId);
     }
+
+    public bool HasJoeSecurityQuestionsInJournal()
+    {
+        return GetFlag(GameFlags.JoeSecurityQuestionsInJournal);
+    }
 }

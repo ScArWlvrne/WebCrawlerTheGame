@@ -47,6 +47,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SystemTesting.unity
     guid: 7b7e969b066e3449a9755ad869263df4
+  - enabled: 1
+    path: Assets/Scenes/Email.unity
+    guid: a3d2528dede844879b8066bd78ed761f
+  - enabled: 1
+    path: Assets/Scenes/Venom.unity
+    guid: ecdbf781f8a8a4e3fa04eaddd249291d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

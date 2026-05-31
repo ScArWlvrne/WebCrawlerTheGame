@@ -11,18 +11,6 @@ public static class GameFlags
     public const string LilyE2EUrlsRevealed = "lily_e2e_urls_revealed";
     public const string LilyE2EMediumHintGiven = "lily_e2e_medium_hint_given";
     public const string LilyE2EHighHintGiven = "lily_e2e_high_hint_given";
-    public const string AraknydFinaleUnlocked = "araknyd_finale_unlocked";
-    public const string XBankHomeCrawled = "xbank_home_crawled";
-    public const string XBankPortalDiscovered = "xbank_portal_discovered";
-    public const string JournalUrlsXBankUpdated = "journal_urls_xbank_updated";
-    public const string DonaldEmailRead = "donald_email_read";
-    public const string HaleySuspicious = "haley_suspicious";
-    public const string HaleyTrustHigh = "haley_trust_high";
-    public const string XBankLoginAttempted = "xbank_login_attempted";
-    public const string WebInspectorXBankSourceGranted = "web_inspector_xbank_source_granted";
-    public const string XBankAccountAccessed = "xbank_account_accessed";
-    public const string XBankWireInitiated = "xbank_wire_initiated";
-    public const string XBankMeridianExposed = "xbank_meridian_exposed";
-    public const string GameWon = "game_won";
+    public const string JoeSecurityQuestionsInJournal = "joe_security_questions_in_journal";
 }
 

@@ -43,11 +43,11 @@ public class SceneLoadInteractable : MonoBehaviour, IInteractable
         return promptAnchor != null ? promptAnchor : transform;
     }
 
-    private bool CanLoad()
+    public void Configure(string targetScene, CircleHoleTransition transition, Transform anchor)
     {
-        return string.IsNullOrEmpty(requiredFlag) ||
-            (GameStateManager.Instance != null &&
-            GameStateManager.Instance.GetFlag(requiredFlag));
+        sceneName = targetScene;
+        circleTransition = transition;
+        promptAnchor = anchor;
     }
 
     private IEnumerator LoadSceneSequence()

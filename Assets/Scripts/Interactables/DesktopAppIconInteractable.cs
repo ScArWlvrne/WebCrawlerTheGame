@@ -7,6 +7,8 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
     private static WaitForSeconds _waitForSeconds0_5 = new WaitForSeconds(0.5f);
     [Header("Scene")]
     [SerializeField] private string sceneName;
+    [SerializeField] private string requiredFlag;
+    [SerializeField] private string lockedMessage = "Locked.";
 
     [Header("References")]
     [SerializeField] private MonoBehaviour playerControllerScript;
@@ -48,6 +50,12 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
         if (isRunning)
             return;
 
+        if (!CanOpen())
+        {
+            Debug.Log(lockedMessage);
+            return;
+        }
+
         if (PlayerIsTooCloseToPivot())
         {
             Debug.LogWarning("Too close to pivot!");
@@ -60,6 +68,13 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
     public Transform GetPromptAnchor()
     {
         return isRunning ? null : promptAnchor;
+    }
+
+    private bool CanOpen()
+    {
+        return string.IsNullOrEmpty(requiredFlag) ||
+            (GameStateManager.Instance != null &&
+            GameStateManager.Instance.GetFlag(requiredFlag));
     }
 
     private IEnumerator OpenAppSequence()

@@ -27,6 +27,15 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
 
     private Collider interactionCollider;
 
+    public void Configure(string newCodeBlockId, string newRequiredFlag = null, bool disableWhenUncommented = true)
+    {
+        codeBlockId = newCodeBlockId;
+        requiredFlag = newRequiredFlag;
+        disableInteractionWhenUncommented = disableWhenUncommented;
+        SyncVisualState();
+        ApplyInteractionState();
+    }
+
     private void Awake()
     {
         interactionCollider = GetComponent<Collider>();
@@ -62,12 +71,16 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
         }
 
         GameStateManager.Instance.UncommentCodeBlock(codeBlockId);
+        if (codeBlockId == GameCodeBlocks.AdminDownloadDatabaseButton)
+            GameStateManager.Instance.SetFlag(GameFlags.AraknydFinaleUnlocked, true);
+
         GameStateManager.Instance.SaveGame();
 
         Debug.Log("Uncommented code block: " + codeBlockId);
 
         SyncVisualState();
         ApplyInteractionState();
+        FindFirstObjectByType<BrowserXBankGate>()?.Refresh();
         TryStartPostUncommentDialogue();
     }
 

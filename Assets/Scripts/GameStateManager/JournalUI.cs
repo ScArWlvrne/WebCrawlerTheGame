@@ -93,6 +93,10 @@ public class JournalUI : MonoBehaviour
 
         StringBuilder builder = new StringBuilder();
         builder.Append("usr/\n");
+        builder.Append("  araknyd/\n");
+        builder.Append("  ceo/\n");
+        builder.Append("  xbank/\n");
+        builder.Append("\n");
 
         if (GameStateManager.Instance.State.journalFiles.Count == 0)
         {
@@ -111,6 +115,10 @@ public class JournalUI : MonoBehaviour
         }
 
         bodyText.text = builder.ToString().TrimEnd();
+
+        if (hintText != null)
+            hintText.text = GetObjectiveHint();
+
         Debug.Log("JournalUI refreshed — file count: " + GameStateManager.Instance.State.journalFiles.Count);
     }
 
@@ -216,8 +224,55 @@ public class JournalUI : MonoBehaviour
 
         hintText = CreateText("HintText", journalPanel.transform, 20, FontStyles.Italic,
             new Vector2(0.04f, 0.02f), new Vector2(0.96f, 0.06f), TextAlignmentOptions.BottomLeft);
-        hintText.text = "Press Escape to close and resume play. Press J to reopen later.";
+        hintText.text = GetObjectiveHint();
         hintText.color = HintTextColor;
+    }
+
+    private static string GetObjectiveHint()
+    {
+        if (GameStateManager.Instance == null)
+            return "Press Escape to close and resume play. Press J to reopen later.";
+
+        if (GameStateManager.Instance.GetFlag(GameFlags.GameWon))
+            return "Objective complete: X Bank transfer initiated and Meridian wires exposed.";
+
+        if (!GameStateManager.Instance.GetFlag(GameFlags.AraknydFinaleUnlocked))
+            return GetAraknydObjectiveHint();
+
+        if (!GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.XBank, "urls.txt")))
+            return "Objective: Open the X Bank desktop site.";
+
+        if (!GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.XBank, "username_hint.txt")))
+            return "Objective: Read Donald's Email for the X Bank username.";
+
+        if (!GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.CEO, "temp_password.txt")))
+            return "Objective: Use Venom to get Haley's password reset clue.";
+
+        if (!GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.CEO, "security_mother.txt")) ||
+            !GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.CEO, "security_pet.txt")))
+            return "Objective: Inspect Donald's FaceWeb clues in Spider Edge.";
+
+        if (!GameStateManager.Instance.IsCodeBlockUncommented(GameCodeBlocks.XBankMfaValidationBlock))
+            return "Objective: Ask Web Inspector to unlock X Bank source and uncomment the MFA block.";
+
+        if (!GameStateManager.Instance.GetFlag(GameFlags.XBankAccountAccessed))
+            return "Objective: Use the X Bank login panel in Spider Edge.";
+
+        return "Objective: Uncomment transfer confirmation and initiate the finale.";
+    }
+
+    private static string GetAraknydObjectiveHint()
+    {
+        if (!GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.Araknyd, "urls.txt")))
+            return "Objective: Use Terminal to discover Araknyd's admin page.";
+
+        if (!GameStateManager.Instance.GetFlag(GameFlags.AdminDashboardUnlocked))
+            return "Objective: Use Venom to get Lily's admin dashboard intel.";
+
+        if (!GameStateManager.Instance.IsCodeBlockUncommented(GameCodeBlocks.AdminDownloadDatabaseButton))
+            return "Objective: Open Spider Edge and uncomment Araknyd's database export.";
+
+        return "Objective: Return to Desktop and open the X Bank site.";
     }
 
     private static void CreateTitleBar(Transform parent)

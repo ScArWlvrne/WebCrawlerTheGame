@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us — Araknyd (We Web Better™)</title>
+  <meta name="description" content="Founded 2019. Still here. Not sure why.">
+  <style>
+    body { font-family: Consolas, monospace; background: #0d1117; color: #c9d1d9; margin: 0; }
+    .hero { background: linear-gradient(135deg, #ff6b35 0%, #f85149 100%); color: #000; padding: 24px; }
+    .hero h1 { margin: 0; font-size: 28px; }
+    .hero p { margin: 8px 0 0; opacity: 0.85; }
+    main { max-width: 720px; margin: 0 auto; padding: 24px; }
+    .team { display: grid; gap: 16px; margin-top: 24px; }
+    .card { border: 1px solid #30363d; border-radius: 6px; padding: 16px; background: #161b22; }
+    .card h3 { margin: 0 0 4px; color: #58a6ff; }
+    .card .title { color: #8b949e; font-size: 12px; margin-bottom: 8px; }
+    pre { white-space: pre-wrap; font-size: 11px; color: #8b949e; border-top: 1px solid #21262d; margin-top: 32px; padding-top: 16px; }
+    .disclaimer { color: #484f58; font-size: 11px; margin-top: 24px; }
+    .mascot { float: right; opacity: 0.4; font-size: 48px; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <span class="mascot" aria-hidden="true">🕷️</span>
+    <h1>About Us</h1>
+    <p>Araknyd builds the web the way nature intended: tangled, resilient, and slightly venomous.</p>
+  </div>
+
+  <main>
+    <section>
+      <h2>Our Story</h2>
+      <p>
+        Araknyd started in a WeWork closet with one laptop, three energy drinks, and a domain
+        we bought during a panic attack. Today we serve <strong>47 customers</strong>
+        (down from 48 after the Great CSV Incident) across fintech, healthtech, and
+        "we're not sure yet" tech.
+      </p>
+      <p>
+        Our mission is simple: <em>We Web Better™</em>. Our legal team asked us to add
+        "results may vary" but we ran out of Notion seats.
+      </p>
+    </section>
+
+    <section class="team">
+      <h2>Leadership &amp; Friends</h2>
+
+      <article class="card">
+        <h3>Donald K. — CEO / Chief Vibes Officer</h3>
+        <p class="title">Previously: "thought leader" · Currently: in every Slack channel</p>
+        <p>
+          Believes every problem is solved by moving fast and deleting the staging environment
+          "when we're ready" (we were never ready). Once tweeted our admin URL. HR said it was
+          "a learning moment."
+        </p>
+        <p>
+          <audio controls preload="metadata" src="DonaldMusk.wav">
+            CEO message (audio)
+          </audio>
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Lily Chen — Senior Backend Engineer</h3>
+        <p class="title">Keeps production alive · Hates webhook retries slightly less than before</p>
+        <p>
+          The only person who reads postmortems. Maintains the blog, the robots.txt guilt,
+          and approximately 60% of our dignity. If something is commented out in prod, she
+          probably commented it out on purpose.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Intern #12 — DevOps (Just SSH)</h3>
+        <p class="title">Name redacted per intern handbook §4.2</p>
+        <p>
+          Joined for "exposure to production." Got exposure. Still here because we lost
+          the offboarding checklist in a Google Doc nobody has edit access to.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Web Inspector — Head of DOM Structural Integrity</h3>
+        <p class="title">Licensed · Hard-hat compliant · Not in org chart (yet)</p>
+        <p>
+          In-house code maintenance spider. Patches load-bearing divs, evicts illegal nesting,
+          and will absolutely stop you if you try to edit source without a work order.
+        </p>
+      </article>
+    </section>
+
+    <section>
+      <h2>Values</h2>
+      <ul>
+        <li><strong>Move fast</strong> — documentation is for companies with Series B</li>
+        <li><strong>Break things thoughtfully</strong> — usually on Fridays after 4pm</li>
+        <li><strong>Customer obsession</strong> — we have a Jira board labeled "obsession" with 200 tickets</li>
+        <li><strong>Transparency</strong> — our status page is green; our souls are amber</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Press &amp; Partners</h2>
+      <p>
+        Featured in <em>HackerNest</em> ("promising"), <em>TechCrunch</em> (declined),
+        and a cease-and-desist from Meridian Corp (pending — their lawyers are slow, ours are
+        a PDF signed in 2021).
+      </p>
+    </section>
+
+    <p class="disclaimer">
+      Simulated view-source dump. None of this executes. The vibes, however, are real.
+    </p>
+
+    <pre>
+
+
+
+// TODO: replace lorem ipsum with actual mission statement (ticket open since 2019)
+/*
+const TEAM = [
+  { name: 'Donald', role: 'CEO', equity: 'a lot', sleep: null },
+  { name: 'Lily', role: 'Engineer', equity: 'enough', sleep: false },
+  { name: 'Intern #12', role: 'SSH', equity: 'exposure', sleep: 'optional' },
+];
+
+function renderTeamPage() {
+  TEAM.forEach(person => {
+    if (person.name === 'Donald') {
+      person.bio = person.bio || 'Visionary. Disruptor. Once replied-all to entire company.';
+    }
+  });
+  // forgot return statement. page renders anyway. classic Araknyd.
+}
+*/
+
+// analytics.js — installed by marketing, maintained by nobody
+/*
+(function initAboutPageTracking() {
+  gtag('event', 'page_view', { page: '/about-us' }); // wrong path. we've never fixed it.
+  gtag('event', 'page_view', { page: '/about' });     // duplicate. CEO loves "data"
+  hotjar.identify('visitor_' + Math.random());       // GDPR? never heard of her.
+})();
+*/
+
+// carousel from 2014 WordPress theme. still here. still broken.
+/*
+let slideIndex = 0;
+function rotateFounderQuotes() {
+  const quotes = [
+    'We are the Uber of webs.',
+    'We are the Netflix of HTML.',
+    'We are a B2B SaaS platform.', // nobody knows what we sell
+  ];
+  document.getElementById('quote').innerText = quotes[slideIndex++ % quotes.length];
+  // #quote element removed in redesign. function runs into void. poetic.
+}
+setInterval(rotateFounderQuotes, 3000);
+*/
+
+// contact form — sends to /dev/null literally
+/*
+document.querySelector('#contact-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  await fetch('/api/v1/contact', { method: 'POST', body: new FormData(e.target) });
+  // endpoint returns 200 with empty body. messages go to Donald's unread inbox (47,000).
+  showToast('Thanks! We\'ll get back to you never.');
+});
+*/
+
+// org chart embed — outdated on purpose (lore)
+/*
+// Last updated: 2019-11-03. Do not refresh without Legal approval.
+// NOTE: /admin-beta still listed under "Internal Tools" for "bookmark compatibility"
+//       per CEO memo ARK-1337. Public sitemap intentionally omits it. Not a bug. Probably.
+const ORG_CHART_LEGACY_PATHS = [
+  '/admin-beta/dashboard',
+  '/admin/v2/dashboard.js',
+];
+*/
+
+// mascot easter egg — Pickles is Joe's dog, not ours, but Donald insisted
+/*
+function onMascotClick() {
+  playSound('/assets/spider-chitter.mp3'); // file is 0 bytes
+  console.log('🕷️ We Web Better™');
+  // Lily: "please remove this before launch"
+  // Donald: "it's our brand"
+  // Launch: 2019. Still here.
+}
+*/
+
+// dark mode toggle — copied from admin dashboard. still broken here too.
+/*
+function toggleDarkMode() {
+  document.body.classList.toggle('dark'); // no .dark styles on this page
+  localStorage.setItem('theme', 'dark');  // user has no choice. it's always dark. literally.
+}
+*/
+
+    </pre>
+
+    <p class="disclaimer">
+      File path (in-universe): /about/index.html ·
+      Crawl target: <code>https://www.araknyd.io/about</code> ·
+      Nav label: About Us
+    </p>
+  </main>
+</body>
+</html>

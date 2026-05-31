@@ -28,8 +28,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isInteracting)
-            return;
+        if (isInteracting) return;
 
         UpdateCurrentInteractable();
         Vector2 input = Vector2.zero;

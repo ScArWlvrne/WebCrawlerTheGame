@@ -50,7 +50,6 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
         if (PlayerIsTooCloseToPivot())
         {
             Debug.LogWarning("Too close to pivot!");
-            // TODO: Error sound or something idfk
             return;
         }
 

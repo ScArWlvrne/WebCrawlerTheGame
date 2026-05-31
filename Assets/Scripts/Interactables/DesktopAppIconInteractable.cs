@@ -12,6 +12,7 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
     [SerializeField] private MonoBehaviour playerControllerScript;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private Transform promptAnchor;
 
     [Header("Player Positioning")]
     [SerializeField] private Transform playerLaunchPoint;
@@ -35,7 +36,7 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
 
     private bool isRunning;
 
-    public string GetPrompt()
+    public string GetPromptText()
     {
         return "Open";
     }
@@ -53,6 +54,11 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
         }
 
         StartCoroutine(OpenAppSequence());
+    }
+
+    public Transform GetPromptAnchor()
+    {
+        return promptAnchor;
     }
 
     private IEnumerator OpenAppSequence()

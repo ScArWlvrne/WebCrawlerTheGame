@@ -1222,6 +1222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400070}
   - component: {fileID: 9500000}
+  - component: {fileID: 7158048536422778050}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -1268,6 +1269,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7158048536422778050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04853c6286c2a24cad22ab265d8410c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  playerController: {fileID: 730394642980206057}
 --- !u!1 &437146657106341473
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,6 +1293,7 @@ GameObject:
   - component: {fileID: 3927940662696935547}
   - component: {fileID: 3762463056492868982}
   - component: {fileID: 730394642980206057}
+  - component: {fileID: 6773934285301326793}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1342,4 +1357,23 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 270
   maxRotationSpeedMultiplier: 2.5
-  animator: {fileID: 0}
+  animator: {fileID: 9500000}
+  interactRange: 1.5
+  interactAngle: 60
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  interactionPromptUI: {fileID: 4026855311704261470, guid: afa89da49bedf4148a801cbb51a18168, type: 3}
+--- !u!114 &6773934285301326793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437146657106341473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f3b98ac4d3b674daa0ac50c4cefea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneTransitionEntry
+  transition: {fileID: 0}

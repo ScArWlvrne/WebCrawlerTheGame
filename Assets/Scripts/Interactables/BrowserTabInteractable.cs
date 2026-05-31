@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 public class BrowserTabInteractable : MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform promptAnchor;
-    [SerializeField] private InteractionPromptUI interactionPromptUI;
     [SerializeField] private Material activeTabMaterial;
     [SerializeField] private Material inactiveTabMaterial;
     [SerializeField] private GameObject contentToActivate;

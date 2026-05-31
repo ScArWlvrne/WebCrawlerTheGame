@@ -14,6 +14,8 @@ public class CircleHoleTransition : MonoBehaviour
         material = Instantiate(transitionImage.material);
         transitionImage.material = material;
 
+        // SetRadius(2f);
+
         transitionImage.gameObject.SetActive(true);
     }
 

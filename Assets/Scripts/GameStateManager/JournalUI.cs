@@ -245,8 +245,8 @@ public class JournalUI : MonoBehaviour
         if (!GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.XBank, "username_hint.txt")))
             return "Objective: Read Donald's Email for the X Bank username.";
 
-        if (!GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.CEO, "temp_password.txt")))
-            return "Objective: Use Venom to get Haley's password reset clue.";
+        if (!DonaldBankPasswordIntel.IsKnown())
+            return "Objective: Get Donald's bank password from Venom or the Araknyd admin File Explorer sync.";
 
         if (!GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.CEO, "security_mother.txt")) ||
             !GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.CEO, "security_pet.txt")))
@@ -271,6 +271,9 @@ public class JournalUI : MonoBehaviour
 
         if (!GameStateManager.Instance.IsCodeBlockUncommented(GameCodeBlocks.AdminDownloadDatabaseButton))
             return "Objective: Open Spider Edge and uncomment Araknyd's database export.";
+
+        if (!GameStateManager.Instance.IsCodeBlockUncommented(GameCodeBlocks.AdminFileExplorerSyncButton))
+            return "Objective: Uncomment syncPasswordsToFileExplorer() to pull Donald's bank password into the journal.";
 
         return "Objective: Return to Desktop and open the X Bank site.";
     }

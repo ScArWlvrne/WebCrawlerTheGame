@@ -45,7 +45,7 @@
             },
             "addJournalFile": {
               "path": "usr/ceo/temp_password.txt",
-              "content": "Donald Musk temporary password pattern: Araknyd628!. Haley says he built it from company name + birthday month/day."
+              "content": "Donald Musk temporary password: tempPword123! (standard IT reset template from email; Haley says he reuses it everywhere)."
             }
           }
         },
@@ -74,13 +74,13 @@
     "medium_hint": {
       "type": "npc",
       "speaker": "Haley Delgado",
-      "text": "He uses Araknyd plus important dates. I keep telling him that is not a password strategy.",
+      "text": "He reuses the same IT temp-password email on every account. Same tempPword template Venom sends everyone.",
       "autoNext": "start"
     },
     "high_reveal": {
       "type": "npc",
       "speaker": "Haley Delgado",
-      "text": "Fine. IT issued Araknyd628! for the audit reset. He was supposed to change it. He did not."
+      "text": "Fine. IT sent tempPword123! again for the audit reset. He was supposed to change it. He did not."
     },
     "bad": {
       "type": "npc",

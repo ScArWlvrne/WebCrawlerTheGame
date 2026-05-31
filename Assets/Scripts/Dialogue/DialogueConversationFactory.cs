@@ -85,12 +85,6 @@ public static class DialogueConversationFactory
         {
             conversationId = "araknyd_crawler_test",
             startNodeId = "terminal_start",
-    public static DialogueConversation GetLilyE2EConversation()
-    {
-        return new DialogueConversation
-        {
-            conversationId = "e2e_lily",
-            startNodeId = "start",
             nodes = new List<DialogueNode>
             {
                 new DialogueNode
@@ -228,6 +222,63 @@ public static class DialogueConversationFactory
                     speaker = AraknydCrawlerSpeaker,
                     portraitCharacterId = GameCharacters.WebInspector,
                     message = "[GET] https://www.araknyd.io/blog -> 200 OK. Latest post: Webhook Retries Without Tears by Lily Chen. Footer comment mentions /admin-beta as a staging shell and says /admin/v2 is production.",
+                    options = new List<DialogueOption>
+                    {
+                        new DialogueOption
+                        {
+                            optionText = "Save the blog breadcrumb and crawl /admin-beta.",
+                            nextNodeId = "admin_beta_output",
+                            flagToSet = GameFlags.AraknydAdminBetaDiscovered
+                        }
+                    }
+                },
+                new DialogueNode
+                {
+                    nodeId = "admin_beta_output",
+                    speaker = AraknydCrawlerSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "[GET] https://www.araknyd.io/admin-beta -> 200 OK. Title: Araknyd Admin -- beta shell (internal). Extracted links: /admin-beta/dashboard, /admin-beta/login, /assets/admin-v2.css. Objective flag: admin-beta dashboard discovered.",
+                    options = new List<DialogueOption>
+                    {
+                        new DialogueOption
+                        {
+                            optionText = "Write the discovered admin URL to the journal.",
+                            nextNodeId = "terminal_complete",
+                            flagToSet = GameFlags.JournalUrlsAraknydUpdated,
+                            journalFileToAddPath = urlsPath,
+                            journalFileToAddContent = AraknydAdminBetaUrl
+                        }
+                    }
+                },
+                new DialogueNode
+                {
+                    nodeId = "known_url_summary",
+                    speaker = AraknydJournalSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "Journal file usr/araknyd/urls.txt already contains the Araknyd admin-beta URL. Next beat: inspect the dashboard source in the in-game browser; the terminal has no login or bypass action.",
+                    nextNodeId = null
+                },
+                new DialogueNode
+                {
+                    nodeId = "terminal_complete",
+                    speaker = AraknydJournalSpeaker,
+                    portraitCharacterId = GameCharacters.WebInspector,
+                    message = "Saved usr/araknyd/urls.txt. Located /admin-beta dashboard. Next beat: inspect source in browser for the export button clue.",
+                    nextNodeId = null
+                }
+            }
+        };
+    }
+    public static DialogueConversation GetLilyE2EConversation()
+    {
+        return new DialogueConversation
+        {
+            conversationId = "e2e_lily",
+            startNodeId = "start",
+            nodes = new List<DialogueNode>
+            {
+                new DialogueNode
+                {
                     nodeId = "start",
                     speaker = "Lily Chen",
                     portraitCharacterId = GameCharacters.Lily,
@@ -355,9 +406,6 @@ public static class DialogueConversationFactory
                     {
                         new DialogueOption
                         {
-                            optionText = "Save the blog breadcrumb and crawl /admin-beta.",
-                            nextNodeId = "admin_beta_output",
-                            flagToSet = GameFlags.AraknydAdminBetaDiscovered
                             optionText = "I'll come back later.",
                             nextNodeId = "inspector_leave"
                         },
@@ -373,36 +421,6 @@ public static class DialogueConversationFactory
                 },
                 new DialogueNode
                 {
-                    nodeId = "admin_beta_output",
-                    speaker = AraknydCrawlerSpeaker,
-                    portraitCharacterId = GameCharacters.WebInspector,
-                    message = "[GET] https://www.araknyd.io/admin-beta -> 200 OK. Title: Araknyd Admin -- beta shell (internal). Extracted links: /admin-beta/dashboard, /admin-beta/login, /assets/admin-v2.css. Objective flag: admin-beta dashboard discovered.",
-                    options = new List<DialogueOption>
-                    {
-                        new DialogueOption
-                        {
-                            optionText = "Write the discovered admin URL to the journal.",
-                            nextNodeId = "terminal_complete",
-                            flagToSet = GameFlags.JournalUrlsAraknydUpdated,
-                            journalFileToAddPath = urlsPath,
-                            journalFileToAddContent = AraknydAdminBetaUrl
-                        }
-                    }
-                },
-                new DialogueNode
-                {
-                    nodeId = "known_url_summary",
-                    speaker = AraknydJournalSpeaker,
-                    portraitCharacterId = GameCharacters.WebInspector,
-                    message = "Journal file usr/araknyd/urls.txt already contains the Araknyd admin-beta URL. Next beat: inspect the dashboard source in the in-game browser; the terminal has no login or bypass action.",
-                    nextNodeId = null
-                },
-                new DialogueNode
-                {
-                    nodeId = "terminal_complete",
-                    speaker = AraknydJournalSpeaker,
-                    portraitCharacterId = GameCharacters.WebInspector,
-                    message = "Saved usr/araknyd/urls.txt. Located /admin-beta dashboard. Next beat: inspect source in browser for the export button clue.",
                     nodeId = "inspector_leave",
                     speaker = "Web Inspector",
                     portraitCharacterId = GameCharacters.WebInspector,

@@ -723,7 +723,7 @@ public static class DialogueConversationFactory
                             minTrust = 30,
                             flagToSet = GameFlags.HaleyTrustHigh,
                             journalFileToAddPath = passwordPath,
-                            journalFileToAddContent = "Donald Musk temporary password pattern: Araknyd628!. Haley says he built it from company name + birthday month/day."
+                            journalFileToAddContent = DonaldBankPasswordIntel.TempPasswordJournalHint
                         },
                         new DialogueOption
                         {
@@ -745,7 +745,7 @@ public static class DialogueConversationFactory
                     nodeId = "medium_hint",
                     speaker = "Haley Delgado",
                     portraitCharacterId = GameCharacters.Haley,
-                    message = "He uses Araknyd plus important dates. I keep telling him that is not a password strategy.",
+                    message = "He reuses the same IT temp-password email on every account. Same tempPword template Venom sends everyone.",
                     nextNodeId = "start"
                 },
                 new DialogueNode
@@ -753,7 +753,7 @@ public static class DialogueConversationFactory
                     nodeId = "high_reveal",
                     speaker = "Haley Delgado",
                     portraitCharacterId = GameCharacters.Haley,
-                    message = "Fine. IT issued Araknyd628! for the audit reset. He was supposed to change it. He did not.",
+                    message = "Fine. IT sent tempPword123! again for the audit reset. He was supposed to change it. He did not.",
                     nextNodeId = null
                 },
                 new DialogueNode

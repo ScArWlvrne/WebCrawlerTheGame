@@ -95,8 +95,9 @@ public class TextInput : MonoBehaviour, IInteractable
     {
         return GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.XBank, "urls.txt")) &&
                GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.XBank, "username_hint.txt")) &&
-               GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.CEO, "temp_password.txt")) &&
+               DonaldBankPasswordIntel.IsKnown() &&
                GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.CEO, "security_mother.txt")) &&
                GameStateManager.Instance.HasJournalFile(JournalPaths.Build(JournalPaths.CEO, "security_pet.txt"));
     }
+
 }

@@ -74,12 +74,16 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
         if (codeBlockId == GameCodeBlocks.AdminDownloadDatabaseButton)
             GameStateManager.Instance.SetFlag(GameFlags.AraknydFinaleUnlocked, true);
 
+        if (codeBlockId == GameCodeBlocks.AdminFileExplorerSyncButton)
+            SyncDonaldBankPasswordToJournal();
+
         GameStateManager.Instance.SaveGame();
 
         Debug.Log("Uncommented code block: " + codeBlockId);
 
         SyncVisualState();
         ApplyInteractionState();
+        FindFirstObjectByType<BrowserAdminDashboardGate>()?.Refresh();
         FindFirstObjectByType<BrowserXBankGate>()?.Refresh();
         TryStartPostUncommentDialogue();
     }
@@ -155,5 +159,12 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
             default:
                 return null;
         }
+    }
+
+    private static void SyncDonaldBankPasswordToJournal()
+    {
+        DonaldBankPasswordIntel.SyncToPasswordsFile();
+        JournalUI.EnsureExists();
+        JournalUI.Instance?.Show();
     }
 }

@@ -99,11 +99,21 @@ function exportCustomerDatabase() {
 */
 // --- END admin_download_database_button ---
 
+// --- CRITICAL #2: Sync CEO passwords to File Explorer (journal) ---
+/* [code-block-id: admin_file_explorer_sync_button]
+function syncPasswordsToFileExplorer() {
+  const sticky = readCeoStickyNotes(); // Donald: "same as everything else lol"
+  writeJournalFile('usr/ceo/passwords.txt', sticky);
+  launchDesktopApp('File Explorer');
+}
+*/
+// --- END admin_file_explorer_sync_button ---
+
   </pre>
 
   <p style="color:#484f58;font-size:11px;">
     File path (in-universe): /admin/v2/dashboard.js ·
-    Clue for players: search source for <code>exportCustomerDatabase</code>
+    Clues for players: <code>exportCustomerDatabase</code>, <code>syncPasswordsToFileExplorer</code>
   </p>
 </body>
 </html>

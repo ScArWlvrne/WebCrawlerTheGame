@@ -152,7 +152,7 @@ public class XBankRuntimeSetup : MonoBehaviour
             "Donald's X Bank executive username: dmusk1971. Haley Delgado is handling the reset.");
 
         AddJournalFileIfMissing(JournalPaths.Build(JournalPaths.CEO, "temp_password.txt"),
-            "Haley's password reset clue points to Donald's reused temporary password: Araknyd628!");
+            DonaldBankPasswordIntel.TempPasswordJournalHint);
 
         AddJournalFileIfMissing(JournalPaths.Build(JournalPaths.CEO, "security_mother.txt"),
             "Donald's profile references Marla Maples. X Bank security profile: mother's maiden name answer is Maples.");

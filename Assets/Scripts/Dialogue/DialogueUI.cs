@@ -8,16 +8,27 @@ public class DialogueUI : MonoBehaviour
 {
     public static DialogueUI Instance { get; private set; }
 
-    [Header("UI References (optional — built at runtime if missing)")]
+    private const string ResourcesPrefabPath = "Dialogue/DialoguePanel";
+
+    [Header("UI References")]
     [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] private GameObject worldDimmer;
+    [SerializeField] private Image portraitImage;
     [SerializeField] private TextMeshProUGUI speakerText;
     [SerializeField] private TextMeshProUGUI messageText;
+    [SerializeField] private Transform choicesContainer;
     [SerializeField] private TextMeshProUGUI optionsText;
     [SerializeField] private TextMeshProUGUI hintText;
+
+    [Header("Content")]
+    [SerializeField] private DialogueCharacterRegistry characterRegistry;
+    [SerializeField] private GameObject choiceRowPrefab;
+    [SerializeField] private bool buildFallbackUiIfMissing = true;
 
     private DialogueRunner runner;
     private PlayerController playerController;
     private List<DialogueOption> currentVisibleOptions = new List<DialogueOption>();
+    private readonly List<GameObject> spawnedChoiceRows = new List<GameObject>();
     private string pendingExhaustInteractableId;
     private bool awaitingClose;
     private bool isActive;
@@ -35,6 +46,7 @@ public class DialogueUI : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        EnsureRegistryLoaded();
         EnsureUIReferences();
         HidePanel();
     }
@@ -44,13 +56,46 @@ public class DialogueUI : MonoBehaviour
         if (Instance != null)
             return;
 
-        new GameObject("DialogueSystem").AddComponent<DialogueUI>();
+        GameObject prefab = Resources.Load<GameObject>(ResourcesPrefabPath);
+        if (prefab != null)
+        {
+            Instantiate(prefab);
+            return;
+        }
+
+        GameObject root = new GameObject("DialogueSystem");
+        root.AddComponent<DialogueUI>();
     }
+
+#if UNITY_EDITOR
+    public void ConfigureForEditor(
+        GameObject panel,
+        GameObject dimmer,
+        Image portrait,
+        TextMeshProUGUI speaker,
+        TextMeshProUGUI message,
+        Transform choices,
+        TextMeshProUGUI options,
+        TextMeshProUGUI hint,
+        DialogueCharacterRegistry registry,
+        GameObject choiceRow)
+    {
+        dialoguePanel = panel;
+        worldDimmer = dimmer;
+        portraitImage = portrait;
+        speakerText = speaker;
+        messageText = message;
+        choicesContainer = choices;
+        optionsText = options;
+        hintText = hint;
+        characterRegistry = registry;
+        choiceRowPrefab = choiceRow;
+        buildFallbackUiIfMissing = false;
+    }
+#endif
 
     public void StartDialogue(DialogueConversation conversation, string exhaustInteractableId = null)
     {
-        Debug.Log("DialogueUI.StartDialogue: " + conversation.conversationId);
-
         pendingExhaustInteractableId = exhaustInteractableId;
         awaitingClose = false;
 
@@ -148,12 +193,16 @@ public class DialogueUI : MonoBehaviour
 
         awaitingClose = true;
         currentVisibleOptions.Clear();
+        ClearChoiceRows();
+
+        if (portraitImage != null)
+            portraitImage.enabled = false;
+
+        if (speakerText != null)
+            speakerText.text = "";
 
         if (messageText != null)
             messageText.text = "Conversation ended.";
-
-        if (optionsText != null)
-            optionsText.text = "";
 
         if (hintText != null)
             hintText.text = "Press Escape to close and resume play.";
@@ -163,14 +212,63 @@ public class DialogueUI : MonoBehaviour
     {
         ShowPanel();
 
+        DialogueCharacterProfile profile = characterRegistry != null
+            ? characterRegistry.ResolveProfile(node)
+            : null;
+
         if (speakerText != null)
-            speakerText.text = node.speaker;
+            speakerText.text = profile != null ? profile.displayName : node.speaker;
 
         if (messageText != null)
             messageText.text = node.message;
 
+        UpdatePortrait(profile);
+        RefreshChoices(visibleOptions);
+
+        if (hintText != null)
+        {
+            if (visibleOptions.Count > 0)
+                hintText.text = "Press 1-" + visibleOptions.Count + " to choose.";
+            else
+                hintText.text = "Press Space or Enter to continue.";
+        }
+    }
+
+    private void UpdatePortrait(DialogueCharacterProfile profile)
+    {
+        if (portraitImage == null)
+            return;
+
+        Sprite portrait = profile != null ? profile.portrait : null;
+        portraitImage.sprite = portrait;
+        portraitImage.enabled = portrait != null;
+    }
+
+    private void RefreshChoices(List<DialogueOption> visibleOptions)
+    {
+        ClearChoiceRows();
+
+        if (choicesContainer != null && choiceRowPrefab != null)
+        {
+            for (int i = 0; i < visibleOptions.Count; i++)
+            {
+                GameObject row = Instantiate(choiceRowPrefab, choicesContainer);
+                row.SetActive(true);
+                spawnedChoiceRows.Add(row);
+
+                TextMeshProUGUI label = row.GetComponentInChildren<TextMeshProUGUI>();
+                if (label != null)
+                    label.text = (i + 1) + ". " + visibleOptions[i].optionText;
+            }
+
+            if (optionsText != null)
+                optionsText.gameObject.SetActive(false);
+            return;
+        }
+
         if (optionsText != null)
         {
+            optionsText.gameObject.SetActive(true);
             if (visibleOptions.Count == 0)
             {
                 optionsText.text = "";
@@ -185,16 +283,17 @@ public class DialogueUI : MonoBehaviour
                 optionsText.text = optionsDisplay.TrimEnd();
             }
         }
+    }
 
-        if (hintText != null)
+    private void ClearChoiceRows()
+    {
+        for (int i = spawnedChoiceRows.Count - 1; i >= 0; i--)
         {
-            if (visibleOptions.Count > 0)
-                hintText.text = "Press 1-" + visibleOptions.Count + " to choose. Trust filters options.";
-            else
-                hintText.text = "Press Space or Enter to continue.";
+            if (spawnedChoiceRows[i] != null)
+                Destroy(spawnedChoiceRows[i]);
         }
 
-        Debug.Log("SHOW DIALOGUE UI — Speaker: " + node.speaker);
+        spawnedChoiceRows.Clear();
     }
 
     private void CloseDialogue()
@@ -202,6 +301,7 @@ public class DialogueUI : MonoBehaviour
         awaitingClose = false;
         runner = null;
         currentVisibleOptions.Clear();
+        ClearChoiceRows();
         HideDialogue();
     }
 
@@ -219,111 +319,71 @@ public class DialogueUI : MonoBehaviour
             playerController = FindFirstObjectByType<PlayerController>();
 
         playerController?.SetDialogueLocked(true);
-
-        Debug.Log("ENTER DIALOGUE MODE");
     }
 
     private void ExitDialogueMode()
     {
         isActive = false;
         playerController?.SetDialogueLocked(false);
-        Debug.Log("EXIT DIALOGUE MODE");
     }
 
     private void ShowPanel()
     {
+        if (worldDimmer != null)
+            worldDimmer.SetActive(true);
+
         if (dialoguePanel != null)
-        {
             dialoguePanel.SetActive(true);
-            Debug.Log("DialogueUI: panel shown");
-        }
-        else
-        {
-            Debug.LogError("DialogueUI: dialoguePanel is null — UI was not built.");
-        }
     }
 
     private void HidePanel()
     {
         if (dialoguePanel != null)
             dialoguePanel.SetActive(false);
+
+        if (worldDimmer != null)
+            worldDimmer.SetActive(false);
+    }
+
+    private void EnsureRegistryLoaded()
+    {
+        if (characterRegistry != null)
+            return;
+
+        characterRegistry = Resources.Load<DialogueCharacterRegistry>("Dialogue/DialogueCharacterRegistry");
     }
 
     private void EnsureUIReferences()
     {
-        if (dialoguePanel == null)
-            BuildDefaultUIHierarchy();
-    }
+        if (dialoguePanel != null && speakerText != null && messageText != null)
+            return;
 
-    private void BuildDefaultUIHierarchy()
-    {
-        Canvas canvas = gameObject.GetComponent<Canvas>();
-        if (canvas == null)
+        if (!buildFallbackUiIfMissing)
         {
-            canvas = gameObject.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            gameObject.AddComponent<CanvasScaler>();
-            gameObject.AddComponent<GraphicRaycaster>();
+            Debug.LogError("DialogueUI: UI references are missing and fallback build is disabled.");
+            return;
         }
 
-        canvas.overrideSorting = true;
-        canvas.sortingOrder = 1000;
+        DialogueUILayoutBuilder.BuiltReferences built = DialogueUILayoutBuilder.Build(transform);
+        dialoguePanel = built.dialoguePanel;
+        worldDimmer = built.worldDimmer;
+        portraitImage = built.portraitImage;
+        speakerText = built.speakerText;
+        messageText = built.messageText;
+        choicesContainer = built.choicesContainer;
+        optionsText = built.optionsText;
+        hintText = built.hintText;
 
-        if (dialoguePanel == null)
+        if (choiceRowPrefab == null)
         {
-            dialoguePanel = new GameObject("DialoguePanel");
-            dialoguePanel.transform.SetParent(transform, false);
-
-            RectTransform panelRect = dialoguePanel.AddComponent<RectTransform>();
-            panelRect.anchorMin = Vector2.zero;
-            panelRect.anchorMax = Vector2.one;
-            panelRect.offsetMin = Vector2.zero;
-            panelRect.offsetMax = Vector2.zero;
-
-            Image panelImage = dialoguePanel.AddComponent<Image>();
-            panelImage.color = new Color(0f, 0f, 0f, 0.92f);
+            choiceRowPrefab = Resources.Load<GameObject>("Dialogue/ChoiceRow");
+            if (choiceRowPrefab == null)
+            {
+                choiceRowPrefab = DialogueUILayoutBuilder.CreateChoiceRowPrefab();
+                choiceRowPrefab.transform.SetParent(transform, false);
+                choiceRowPrefab.SetActive(false);
+            }
         }
-
-        speakerText = CreateText("SpeakerText", dialoguePanel.transform, 48, FontStyles.Bold,
-            new Vector2(0.08f, 0.82f), new Vector2(0.92f, 0.95f), TextAlignmentOptions.TopLeft);
-
-        messageText = CreateText("MessageText", dialoguePanel.transform, 32, FontStyles.Normal,
-            new Vector2(0.08f, 0.42f), new Vector2(0.92f, 0.8f), TextAlignmentOptions.TopLeft);
-
-        optionsText = CreateText("OptionsText", dialoguePanel.transform, 26, FontStyles.Normal,
-            new Vector2(0.08f, 0.12f), new Vector2(0.92f, 0.4f), TextAlignmentOptions.TopLeft);
-
-        hintText = CreateText("HintText", dialoguePanel.transform, 22, FontStyles.Italic,
-            new Vector2(0.08f, 0.02f), new Vector2(0.92f, 0.1f), TextAlignmentOptions.BottomLeft);
-    }
-
-    private static TextMeshProUGUI CreateText(
-        string objectName,
-        Transform parent,
-        int fontSize,
-        FontStyles fontStyle,
-        Vector2 anchorMin,
-        Vector2 anchorMax,
-        TextAlignmentOptions alignment)
-    {
-        GameObject textObject = new GameObject(objectName);
-        textObject.transform.SetParent(parent, false);
-
-        RectTransform rect = textObject.AddComponent<RectTransform>();
-        rect.anchorMin = anchorMin;
-        rect.anchorMax = anchorMax;
-        rect.offsetMin = Vector2.zero;
-        rect.offsetMax = Vector2.zero;
-
-        TextMeshProUGUI text = textObject.AddComponent<TextMeshProUGUI>();
-        if (TMP_Settings.defaultFontAsset != null)
-            text.font = TMP_Settings.defaultFontAsset;
-        text.fontSize = fontSize;
-        text.fontStyle = fontStyle;
-        text.color = Color.white;
-        text.alignment = alignment;
-        text.textWrappingMode = TextWrappingModes.Normal;
-        return text;
     }
 
     private static bool WasNumberPressed(int number)

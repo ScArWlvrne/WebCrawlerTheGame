@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameBootstrap : MonoBehaviour
 {
     [SerializeField] private bool ensureDialogueUI = true;
+    [SerializeField] private GameObject dialogueUIPrefab;
 
     private void Awake()
     {
@@ -19,7 +20,11 @@ public class GameBootstrap : MonoBehaviour
 
         if (ensureDialogueUI && DialogueUI.Instance == null)
         {
-            DialogueUI.CreateDefaultUI();
+            if (dialogueUIPrefab != null)
+                Instantiate(dialogueUIPrefab);
+            else
+                DialogueUI.CreateDefaultUI();
+
             Debug.Log("GameBootstrap: created DialogueSystem");
         }
     }

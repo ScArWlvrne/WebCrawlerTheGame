@@ -13,7 +13,8 @@ public static class DialogueConversationFactory
                 new DialogueNode
                 {
                     nodeId = "start",
-                    speaker = "Lily",
+                    speaker = "Lily Chen",
+                    portraitCharacterId = GameCharacters.Lily,
                     message = "This startup is absolutely vibecoded.",
                     options = new List<DialogueOption>
                     {
@@ -43,29 +44,26 @@ public static class DialogueConversationFactory
                 new DialogueNode
                 {
                     nodeId = "low_trust_answer",
-                    speaker = "Lily",
+                    speaker = "Lily Chen",
+                    portraitCharacterId = GameCharacters.Lily,
                     message = "Anyone could probably find it with a web crawler.",
-                    nextNodeId = "end"
+                    nextNodeId = null
                 },
                 new DialogueNode
                 {
                     nodeId = "medium_trust_answer",
-                    speaker = "Lily",
+                    speaker = "Lily Chen",
+                    portraitCharacterId = GameCharacters.Lily,
                     message = "There are a bunch of commented-out admin dashboard code blocks that make me nervous.",
-                    nextNodeId = "end"
+                    nextNodeId = null
                 },
                 new DialogueNode
                 {
                     nodeId = "high_trust_answer",
-                    speaker = "Lily",
+                    speaker = "Lily Chen",
+                    portraitCharacterId = GameCharacters.Lily,
                     message = "The download database button is the one I was worried about.",
-                    nextNodeId = "end"
-                },
-                new DialogueNode
-                {
-                    nodeId = "end",
-                    speaker = "System",
-                    message = "Conversation ended. Press Escape to close."
+                    nextNodeId = null
                 }
             }
         };

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f4d3e2c0a95f7b9e3d2c1b0a9f8e7c, type: 3}
+  m_Name: DialogueCharacterRegistry
+  profiles:
+  - {fileID: 11400000, guid: e1a2b3c4d5e64f708192a3b4c5d6e7f8, type: 2}
+  - {fileID: 11400000, guid: f2b3c4d5e6f7488091a2b3c4d5e6f7a9, type: 2}
+  - {fileID: 11400000, guid: a3c4d5e6f7a84990b1c2d3e4f5a6b7c8, type: 2}

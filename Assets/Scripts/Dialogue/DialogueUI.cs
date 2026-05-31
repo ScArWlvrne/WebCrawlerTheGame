@@ -75,4 +75,26 @@ public class DialogueUI : MonoBehaviour
         // Future UI hookup:
         // dialoguePanel.SetActive(false);
     }
+
+    private void EnterDialogueMode()
+    {
+        Debug.Log("ENTER DIALOGUE MODE");
+
+        // Future UI hookup:
+        // dialoguePanel.SetActive(true);
+        // dialoguePanel.transform.SetAsLastSibling();
+        // Time.timeScale = 0f;
+        // disable player movement/input
+        // disable other app/browser/file interactions
+    }
+
+    private void ExitDialogueMode()
+    {
+        Debug.Log("EXIT DIALOGUE MODE");
+
+        // Future UI hookup:
+        // Time.timeScale = 1f;
+        // re-enable player movement/input
+        // re-enable other app/browser/file interactions
+    }
 }

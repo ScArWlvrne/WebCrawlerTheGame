@@ -132,6 +132,8 @@ GameObject:
   - component: {fileID: 529120783}
   - component: {fileID: 529120787}
   - component: {fileID: 529120786}
+  - component: {fileID: 529120788}
+  - component: {fileID: 529120789}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -269,6 +271,30 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &529120788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529120782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e1258b82323b4f79bb6f7a3698de879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTester
+--- !u!114 &529120789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529120782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea439fc1f8b7453e8f43719d8dfea61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueRunnerTester
 --- !u!1 &1946633984
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,6 +324,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79943ba5e717d432d90de6aafb5feed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
+  State:
+    flags: []
+    trustValues: []
+    journalFiles: []
+    exhaustedInteractables: []
+    uncommentedCodeBlocks: []
 --- !u!4 &1946633986
 Transform:
   m_ObjectHideFlags: 0

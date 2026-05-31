@@ -19,11 +19,6 @@ public static class SaveSystem
         Debug.Log("Saved game to: " + SavePath);
     }
 
-    public static bool HasSave()
-    {
-        return File.Exists(SavePath);
-    }
-
     public static void DeleteSave()
     {
         if (File.Exists(SavePath))

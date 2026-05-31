@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -11,42 +12,42 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float interactRange = 1.5f;
     [SerializeField] private float interactAngle = 60f;
     [SerializeField] private LayerMask interactableLayer;
+    [SerializeField] private InteractionPromptUI interactionPromptUI;
+    private IInteractable currentInteractable;
 
     private bool isInteracting = false;
+    private bool usingGamepad = false;
 
     private CharacterController controller;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (isInteracting)
-            return;
-        // if (Keyboard.current == null)
-        //     {
-        //         Debug.Log("No keyboard detected");
-        //     }
-        //     else if (Keyboard.current.wKey.wasPressedThisFrame)
-        //     {
-        //         Debug.Log("W pressed");
-        //     }
+        if (isInteracting) return;
 
+        UpdateCurrentInteractable();
         Vector2 input = Vector2.zero;
 
         if (Keyboard.current != null)
         {
             input.x = Keyboard.current.aKey.isPressed ? -1 : Keyboard.current.dKey.isPressed ? 1 : 0;
             input.y = Keyboard.current.wKey.isPressed ? 1 : Keyboard.current.sKey.isPressed ? -1 : 0;
+
+            if (Keyboard.current.anyKey.isPressed)
+            {
+                usingGamepad = false;
+            }
         }
 
         if (Gamepad.current != null && Gamepad.current.leftStick.ReadValue().magnitude > 0.2f && input == Vector2.zero)
         {
             input = Gamepad.current.leftStick.ReadValue();
+            usingGamepad = true;
         }
 
         input = Vector2.ClampMagnitude(input, 1f);
@@ -54,7 +55,7 @@ public class PlayerController : MonoBehaviour
         Vector3 move = new Vector3(input.x, 0f, input.y);
 
         bool isMoving = move.sqrMagnitude > 0.01f;
-       
+
         if (isMoving)
         {
             Quaternion targetRotation = Quaternion.LookRotation(move.normalized);
@@ -77,17 +78,15 @@ public class PlayerController : MonoBehaviour
             Gamepad.current != null && Gamepad.current.buttonWest.wasPressedThisFrame
         )
         {
-            PlayInteractAnimation();
             TryInteract();
         }
-        
 
         animator.SetBool("IsMoving", isMoving);
 
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        controller.Move(moveSpeed * Time.deltaTime * move);
     }
 
-    private void TryInteract()
+    private void UpdateCurrentInteractable()
     {
         Collider[] hits = Physics.OverlapSphere(
             transform.position,
@@ -96,6 +95,7 @@ public class PlayerController : MonoBehaviour
         );
 
         IInteractable bestInteractable = null;
+        currentInteractable = null;
         float bestDistance = float.PositiveInfinity;
 
         foreach (Collider hit in hits)
@@ -126,27 +126,56 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (bestInteractable != null)
+        currentInteractable = bestInteractable;
+
+        if (currentInteractable != null)
         {
-            PlayInteractAnimation();
-            bestInteractable.Interact();
+            
+            interactionPromptUI.Show(usingGamepad, currentInteractable.GetPromptAnchor());
             return;
         }
 
-        Debug.Log("Nothing to interact with.");
+        interactionPromptUI.Hide();
     }
 
-    private void PlayInteractAnimation()
+    private void TryInteract()
     {
+        if (isInteracting)
+            return;
+
+        if (currentInteractable != null)
+        {
+            StartCoroutine(PlayInteractAnimationThenInteract(currentInteractable));
+        }
+        else
+        {
+            Debug.Log("Nothing to interact with.");
+        }
+    }
+
+    private IEnumerator PlayInteractAnimationThenInteract(IInteractable interactable)
+    {
+        isInteracting = true;
+        interactionPromptUI.Hide();
+
         if (animator != null)
         {
-            isInteracting = true;
+            animator.SetBool("IsMoving", false);
             animator.SetTrigger("Interact");
         }
-    }   
+
+        while (isInteracting)
+        {
+            interactionPromptUI.Hide();
+            yield return null;
+        }
+
+        interactable.Interact();
+    }
 
     public void EndInteractionAnimation()
     {
+        interactionPromptUI.Hide();
         isInteracting = false;
     }
 

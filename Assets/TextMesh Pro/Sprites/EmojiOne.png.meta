@@ -1,11 +1,6 @@
 fileFormatVersion: 2
 guid: dffef66376be4fa480fb02b19edbe903
 TextureImporter:
-<<<<<<< HEAD
-  internalIDToNameTable: []
-  externalObjects: {}
-  serializedVersion: 13
-=======
   fileIDToRecycleName:
     21300000: EmojiOne_0
     21300002: EmojiOne_1
@@ -24,7 +19,6 @@ TextureImporter:
     21300028: EmojiOne_14
   externalObjects: {}
   serializedVersion: 5
->>>>>>> c72142e (untracked)
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -41,36 +35,11 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-<<<<<<< HEAD
-    flipGreenChannel: 0
   isReadable: 0
-  streamingMipmaps: 0
-  streamingMipmapsPriority: 0
-  vTOnly: 0
-  ignoreMipmapLimit: 0
-=======
-  isReadable: 0
->>>>>>> c72142e (untracked)
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
   seamlessCubemap: 0
-<<<<<<< HEAD
-  textureFormat: 1
-  maxTextureSize: 2048
-  textureSettings:
-    serializedVersion: 2
-    filterMode: 1
-    aniso: 1
-    mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
-  nPOTScale: 1
-  lightmap: 0
-  compressionQuality: 50
-  spriteMode: 0
-=======
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
@@ -85,42 +54,18 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
->>>>>>> c72142e (untracked)
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-<<<<<<< HEAD
-  spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
-  alphaUsage: 1
-  alphaIsTransparency: 0
-=======
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
->>>>>>> c72142e (untracked)
   spriteTessellationDetail: -1
   textureType: 0
   textureShape: 1
   singleChannelComponent: 0
-<<<<<<< HEAD
-  flipbookRows: 1
-  flipbookColumns: 1
-  maxTextureSizeSet: 0
-  compressionQualitySet: 0
-  textureFormatSet: 0
-  ignorePngGamma: 0
-  applyGammaDecoding: 0
-  swizzle: 50462976
-  cookieLightType: 0
-  platformSettings:
-  - serializedVersion: 4
-    buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
-=======
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
@@ -128,7 +73,6 @@ TextureImporter:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 512
->>>>>>> c72142e (untracked)
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -136,14 +80,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-<<<<<<< HEAD
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Standalone
-    maxTextureSize: 2048
-=======
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
@@ -170,7 +106,6 @@ TextureImporter:
   - serializedVersion: 2
     buildTarget: Android
     maxTextureSize: 512
->>>>>>> c72142e (untracked)
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -178,20 +113,6 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-<<<<<<< HEAD
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  spriteSheet:
-    serializedVersion: 2
-    sprites: []
-    outline: []
-    customData: 
-    physicsShape: []
-    bones: []
-    spriteID: 
-    internalID: 0
-=======
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
@@ -500,21 +421,11 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 3e32d8f5477abfc43b19066e8ad5032e
->>>>>>> c72142e (untracked)
     vertices: []
     indices: 
     edges: []
     weights: []
-<<<<<<< HEAD
-    secondaryTextures: []
-    spriteCustomMetadata:
-      entries: []
-    nameFileIdTable: {}
-  mipmapLimitGroupName: 
-  pSDRemoveMatte: 0
-=======
   spritePackingTag: 
->>>>>>> c72142e (untracked)
   userData: 
   assetBundleName: 
   assetBundleVariant: 

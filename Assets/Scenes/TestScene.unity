@@ -611,6 +611,7 @@ MonoBehaviour:
   playerControllerScript: {fileID: 842364424}
   playerTransform: {fileID: 842364426}
   playerAnimator: {fileID: 493897612}
+  interactionPromptUI: {fileID: 2088850387}
   promptAnchor: {fileID: 2142336383}
   playerLaunchPoint: {fileID: 1744183641}
   minDistanceFromPivot: 3

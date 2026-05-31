@@ -5,7 +5,7 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
     public enum ConversationPreset
     {
         LilyTest,
-        AraknydCrawlerTest
+        AraknydCrawlerTest,
         LilyE2E,
         WebInspectorE2E
     }
@@ -53,6 +53,7 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
         if (dialogueUI != null)
             return dialogueUI;
 
+        DialogueUI.EnsureExists();
         return DialogueUI.Instance;
     }
 
@@ -62,7 +63,6 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
         {
             case ConversationPreset.AraknydCrawlerTest:
                 return DialogueConversationFactory.GetAraknydCrawlerTestConversation();
-
             case ConversationPreset.LilyE2E:
                 return DialogueConversationFactory.GetLilyE2EConversation();
             case ConversationPreset.WebInspectorE2E:

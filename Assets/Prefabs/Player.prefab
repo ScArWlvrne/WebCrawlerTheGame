@@ -1280,7 +1280,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d04853c6286c2a24cad22ab265d8410c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationEvents
   playerController: {fileID: 730394642980206057}
 --- !u!1 &437146657106341473
 GameObject:

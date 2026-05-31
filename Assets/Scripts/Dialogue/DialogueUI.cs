@@ -51,6 +51,12 @@ public class DialogueUI : MonoBehaviour
         HidePanel();
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
     public static void CreateDefaultUI()
     {
         if (Instance != null)
@@ -59,12 +65,31 @@ public class DialogueUI : MonoBehaviour
         GameObject prefab = Resources.Load<GameObject>(ResourcesPrefabPath);
         if (prefab != null)
         {
-            Instantiate(prefab);
+            GameObject instance = Instantiate(prefab);
+            instance.name = "DialogueSystem";
+
+            if (Instance == null && instance.GetComponent<DialogueUI>() == null)
+                instance.AddComponent<DialogueUI>();
+
             return;
         }
 
-        GameObject root = new GameObject("DialogueSystem");
-        root.AddComponent<DialogueUI>();
+        new GameObject("DialogueSystem").AddComponent<DialogueUI>();
+    }
+
+    public static void EnsureExists()
+    {
+        if (Instance != null)
+            return;
+
+        CreateDefaultUI();
+
+        if (Instance != null)
+            return;
+
+        DialogueUI existing = FindFirstObjectByType<DialogueUI>(FindObjectsInactive.Include);
+        if (existing == null)
+            new GameObject("DialogueSystem").AddComponent<DialogueUI>();
     }
 
 #if UNITY_EDITOR

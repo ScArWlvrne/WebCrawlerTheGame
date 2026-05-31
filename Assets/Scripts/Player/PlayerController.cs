@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
         if (locked)
         {
-            interactionPromptUI.Hide();
+            HideInteractionPrompt();
             if (animator != null)
                 animator.SetBool("IsMoving", false);
         }
@@ -149,14 +149,25 @@ public class PlayerController : MonoBehaviour
         currentInteractable = bestInteractable;
 
         if (currentInteractable != null)
-        {
-            // Debug.Log("Calling prompt Show on " + currentInteractable);
-            interactionPromptUI.Show(usingGamepad, currentInteractable.GetPromptAnchor());
-        }
-        else     {
-            // Debug.Log("Calling prompt Hide");
-            interactionPromptUI.Hide();
-        }
+            ShowInteractionPrompt(usingGamepad, currentInteractable.GetPromptAnchor());
+        else
+            HideInteractionPrompt();
+    }
+
+    private void ShowInteractionPrompt(bool usingGamepad, Transform anchor)
+    {
+        if (interactionPromptUI == null || anchor == null)
+            return;
+
+        interactionPromptUI.Show(usingGamepad, anchor);
+    }
+
+    private void HideInteractionPrompt()
+    {
+        if (interactionPromptUI == null)
+            return;
+
+        interactionPromptUI.Hide();
     }
 
     private void TryInteract()
@@ -180,7 +191,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator PlayInteractAnimationThenInteract(IInteractable interactable)
     {
         isInteracting = true;
-        interactionPromptUI.Hide();
+        HideInteractionPrompt();
 
         bool waitForAnimationEvent = animator != null;
         if (waitForAnimationEvent)
@@ -193,7 +204,7 @@ public class PlayerController : MonoBehaviour
         while (isInteracting && waitForAnimationEvent && elapsed < interactAnimationTimeout)
         {
             elapsed += Time.deltaTime;
-            interactionPromptUI.Hide();
+            HideInteractionPrompt();
             yield return null;
         }
 
@@ -206,7 +217,7 @@ public class PlayerController : MonoBehaviour
 
     public void EndInteractionAnimation()
     {
-        interactionPromptUI.Hide();
+        HideInteractionPrompt();
         isInteracting = false;
     }
 

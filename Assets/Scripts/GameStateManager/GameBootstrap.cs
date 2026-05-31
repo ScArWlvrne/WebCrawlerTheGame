@@ -31,14 +31,15 @@ public class GameBootstrap : MonoBehaviour
             Debug.Log("GameBootstrap: created GameStateManager");
         }
 
-        if (ensureDialogueUI && DialogueUI.Instance == null)
+        if (ensureDialogueUI)
         {
-            if (dialogueUIPrefab != null)
+            if (dialogueUIPrefab != null && DialogueUI.Instance == null)
                 Instantiate(dialogueUIPrefab);
-            else
-                DialogueUI.CreateDefaultUI();
 
-            Debug.Log("GameBootstrap: created DialogueSystem");
+            DialogueUI.EnsureExists();
+
+            if (DialogueUI.Instance != null)
+                Debug.Log("GameBootstrap: ensured DialogueSystem");
         }
 
         if (ensureJournalUI && JournalUI.Instance == null)

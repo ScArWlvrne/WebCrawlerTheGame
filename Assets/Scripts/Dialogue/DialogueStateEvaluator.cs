@@ -8,6 +8,12 @@ public static class DialogueStateEvaluator
             return false;
         }
 
+        if (!string.IsNullOrEmpty(option.suppressIfFlag) &&
+            GameStateManager.Instance.GetFlag(option.suppressIfFlag))
+        {
+            return false;
+        }
+
         if (!string.IsNullOrEmpty(option.requiredJournalFile) &&
             !GameStateManager.Instance.HasJournalFile(option.requiredJournalFile))
         {

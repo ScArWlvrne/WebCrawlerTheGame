@@ -4,7 +4,9 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
 {
     public enum ConversationPreset
     {
-        LilyTest
+        LilyTest,
+        LilyE2E,
+        WebInspectorE2E
     }
 
     [Header("Dialogue")]
@@ -57,6 +59,10 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
     {
         switch (conversationPreset)
         {
+            case ConversationPreset.LilyE2E:
+                return DialogueConversationFactory.GetLilyE2EConversation();
+            case ConversationPreset.WebInspectorE2E:
+                return DialogueConversationFactory.GetWebInspectorE2EConversation();
             case ConversationPreset.LilyTest:
             default:
                 return DialogueConversationFactory.GetLilyTestConversation();

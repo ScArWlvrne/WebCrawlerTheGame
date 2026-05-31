@@ -2111,9 +2111,13 @@ Transform:
   - {fileID: 1671085377}
   - {fileID: 1341541459}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 1825074322}
 =======
 >>>>>>> desktop_hub
+=======
+  - {fileID: 1825074322}
+>>>>>>> 3c1eb10 (Pivot and launch)
   m_Father: {fileID: 568986718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &646884615
@@ -2668,9 +2672,13 @@ Transform:
   - {fileID: 600323919}
   - {fileID: 2051881335}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 570194469}
 =======
 >>>>>>> desktop_hub
+=======
+  - {fileID: 570194469}
+>>>>>>> 3c1eb10 (Pivot and launch)
   m_Father: {fileID: 568986718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &908174605
@@ -3572,9 +3580,13 @@ Transform:
   m_Children:
   - {fileID: 375247431}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 1755122270}
 =======
 >>>>>>> desktop_hub
+=======
+  - {fileID: 1755122270}
+>>>>>>> 3c1eb10 (Pivot and launch)
   - {fileID: 1925976381}
   m_Father: {fileID: 568986718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4185,9 +4197,13 @@ Transform:
   - {fileID: 827850822}
   - {fileID: 682048638}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 1439592011}
 =======
 >>>>>>> desktop_hub
+=======
+  - {fileID: 1439592011}
+>>>>>>> 3c1eb10 (Pivot and launch)
   m_Father: {fileID: 568986718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1205395320

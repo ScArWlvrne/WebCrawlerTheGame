@@ -27,6 +27,7 @@ public class DialogueOption
     public string nextNodeId;
 
     public string requiredFlag;
+    public string suppressIfFlag;
     public string requiredJournalFile;
     public string requiredUncommentedCodeBlock;
     public string requiredExhaustedInteractable;

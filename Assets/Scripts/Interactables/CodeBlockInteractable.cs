@@ -13,6 +13,17 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
     [SerializeField] private Transform promptAnchor;
     [SerializeField] private bool disableInteractionWhenUncommented = true;
 
+    [Header("Optional Dialogue")]
+    [SerializeField] private bool startDialogueOnUncomment;
+    [SerializeField] private string requiredFlagForDialogue;
+    [SerializeField] private CodeBlockDialoguePreset postUncommentDialogue = CodeBlockDialoguePreset.None;
+
+    public enum CodeBlockDialoguePreset
+    {
+        None,
+        WebInspectorAdminDownloadReaction
+    }
+
     private Collider interactionCollider;
 
     private void Awake()
@@ -49,6 +60,7 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
 
         SyncVisualState();
         ApplyInteractionState();
+        TryStartPostUncommentDialogue();
     }
 
     public Transform GetPromptAnchor()
@@ -83,5 +95,44 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
 
         if (interactionCollider != null)
             interactionCollider.enabled = false;
+    }
+
+    private void TryStartPostUncommentDialogue()
+    {
+        if (!startDialogueOnUncomment || postUncommentDialogue == CodeBlockDialoguePreset.None)
+            return;
+
+        if (GameStateManager.Instance == null)
+            return;
+
+        if (!string.IsNullOrEmpty(requiredFlagForDialogue) &&
+            !GameStateManager.Instance.GetFlag(requiredFlagForDialogue))
+        {
+            return;
+        }
+
+        DialogueConversation conversation = BuildPostUncommentConversation();
+        if (conversation == null)
+            return;
+
+        DialogueUI ui = DialogueUI.Instance;
+        if (ui == null)
+        {
+            Debug.LogWarning("CodeBlockInteractable: DialogueUI.Instance is null.");
+            return;
+        }
+
+        ui.StartDialogue(conversation);
+    }
+
+    private DialogueConversation BuildPostUncommentConversation()
+    {
+        switch (postUncommentDialogue)
+        {
+            case CodeBlockDialoguePreset.WebInspectorAdminDownloadReaction:
+                return DialogueConversationFactory.GetWebInspectorAdminDownloadReaction();
+            default:
+                return null;
+        }
     }
 }

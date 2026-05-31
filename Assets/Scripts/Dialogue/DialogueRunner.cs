@@ -11,7 +11,7 @@ public class DialogueRunner
     public void StartConversation(DialogueConversation newConversation)
     {
         conversation = newConversation;
-        currentNode = FindNode(conversation.startNodeId);
+        currentNode = ResolveNode(conversation.startNodeId);
     }
 
     public List<DialogueOption> GetVisibleOptions()
@@ -35,7 +35,7 @@ public class DialogueRunner
     public void ChooseOption(DialogueOption option)
     {
         DialogueStateEvaluator.ApplyOptionEffects(option);
-        currentNode = FindNode(option.nextNodeId);
+        currentNode = ResolveNode(option.nextNodeId);
     }
 
     public void Continue()
@@ -43,7 +43,7 @@ public class DialogueRunner
         if (currentNode == null)
             return;
 
-        currentNode = FindNode(currentNode.nextNodeId);
+        currentNode = ResolveNode(currentNode.nextNodeId);
     }
 
     public bool IsConversationOver()
@@ -64,5 +64,38 @@ public class DialogueRunner
 
         Debug.LogWarning("Dialogue node not found: " + nodeId);
         return null;
+    }
+
+    private DialogueNode ResolveNode(string nodeId)
+    {
+        const int maxRouteHops = 32;
+
+        DialogueNode node = FindNode(nodeId);
+        int routeHops = 0;
+
+        while (node != null && node.kind == DialogueNodeKind.Router && routeHops < maxRouteHops)
+        {
+            string nextNodeId = null;
+
+            foreach (DialogueRoute route in node.routes)
+            {
+                if (DialogueStateEvaluator.CanFollowRoute(route))
+                {
+                    nextNodeId = route.nextNodeId;
+                    break;
+                }
+            }
+
+            if (string.IsNullOrEmpty(nextNodeId))
+                return null;
+
+            node = FindNode(nextNodeId);
+            routeHops++;
+        }
+
+        if (routeHops >= maxRouteHops)
+            Debug.LogWarning("Dialogue router exceeded max hops starting at: " + nodeId);
+
+        return node;
     }
 }

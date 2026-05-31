@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshPro
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 88717208}
   - component: {fileID: 88717210}
   - component: {fileID: 88717209}
+  - component: {fileID: 88717211}
   m_Layer: 0
   m_Name: URL
   m_TagString: Untagged
@@ -614,6 +615,25 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 88717210}
   m_maskType: 0
+--- !u!114 &88717211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88717207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4d5e6f7a8b4c9d0e1f23456789abcd, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::BrowserAdminDashboardGate
+  urlText: {fileID: 88717209}
+  sourceText: {fileID: 0}
+  statusText: {fileID: 0}
+  adminDashboardSource: {fileID: 4900000, guid: 32c7ab40a87ba4f17a31ff652662b777, type: 3}
+  lockedStateRoot: {fileID: 0}
+  unlockedStateRoot: {fileID: 0}
+  createSourceDisplayWhenMissing: 1
 --- !u!23 &88717210
 MeshRenderer:
   m_ObjectHideFlags: 0

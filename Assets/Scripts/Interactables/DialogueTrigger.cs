@@ -4,7 +4,8 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
 {
     public enum ConversationPreset
     {
-        LilyTest
+        LilyTest,
+        AraknydCrawlerTest
     }
 
     [Header("Dialogue")]
@@ -57,6 +58,9 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
     {
         switch (conversationPreset)
         {
+            case ConversationPreset.AraknydCrawlerTest:
+                return DialogueConversationFactory.GetAraknydCrawlerTestConversation();
+
             case ConversationPreset.LilyTest:
             default:
                 return DialogueConversationFactory.GetLilyTestConversation();

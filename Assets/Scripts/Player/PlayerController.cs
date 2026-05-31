@@ -13,9 +13,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float interactAngle = 60f;
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private InteractionPromptUI interactionPromptUI;
+    [SerializeField] private float interactAnimationTimeout = 1.25f;
     private IInteractable currentInteractable;
 
     private bool isInteracting = false;
+    private bool dialogueLocked = false;
     private bool usingGamepad = false;
 
     private CharacterController controller;
@@ -26,9 +28,21 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+    public void SetDialogueLocked(bool locked)
+    {
+        dialogueLocked = locked;
+
+        if (locked)
+        {
+            interactionPromptUI.Hide();
+            animator.SetBool("IsMoving", false);
+        }
+    }
+
     void Update()
     {
-        if (isInteracting) return;
+        if (isInteracting || dialogueLocked)
+            return;
 
         UpdateCurrentInteractable();
         Vector2 input = Vector2.zero;
@@ -141,11 +155,14 @@ public class PlayerController : MonoBehaviour
 
     private void TryInteract()
     {
-        if (isInteracting)
+        if (isInteracting || dialogueLocked)
             return;
 
         if (currentInteractable != null)
         {
+            MonoBehaviour target = currentInteractable as MonoBehaviour;
+            string targetName = target != null ? target.gameObject.name : "unknown";
+            Debug.Log("Player interacting with: " + targetName);
             StartCoroutine(PlayInteractAnimationThenInteract(currentInteractable));
         }
         else
@@ -159,18 +176,25 @@ public class PlayerController : MonoBehaviour
         isInteracting = true;
         interactionPromptUI.Hide();
 
-        if (animator != null)
+        bool waitForAnimationEvent = animator != null;
+        if (waitForAnimationEvent)
         {
             animator.SetBool("IsMoving", false);
             animator.SetTrigger("Interact");
         }
 
-        while (isInteracting)
+        float elapsed = 0f;
+        while (isInteracting && waitForAnimationEvent && elapsed < interactAnimationTimeout)
         {
+            elapsed += Time.deltaTime;
             interactionPromptUI.Hide();
             yield return null;
         }
 
+        if (isInteracting)
+            Debug.LogWarning("Interact animation timed out — calling Interact() anyway.");
+
+        isInteracting = false;
         interactable.Interact();
     }
 
@@ -180,7 +204,7 @@ public class PlayerController : MonoBehaviour
         isInteracting = false;
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, interactRange);

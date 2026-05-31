@@ -5,80 +5,11 @@ public class DialogueRunnerTester : MonoBehaviour
 {
     private void Start()
     {
-        DialogueConversation testConversation = BuildTestConversation();
+        DialogueConversation testConversation = DialogueConversationFactory.GetLilyTestConversation();
 
         RunConversationTest(testConversation, 20, "LOW TRUST");
         RunConversationTest(testConversation, 50, "MEDIUM TRUST");
         RunConversationTest(testConversation, 70, "HIGH TRUST");
-    }
-
-    private DialogueConversation BuildTestConversation()
-    {
-        return new DialogueConversation
-        {
-            conversationId = "lily_test",
-            startNodeId = "start",
-            nodes = new List<DialogueNode>
-            {
-                new DialogueNode
-                {
-                    nodeId = "start",
-                    speaker = "Lily",
-                    message = "This startup is absolutely vibecoded.",
-                    options = new List<DialogueOption>
-                    {
-                        new DialogueOption
-                        {
-                            optionText = "Ask a question that leads Lily to reveal the admin dashboard URL.",
-                            nextNodeId = "low_trust_answer",
-                            trustCharacter = GameCharacters.Lily,
-                            minTrust = 0
-                        },
-                        new DialogueOption
-                        {
-                            optionText = "Ask a question that leads Lily to reveal that she's nervous about the commented blocks in the admin dashboard.",
-                            nextNodeId = "medium_trust_answer",
-                            trustCharacter = GameCharacters.Lily,
-                            minTrust = 30
-                        },
-                        new DialogueOption
-                        {
-                            optionText = "Ask a question that leads Lily to reveal the specific code block that she's nervous about.",
-                            nextNodeId = "high_trust_answer",
-                            trustCharacter = GameCharacters.Lily,
-                            minTrust = 70
-                        }
-                    }
-                },
-                new DialogueNode
-                {
-                    nodeId = "low_trust_answer",
-                    speaker = "Lily",
-                    message = "Anyone could probably find it with a web crawler.",
-                    nextNodeId = "end"
-                },
-                new DialogueNode
-                {
-                    nodeId = "medium_trust_answer",
-                    speaker = "Lily",
-                    message = "There are a bunch of commented-out admin dashboard code blocks that make me nervous.",
-                    nextNodeId = "end"
-                },
-                new DialogueNode
-                {
-                    nodeId = "high_trust_answer",
-                    speaker = "Lily",
-                    message = "The download database button is the one I was worried about.",
-                    nextNodeId = "end"
-                },
-                new DialogueNode
-                {
-                    nodeId = "end",
-                    speaker = "System",
-                    message = "Conversation ended."
-                }
-            }
-        };
     }
 
     private void RunConversationTest(DialogueConversation conversation, int trustValue, string label)

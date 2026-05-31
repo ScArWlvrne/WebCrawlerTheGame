@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e658de162ad301049b89f2940c9201bc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DesktopAppIconInteractable
   sceneName: Browser
   playerControllerScript: {fileID: 1712375092}
@@ -1691,8 +1691,10 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 908174604}
-  - {fileID: 646884614}
   - {fileID: 1112158264}
+  - {fileID: 186314756}
+  - {fileID: 1680983667}
+  - {fileID: 2078408300}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &590863046
@@ -2072,7 +2074,7 @@ Transform:
   m_GameObject: {fileID: 646884613}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.017504215, y: -0.05, z: -1.0799985}
+  m_LocalPosition: {x: -0.95, y: -0.05, z: -7.58}
   m_LocalScale: {x: 2.4999995, y: 0.2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5152,7 +5154,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1341541459}
-  - component: {fileID: 1341541460}
   m_Layer: 0
   m_Name: PivotVen
   m_TagString: Untagged
@@ -5176,37 +5177,6 @@ Transform:
   - {fileID: 646884614}
   m_Father: {fileID: 1680983667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1341541460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341541458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e658de162ad301049b89f2940c9201bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DesktopAppIconInteractable
-  sceneName: DesktopHub
-  playerControllerScript: {fileID: 1712375092}
-  playerTransform: {fileID: 1712375091}
-  playerAnimator: {fileID: 1282397561}
-  interactionPromptUI: {fileID: 564347715}
-  promptAnchor: {fileID: 761143639}
-  minDistanceFromPivot: 3
-  iconPivot: {fileID: 1341541459}
-  openAngleXAxis: 90
-  openAngleYAxis: 0
-  openAngleZAxis: 0
-  openDuration: 0.4
-  leapTarget: {fileID: 761143639}
-  leapAnimationName: rig|leap
-  leapDuration: 1.5
-  shrinkStartPercent: 0.75
-  moveStartPercent: 0.3
-  circleTransition: {fileID: 1606316961}
-  transitionDelay: 0.4
 --- !u!1 &1351424713
 GameObject:
   m_ObjectHideFlags: 0
@@ -5542,8 +5512,6 @@ Transform:
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1533302716}
-  - {fileID: 2111600492}
   - {fileID: 1366765579}
   - {fileID: 724854146}
   m_Father: {fileID: 0}
@@ -7548,7 +7516,7 @@ Transform:
   m_LocalScale: {x: 8, y: 0.004, z: 1.2499998}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 646884614}
+  m_Father: {fileID: 1680983667}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1671085378
 BoxCollider:
@@ -7637,6 +7605,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1680983667}
+  - component: {fileID: 1680983668}
   m_Layer: 0
   m_Name: Venom
   m_TagString: Untagged
@@ -7658,11 +7627,41 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1341541459}
-  - {fileID: 1931374095}
   - {fileID: 761143639}
   - {fileID: 1671085377}
   m_Father: {fileID: 568986718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1680983668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680983666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e658de162ad301049b89f2940c9201bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DesktopAppIconInteractable
+  sceneName: Venom
+  playerControllerScript: {fileID: 1712375092}
+  playerTransform: {fileID: 1712375091}
+  playerAnimator: {fileID: 1282397561}
+  interactionPromptUI: {fileID: 564347715}
+  promptAnchor: {fileID: 761143639}
+  minDistanceFromPivot: 3
+  iconPivot: {fileID: 1341541459}
+  openAngleXAxis: 90
+  openAngleYAxis: 0
+  openAngleZAxis: 0
+  openDuration: 0.4
+  leapTarget: {fileID: 761143639}
+  leapAnimationName: rig|leap
+  leapDuration: 1.5
+  shrinkStartPercent: 0.75
+  moveStartPercent: 0.3
+  circleTransition: {fileID: 1606316961}
+  transitionDelay: 0.4
 --- !u!1 &1702407668
 GameObject:
   m_ObjectHideFlags: 0
@@ -7843,6 +7842,87 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710716544}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1712375090
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 437146657106341473, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 730394642980206057, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: interactionPromptUI
+      value: 
+      objectReference: {fileID: 564347715}
+    - target: {fileID: 3927940662696935547, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 3927940662696935547, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 3927940662696935547, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 3927940662696935547, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3927940662696935547, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3927940662696935547, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3927940662696935547, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3927940662696935547, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3927940662696935547, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3927940662696935547, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773934285301326793, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+      propertyPath: transition
+      value: 
+      objectReference: {fileID: 1606316961}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+--- !u!4 &1712375091 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3927940662696935547, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+  m_PrefabInstance: {fileID: 1712375090}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1712375092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 730394642980206057, guid: 804a7201b38bdb043bf7ccb8135bf2c4, type: 3}
+  m_PrefabInstance: {fileID: 1712375090}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81b744c6a759ab4ea8862c0640a9ead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1 &1731228845
 GameObject:
   m_ObjectHideFlags: 0
@@ -7855,7 +7935,8 @@ GameObject:
   - component: {fileID: 1731228849}
   - component: {fileID: 1731228848}
   - component: {fileID: 1731228847}
-  m_Layer: 0
+  - component: {fileID: 1731228850}
+  m_Layer: 3
   m_Name: mail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7900,6 +7981,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1731228850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731228845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2b3c4d5e6f4a7b8c9d0e1f23456789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneLoadInteractable
+  sceneName: Email
+  promptAnchor: {fileID: 1731228846}
+  circleTransition: {fileID: 1606316961}
+  transitionDelay: 0.2
 --- !u!23 &1731228848
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9332,4 +9429,3 @@ SceneRoots:
   - {fileID: 1606316960}
   - {fileID: 1261767652}
   - {fileID: 1842462755}
-  - {fileID: 2800000301}

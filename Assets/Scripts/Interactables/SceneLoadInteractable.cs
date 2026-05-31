@@ -24,6 +24,13 @@ public class SceneLoadInteractable : MonoBehaviour, IInteractable
         return promptAnchor != null ? promptAnchor : transform;
     }
 
+    public void Configure(string targetScene, CircleHoleTransition transition, Transform anchor)
+    {
+        sceneName = targetScene;
+        circleTransition = transition;
+        promptAnchor = anchor;
+    }
+
     private IEnumerator LoadSceneSequence()
     {
         isLoading = true;

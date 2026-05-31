@@ -64,8 +64,15 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
 
     private IEnumerator OpenAppSequence()
     {
-        Destroy(interactionPromptUI.gameObject);
         isRunning = true;
+
+        if (playerTransform == null)
+        {
+            yield return LoadSceneWithTransition();
+            yield break;
+        }
+
+        Destroy(interactionPromptUI.gameObject);
 
         if (playerControllerScript != null)
             playerControllerScript.enabled = false;
@@ -83,10 +90,21 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
         if (playerAnimator != null)
             playerAnimator.SetBool("IsMoving", false);
 
-       yield return LeapAndShrinkPlayer();
+        yield return LeapAndShrinkPlayer();
 
-        yield return _waitForSeconds0_5; // Allow the transition to play for a bit before switching scenes
-    
+        yield return _waitForSeconds0_5;
+
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private IEnumerator LoadSceneWithTransition()
+    {
+        if (circleTransition != null)
+        {
+            yield return StartCoroutine(circleTransition.Close());
+            yield return new WaitForSeconds(transitionDelay);
+        }
+
         SceneManager.LoadScene(sceneName);
     }
 
@@ -155,6 +173,9 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
 
     private bool PlayerIsTooCloseToPivot()
     {
+        if (playerTransform == null || iconPivot == null)
+            return false;
+
         Vector3 playerPos = playerTransform.position;
         Vector3 pivotPos = iconPivot.position;
 

@@ -47,5 +47,11 @@ public class GameBootstrap : MonoBehaviour
             JournalUI.EnsureExists();
             Debug.Log("GameBootstrap: created JournalSystem");
         }
+
+        XBankRuntimeSetup.EnsureExists();
+        EndgameController.EnsureExists();
+
+        if (XBankRuntimeSetup.Instance != null)
+            XBankRuntimeSetup.Instance.SetupScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }

@@ -202,6 +202,38 @@ Extracted links: (none — XML leaf node)
 
 ---
 
+### Stage 2b — `crawl https://www.araknyd.io/about` (About Us)
+
+```
+spider@journal:~$ crawl https://www.araknyd.io/about
+[GET] https://www.araknyd.io/about  → 200 OK (9.4 KB)
+[cache] id=3b
+
+Title: "About Us — Araknyd (We Web Better™)"
+Tagline: "Founded 2019. Still here. Not sure why."
+
+Body summary (stripped):
+  • Team: Donald K. (CEO), Lily Chen (Senior Backend), Intern #12 (DevOps Just SSH),
+    Web Inspector (DOM Structural Integrity — "not in org chart yet")
+  • Values: move fast, break things thoughtfully, customer obsession (200 Jira tickets)
+  • Press: HackerNest "promising"; Meridian Corp cease-and-desist "pending"
+
+Extracted links (same-origin):
+  /blog
+  /careers
+  /status
+  /assets/spider-mascot.png
+
+HTML comment (view-source / cat):
+  <!-- ORG_CHART_LEGACY_PATHS mentions /admin-beta/dashboard and /admin/v2/dashboard.js
+       for "bookmark compatibility" per CEO memo ARK-1337 — same breadcrumb as careers page -->
+
+★ Lore beat only — reinforces named legacy paths without new bypass mechanics.
+  Full vibe-coded source: see about_source.html
+```
+
+---
+
 ### Stage 3 — `crawl https://www.araknyd.io/blog`
 
 ```

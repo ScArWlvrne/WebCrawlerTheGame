@@ -28,6 +28,11 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+    public void ConfigureRuntime(LayerMask runtimeInteractableLayer)
+    {
+        interactableLayer = runtimeInteractableLayer;
+    }
+
     public void SetGameplayInputLocked(bool locked)
     {
         gameplayInputLocked = locked;
@@ -101,7 +106,8 @@ public class PlayerController : MonoBehaviour
             TryInteract();
         }
 
-        animator.SetBool("IsMoving", isMoving);
+        if (animator != null)
+            animator.SetBool("IsMoving", isMoving);
 
         controller.Move(moveSpeed * Time.deltaTime * move);
     }

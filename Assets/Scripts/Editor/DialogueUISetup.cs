@@ -14,12 +14,13 @@ public static class DialogueUISetup
     [MenuItem("Tools/Dialogue/Setup Dialogue UI")]
     public static void SetupDialogueUI()
     {
-        EnsureSpriteImport("Assets/Scenes/PhotoImports/joeprofile.png");
-        EnsureSpriteImport("Assets/Scenes/PhotoImports/donProfile.png");
+        EnsureSpriteImport("Assets/Dialogue/Characters/joe_schmo_fosho.png");
+        EnsureSpriteImport("Assets/Dialogue/Characters/donald_musk.png");
 
-        Sprite joeSprite = LoadSprite("Assets/Scenes/PhotoImports/joeprofile.png");
-        Sprite donSprite = LoadSprite("Assets/Scenes/PhotoImports/donProfile.png");
-        Sprite lilySprite = donSprite != null ? donSprite : joeSprite;
+        Sprite lilySprite = null;
+        Sprite lilyPadSprite = null;
+        Sprite joeSprite = LoadSprite("Assets/Dialogue/Characters/joe_schmo_fosho.png");
+        Sprite donSprite = LoadSprite("Assets/Dialogue/Characters/donald_musk.png");
 
         Directory.CreateDirectory("Assets/Dialogue/Characters");
         Directory.CreateDirectory("Assets/UI/Dialogue");
@@ -27,8 +28,10 @@ public static class DialogueUISetup
 
         DialogueCharacterProfile lily = CreateOrUpdateProfile(
             "Assets/Dialogue/Characters/Lily.asset", GameCharacters.Lily, "Lily Chen", lilySprite);
+        DialogueCharacterProfile lilyPad = CreateOrUpdateProfile(
+            "Assets/Dialogue/Characters/LilyPad.asset", GameCharacters.LilyPad, "Lily Pad", lilyPadSprite);
         DialogueCharacterProfile joe = CreateOrUpdateProfile(
-            "Assets/Dialogue/Characters/Joe.asset", GameCharacters.Joe, "Joe", joeSprite);
+            "Assets/Dialogue/Characters/Joe.asset", GameCharacters.Joe, "Joe Schmo FoSho", joeSprite);
         DialogueCharacterProfile don = CreateOrUpdateProfile(
             "Assets/Dialogue/Characters/Don.asset", "don", "Don", donSprite);
 
@@ -43,6 +46,7 @@ public static class DialogueUISetup
         SerializedProperty profilesProperty = registryObject.FindProperty("profiles");
         profilesProperty.ClearArray();
         AddProfile(profilesProperty, lily);
+        AddProfile(profilesProperty, lilyPad);
         AddProfile(profilesProperty, joe);
         AddProfile(profilesProperty, don);
         registryObject.ApplyModifiedPropertiesWithoutUndo();

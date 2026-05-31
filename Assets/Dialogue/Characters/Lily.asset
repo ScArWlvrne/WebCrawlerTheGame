@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Lily
   characterId: lily
   displayName: Lily Chen
-  portrait: {fileID: 21300000, guid: f2bebabcc760f4a6499aea65a89e85ed, type: 3}
+  portrait: {fileID: 0}

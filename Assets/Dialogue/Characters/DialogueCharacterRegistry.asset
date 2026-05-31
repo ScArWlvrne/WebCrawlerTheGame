@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: DialogueCharacterRegistry
   profiles:
   - {fileID: 11400000, guid: e1a2b3c4d5e64f708192a3b4c5d6e7f8, type: 2}
+  - {fileID: 11400000, guid: c2d3e4f5a6b7488990c1d2e3f4a5b6c9d, type: 2}
   - {fileID: 11400000, guid: f2b3c4d5e6f7488091a2b3c4d5e6f7a9, type: 2}
   - {fileID: 11400000, guid: a3c4d5e6f7a84990b1c2d3e4f5a6b7c8, type: 2}

@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e658de162ad301049b89f2940c9201bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DesktopAppIconInteractable
-  sceneName: DesktopHub
+  sceneName: Browser
   playerControllerScript: {fileID: 1712375092}
   playerTransform: {fileID: 1712375091}
   playerAnimator: {fileID: 1282397561}
@@ -2648,15 +2648,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5984027977618626626, guid: bada63f73706182439b0ddef760f4f0e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.80318
+      value: 2.23
       objectReference: {fileID: 0}
     - target: {fileID: 5984027977618626626, guid: bada63f73706182439b0ddef760f4f0e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.68841
+      value: 0.94
       objectReference: {fileID: 0}
     - target: {fileID: 5984027977618626626, guid: bada63f73706182439b0ddef760f4f0e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.24691
+      value: -4.56
       objectReference: {fileID: 0}
     - target: {fileID: 5984027977618626626, guid: bada63f73706182439b0ddef760f4f0e, type: 3}
       propertyPath: m_LocalRotation.w

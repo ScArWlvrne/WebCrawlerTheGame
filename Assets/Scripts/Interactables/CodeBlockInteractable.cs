@@ -4,6 +4,7 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
 {
     [Header("Code Block")]
     [SerializeField] private string codeBlockId = GameCodeBlocks.ArnavTestCodeBlock;
+    [SerializeField] private string requiredFlag;
 
     [Header("Visuals")]
     [SerializeField] private GameObject webbedOverlay;
@@ -44,6 +45,13 @@ public class CodeBlockInteractable : MonoBehaviour, IInteractable
         if (GameStateManager.Instance == null)
         {
             Debug.LogError("CodeBlockInteractable: GameStateManager.Instance is null.");
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(requiredFlag) &&
+            !GameStateManager.Instance.GetFlag(requiredFlag))
+        {
+            Debug.Log("CodeBlockInteractable: required flag not set: " + requiredFlag);
             return;
         }
 

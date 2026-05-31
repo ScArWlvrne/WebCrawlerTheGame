@@ -50,6 +50,17 @@ public class SceneLoadInteractable : MonoBehaviour, IInteractable
         promptAnchor = anchor;
     }
 
+    private bool CanLoad()
+    {
+        if (string.IsNullOrEmpty(requiredFlag))
+            return true;
+
+        if (GameStateManager.Instance == null)
+            return true;
+
+        return GameStateManager.Instance.GetFlag(requiredFlag);
+    }
+
     private IEnumerator LoadSceneSequence()
     {
         isLoading = true;

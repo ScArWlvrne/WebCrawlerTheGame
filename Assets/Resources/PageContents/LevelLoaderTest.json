@@ -40,6 +40,17 @@
       "size": { "x": 2, "y": 2, "z": 2 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "color": "#AA44FF"
+    },
+    {
+      "id": "textElement",
+      "type": "text",
+      "position": { "x": 0, "y": 3, "z": 0 },
+      "size": { "x": 1, "y": 1, "z": 1 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "color": "#FFFFFF",
+      "text": "Hello World!",
+      "font": "LiberationSans",
+      "fontSize": 36
     }
   ]
 }

@@ -1,0 +1,2004 @@
+{
+  "elements": [
+    {
+      "id": "pagea_panel_000",
+      "type": "panel",
+      "position": {
+        "x": -9,
+        "y": -9,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 15
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#35611D"
+    },
+    {
+      "id": "pagea_sphere_001",
+      "type": "sphere",
+      "position": {
+        "x": -7,
+        "y": -9,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 8,
+        "y": 12,
+        "z": 14
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#5AB4B2"
+    },
+    {
+      "id": "pagea_capsule_002",
+      "type": "capsule",
+      "position": {
+        "x": -5,
+        "y": -9,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 16,
+        "y": 24,
+        "z": 28
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#7F0747"
+    },
+    {
+      "id": "pagea_cylinder_003",
+      "type": "cylinder",
+      "position": {
+        "x": -3,
+        "y": -9,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 24,
+        "y": 36,
+        "z": 42
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#A45ADC"
+    },
+    {
+      "id": "pagea_cube_004",
+      "type": "cube",
+      "position": {
+        "x": -1,
+        "y": -9,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 32,
+        "y": 48,
+        "z": 56
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#C9AD71"
+    },
+    {
+      "id": "pagea_panel_005",
+      "type": "panel",
+      "position": {
+        "x": 1,
+        "y": -9,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 60
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#EE0006"
+    },
+    {
+      "id": "pagea_sphere_006",
+      "type": "sphere",
+      "position": {
+        "x": 3,
+        "y": -9,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 48,
+        "y": 72,
+        "z": 84
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#13539B"
+    },
+    {
+      "id": "pagea_capsule_007",
+      "type": "capsule",
+      "position": {
+        "x": 5,
+        "y": -9,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 56,
+        "y": 84,
+        "z": 98
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#38A630"
+    },
+    {
+      "id": "pagea_cylinder_008",
+      "type": "cylinder",
+      "position": {
+        "x": 7,
+        "y": -9,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 64,
+        "y": 96,
+        "z": 112
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#5DF9C5"
+    },
+    {
+      "id": "pagea_cube_009",
+      "type": "cube",
+      "position": {
+        "x": 9,
+        "y": -9,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 72,
+        "y": 108,
+        "z": 126
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#824C5A"
+    },
+    {
+      "id": "pagea_panel_010",
+      "type": "panel",
+      "position": {
+        "x": -9,
+        "y": -7,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 105
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#A79FEF"
+    },
+    {
+      "id": "pagea_sphere_011",
+      "type": "sphere",
+      "position": {
+        "x": -7,
+        "y": -7,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 88,
+        "y": 132,
+        "z": 154
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#CCF284"
+    },
+    {
+      "id": "pagea_capsule_012",
+      "type": "capsule",
+      "position": {
+        "x": -5,
+        "y": -7,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 96,
+        "y": 144,
+        "z": 168
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#F14519"
+    },
+    {
+      "id": "pagea_cylinder_013",
+      "type": "cylinder",
+      "position": {
+        "x": -3,
+        "y": -7,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 104,
+        "y": 156,
+        "z": 182
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#1698AE"
+    },
+    {
+      "id": "pagea_cube_014",
+      "type": "cube",
+      "position": {
+        "x": -1,
+        "y": -7,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 112,
+        "y": 168,
+        "z": 196
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#3BEB43"
+    },
+    {
+      "id": "pagea_panel_015",
+      "type": "panel",
+      "position": {
+        "x": 1,
+        "y": -7,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 150
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#603ED8"
+    },
+    {
+      "id": "pagea_sphere_016",
+      "type": "sphere",
+      "position": {
+        "x": 3,
+        "y": -7,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 128,
+        "y": 192,
+        "z": 224
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#85916D"
+    },
+    {
+      "id": "pagea_capsule_017",
+      "type": "capsule",
+      "position": {
+        "x": 5,
+        "y": -7,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 136,
+        "y": 204,
+        "z": 238
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#AAE402"
+    },
+    {
+      "id": "pagea_cylinder_018",
+      "type": "cylinder",
+      "position": {
+        "x": 7,
+        "y": -7,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 144,
+        "y": 216,
+        "z": 252
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#CF3797"
+    },
+    {
+      "id": "pagea_cube_019",
+      "type": "cube",
+      "position": {
+        "x": 9,
+        "y": -7,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 152,
+        "y": 228,
+        "z": 266
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#F48A2C"
+    },
+    {
+      "id": "pagea_panel_020",
+      "type": "panel",
+      "position": {
+        "x": -9,
+        "y": -5,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 195
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#19DDC1"
+    },
+    {
+      "id": "pagea_sphere_021",
+      "type": "sphere",
+      "position": {
+        "x": -7,
+        "y": -5,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 168,
+        "y": 252,
+        "z": 294
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#3E3056"
+    },
+    {
+      "id": "pagea_capsule_022",
+      "type": "capsule",
+      "position": {
+        "x": -5,
+        "y": -5,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 176,
+        "y": 264,
+        "z": 308
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#6383EB"
+    },
+    {
+      "id": "pagea_cylinder_023",
+      "type": "cylinder",
+      "position": {
+        "x": -3,
+        "y": -5,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 184,
+        "y": 276,
+        "z": 322
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#88D680"
+    },
+    {
+      "id": "pagea_cube_024",
+      "type": "cube",
+      "position": {
+        "x": -1,
+        "y": -5,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 192,
+        "y": 288,
+        "z": 336
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#AD2915"
+    },
+    {
+      "id": "pagea_panel_025",
+      "type": "panel",
+      "position": {
+        "x": 1,
+        "y": -5,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 240
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#D27CAA"
+    },
+    {
+      "id": "pagea_sphere_026",
+      "type": "sphere",
+      "position": {
+        "x": 3,
+        "y": -5,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 208,
+        "y": 312,
+        "z": 4
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#F7CF3F"
+    },
+    {
+      "id": "pagea_capsule_027",
+      "type": "capsule",
+      "position": {
+        "x": 5,
+        "y": -5,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 216,
+        "y": 324,
+        "z": 18
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#1C22D4"
+    },
+    {
+      "id": "pagea_cylinder_028",
+      "type": "cylinder",
+      "position": {
+        "x": 7,
+        "y": -5,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 224,
+        "y": 336,
+        "z": 32
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#417569"
+    },
+    {
+      "id": "pagea_cube_029",
+      "type": "cube",
+      "position": {
+        "x": 9,
+        "y": -5,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 232,
+        "y": 348,
+        "z": 46
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#66C8FE"
+    },
+    {
+      "id": "pagea_panel_030",
+      "type": "panel",
+      "position": {
+        "x": -9,
+        "y": -3,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 285
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#8B1B93"
+    },
+    {
+      "id": "pagea_sphere_031",
+      "type": "sphere",
+      "position": {
+        "x": -7,
+        "y": -3,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 248,
+        "y": 12,
+        "z": 74
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#B06E28"
+    },
+    {
+      "id": "pagea_capsule_032",
+      "type": "capsule",
+      "position": {
+        "x": -5,
+        "y": -3,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 256,
+        "y": 24,
+        "z": 88
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#D5C1BD"
+    },
+    {
+      "id": "pagea_cylinder_033",
+      "type": "cylinder",
+      "position": {
+        "x": -3,
+        "y": -3,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 264,
+        "y": 36,
+        "z": 102
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#FA1452"
+    },
+    {
+      "id": "pagea_cube_034",
+      "type": "cube",
+      "position": {
+        "x": -1,
+        "y": -3,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 272,
+        "y": 48,
+        "z": 116
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#1F67E7"
+    },
+    {
+      "id": "pagea_panel_035",
+      "type": "panel",
+      "position": {
+        "x": 1,
+        "y": -3,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 330
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#44BA7C"
+    },
+    {
+      "id": "pagea_sphere_036",
+      "type": "sphere",
+      "position": {
+        "x": 3,
+        "y": -3,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 288,
+        "y": 72,
+        "z": 144
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#690D11"
+    },
+    {
+      "id": "pagea_capsule_037",
+      "type": "capsule",
+      "position": {
+        "x": 5,
+        "y": -3,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 296,
+        "y": 84,
+        "z": 158
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#8E60A6"
+    },
+    {
+      "id": "pagea_cylinder_038",
+      "type": "cylinder",
+      "position": {
+        "x": 7,
+        "y": -3,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 304,
+        "y": 96,
+        "z": 172
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#B3B33B"
+    },
+    {
+      "id": "pagea_cube_039",
+      "type": "cube",
+      "position": {
+        "x": 9,
+        "y": -3,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 312,
+        "y": 108,
+        "z": 186
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#D806D0"
+    },
+    {
+      "id": "pagea_panel_040",
+      "type": "panel",
+      "position": {
+        "x": -9,
+        "y": -1,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 15
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#FD5965"
+    },
+    {
+      "id": "pagea_sphere_041",
+      "type": "sphere",
+      "position": {
+        "x": -7,
+        "y": -1,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 328,
+        "y": 132,
+        "z": 214
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#22ACFA"
+    },
+    {
+      "id": "pagea_capsule_042",
+      "type": "capsule",
+      "position": {
+        "x": -5,
+        "y": -1,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 336,
+        "y": 144,
+        "z": 228
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#47FF8F"
+    },
+    {
+      "id": "pagea_cylinder_043",
+      "type": "cylinder",
+      "position": {
+        "x": -3,
+        "y": -1,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 344,
+        "y": 156,
+        "z": 242
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#6C5224"
+    },
+    {
+      "id": "pagea_cube_044",
+      "type": "cube",
+      "position": {
+        "x": -1,
+        "y": -1,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 352,
+        "y": 168,
+        "z": 256
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#91A5B9"
+    },
+    {
+      "id": "pagea_panel_045",
+      "type": "panel",
+      "position": {
+        "x": 1,
+        "y": -1,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 60
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#B6F84E"
+    },
+    {
+      "id": "pagea_sphere_046",
+      "type": "sphere",
+      "position": {
+        "x": 3,
+        "y": -1,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 8,
+        "y": 192,
+        "z": 284
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#DB4BE3"
+    },
+    {
+      "id": "pagea_capsule_047",
+      "type": "capsule",
+      "position": {
+        "x": 5,
+        "y": -1,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 16,
+        "y": 204,
+        "z": 298
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#009E78"
+    },
+    {
+      "id": "pagea_cylinder_048",
+      "type": "cylinder",
+      "position": {
+        "x": 7,
+        "y": -1,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 24,
+        "y": 216,
+        "z": 312
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#25F10D"
+    },
+    {
+      "id": "pagea_cube_049",
+      "type": "cube",
+      "position": {
+        "x": 9,
+        "y": -1,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 32,
+        "y": 228,
+        "z": 326
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#4A44A2"
+    },
+    {
+      "id": "pagea_panel_050",
+      "type": "panel",
+      "position": {
+        "x": -9,
+        "y": 1,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 105
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#6F9737"
+    },
+    {
+      "id": "pagea_sphere_051",
+      "type": "sphere",
+      "position": {
+        "x": -7,
+        "y": 1,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 48,
+        "y": 252,
+        "z": 354
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#94EACC"
+    },
+    {
+      "id": "pagea_capsule_052",
+      "type": "capsule",
+      "position": {
+        "x": -5,
+        "y": 1,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 56,
+        "y": 264,
+        "z": 8
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#B93D61"
+    },
+    {
+      "id": "pagea_cylinder_053",
+      "type": "cylinder",
+      "position": {
+        "x": -3,
+        "y": 1,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 64,
+        "y": 276,
+        "z": 22
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#DE90F6"
+    },
+    {
+      "id": "pagea_cube_054",
+      "type": "cube",
+      "position": {
+        "x": -1,
+        "y": 1,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 72,
+        "y": 288,
+        "z": 36
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#03E38B"
+    },
+    {
+      "id": "pagea_panel_055",
+      "type": "panel",
+      "position": {
+        "x": 1,
+        "y": 1,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 150
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#283620"
+    },
+    {
+      "id": "pagea_sphere_056",
+      "type": "sphere",
+      "position": {
+        "x": 3,
+        "y": 1,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 88,
+        "y": 312,
+        "z": 64
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#4D89B5"
+    },
+    {
+      "id": "pagea_capsule_057",
+      "type": "capsule",
+      "position": {
+        "x": 5,
+        "y": 1,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 96,
+        "y": 324,
+        "z": 78
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#72DC4A"
+    },
+    {
+      "id": "pagea_cylinder_058",
+      "type": "cylinder",
+      "position": {
+        "x": 7,
+        "y": 1,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 104,
+        "y": 336,
+        "z": 92
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#972FDF"
+    },
+    {
+      "id": "pagea_cube_059",
+      "type": "cube",
+      "position": {
+        "x": 9,
+        "y": 1,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 112,
+        "y": 348,
+        "z": 106
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#BC8274"
+    },
+    {
+      "id": "pagea_panel_060",
+      "type": "panel",
+      "position": {
+        "x": -9,
+        "y": 3,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 195
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#E1D509"
+    },
+    {
+      "id": "pagea_sphere_061",
+      "type": "sphere",
+      "position": {
+        "x": -7,
+        "y": 3,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 128,
+        "y": 12,
+        "z": 134
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#06289E"
+    },
+    {
+      "id": "pagea_capsule_062",
+      "type": "capsule",
+      "position": {
+        "x": -5,
+        "y": 3,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 136,
+        "y": 24,
+        "z": 148
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#2B7B33"
+    },
+    {
+      "id": "pagea_cylinder_063",
+      "type": "cylinder",
+      "position": {
+        "x": -3,
+        "y": 3,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 144,
+        "y": 36,
+        "z": 162
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#50CEC8"
+    },
+    {
+      "id": "pagea_cube_064",
+      "type": "cube",
+      "position": {
+        "x": -1,
+        "y": 3,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 152,
+        "y": 48,
+        "z": 176
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#75215D"
+    },
+    {
+      "id": "pagea_panel_065",
+      "type": "panel",
+      "position": {
+        "x": 1,
+        "y": 3,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 240
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#9A74F2"
+    },
+    {
+      "id": "pagea_sphere_066",
+      "type": "sphere",
+      "position": {
+        "x": 3,
+        "y": 3,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 168,
+        "y": 72,
+        "z": 204
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#BFC787"
+    },
+    {
+      "id": "pagea_capsule_067",
+      "type": "capsule",
+      "position": {
+        "x": 5,
+        "y": 3,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 176,
+        "y": 84,
+        "z": 218
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#E41A1C"
+    },
+    {
+      "id": "pagea_cylinder_068",
+      "type": "cylinder",
+      "position": {
+        "x": 7,
+        "y": 3,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 184,
+        "y": 96,
+        "z": 232
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#096DB1"
+    },
+    {
+      "id": "pagea_cube_069",
+      "type": "cube",
+      "position": {
+        "x": 9,
+        "y": 3,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 192,
+        "y": 108,
+        "z": 246
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#2EC046"
+    },
+    {
+      "id": "pagea_panel_070",
+      "type": "panel",
+      "position": {
+        "x": -9,
+        "y": 5,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 285
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#5313DB"
+    },
+    {
+      "id": "pagea_sphere_071",
+      "type": "sphere",
+      "position": {
+        "x": -7,
+        "y": 5,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 208,
+        "y": 132,
+        "z": 274
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#786670"
+    },
+    {
+      "id": "pagea_capsule_072",
+      "type": "capsule",
+      "position": {
+        "x": -5,
+        "y": 5,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 216,
+        "y": 144,
+        "z": 288
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#9DB905"
+    },
+    {
+      "id": "pagea_cylinder_073",
+      "type": "cylinder",
+      "position": {
+        "x": -3,
+        "y": 5,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 224,
+        "y": 156,
+        "z": 302
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#C20C9A"
+    },
+    {
+      "id": "pagea_cube_074",
+      "type": "cube",
+      "position": {
+        "x": -1,
+        "y": 5,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 232,
+        "y": 168,
+        "z": 316
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#E75F2F"
+    },
+    {
+      "id": "pagea_panel_075",
+      "type": "panel",
+      "position": {
+        "x": 1,
+        "y": 5,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 330
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#0CB2C4"
+    },
+    {
+      "id": "pagea_sphere_076",
+      "type": "sphere",
+      "position": {
+        "x": 3,
+        "y": 5,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 248,
+        "y": 192,
+        "z": 344
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#310559"
+    },
+    {
+      "id": "pagea_capsule_077",
+      "type": "capsule",
+      "position": {
+        "x": 5,
+        "y": 5,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 256,
+        "y": 204,
+        "z": 358
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#5658EE"
+    },
+    {
+      "id": "pagea_cylinder_078",
+      "type": "cylinder",
+      "position": {
+        "x": 7,
+        "y": 5,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 264,
+        "y": 216,
+        "z": 12
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#7BAB83"
+    },
+    {
+      "id": "pagea_cube_079",
+      "type": "cube",
+      "position": {
+        "x": 9,
+        "y": 5,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 272,
+        "y": 228,
+        "z": 26
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#A0FE18"
+    },
+    {
+      "id": "pagea_panel_080",
+      "type": "panel",
+      "position": {
+        "x": -9,
+        "y": 7,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 15
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#C551AD"
+    },
+    {
+      "id": "pagea_sphere_081",
+      "type": "sphere",
+      "position": {
+        "x": -7,
+        "y": 7,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 288,
+        "y": 252,
+        "z": 54
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#EAA442"
+    },
+    {
+      "id": "pagea_capsule_082",
+      "type": "capsule",
+      "position": {
+        "x": -5,
+        "y": 7,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 296,
+        "y": 264,
+        "z": 68
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#0FF7D7"
+    },
+    {
+      "id": "pagea_cylinder_083",
+      "type": "cylinder",
+      "position": {
+        "x": -3,
+        "y": 7,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 304,
+        "y": 276,
+        "z": 82
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#344A6C"
+    },
+    {
+      "id": "pagea_cube_084",
+      "type": "cube",
+      "position": {
+        "x": -1,
+        "y": 7,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 312,
+        "y": 288,
+        "z": 96
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#599D01"
+    },
+    {
+      "id": "pagea_panel_085",
+      "type": "panel",
+      "position": {
+        "x": 1,
+        "y": 7,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 60
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#7EF096"
+    },
+    {
+      "id": "pagea_sphere_086",
+      "type": "sphere",
+      "position": {
+        "x": 3,
+        "y": 7,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 328,
+        "y": 312,
+        "z": 124
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#A3432B"
+    },
+    {
+      "id": "pagea_capsule_087",
+      "type": "capsule",
+      "position": {
+        "x": 5,
+        "y": 7,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 336,
+        "y": 324,
+        "z": 138
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#C896C0"
+    },
+    {
+      "id": "pagea_cylinder_088",
+      "type": "cylinder",
+      "position": {
+        "x": 7,
+        "y": 7,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 344,
+        "y": 336,
+        "z": 152
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#EDE955"
+    },
+    {
+      "id": "pagea_cube_089",
+      "type": "cube",
+      "position": {
+        "x": 9,
+        "y": 7,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 352,
+        "y": 348,
+        "z": 166
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#123CEA"
+    },
+    {
+      "id": "pagea_panel_090",
+      "type": "panel",
+      "position": {
+        "x": -9,
+        "y": 9,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 105
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#378F7F"
+    },
+    {
+      "id": "pagea_sphere_091",
+      "type": "sphere",
+      "position": {
+        "x": -7,
+        "y": 9,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 8,
+        "y": 12,
+        "z": 194
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#5CE214"
+    },
+    {
+      "id": "pagea_capsule_092",
+      "type": "capsule",
+      "position": {
+        "x": -5,
+        "y": 9,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 16,
+        "y": 24,
+        "z": 208
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#8135A9"
+    },
+    {
+      "id": "pagea_cylinder_093",
+      "type": "cylinder",
+      "position": {
+        "x": -3,
+        "y": 9,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 24,
+        "y": 36,
+        "z": 222
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#A6883E"
+    },
+    {
+      "id": "pagea_cube_094",
+      "type": "cube",
+      "position": {
+        "x": -1,
+        "y": 9,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 32,
+        "y": 48,
+        "z": 236
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#CBDBD3"
+    },
+    {
+      "id": "pagea_panel_095",
+      "type": "panel",
+      "position": {
+        "x": 1,
+        "y": 9,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 150
+      },
+      "size": {
+        "x": 0.67,
+        "y": 0.67,
+        "z": 0.67
+      },
+      "color": "#F02E68"
+    },
+    {
+      "id": "pagea_sphere_096",
+      "type": "sphere",
+      "position": {
+        "x": 3,
+        "y": 9,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 48,
+        "y": 72,
+        "z": 264
+      },
+      "size": {
+        "x": 0.79,
+        "y": 0.79,
+        "z": 0.79
+      },
+      "color": "#1581FD"
+    },
+    {
+      "id": "pagea_capsule_097",
+      "type": "capsule",
+      "position": {
+        "x": 5,
+        "y": 9,
+        "z": 5.15
+      },
+      "rotation": {
+        "x": 56,
+        "y": 84,
+        "z": 278
+      },
+      "size": {
+        "x": 0.91,
+        "y": 1.36,
+        "z": 0.91
+      },
+      "color": "#3AD492"
+    },
+    {
+      "id": "pagea_cylinder_098",
+      "type": "cylinder",
+      "position": {
+        "x": 7,
+        "y": 9,
+        "z": 5.3
+      },
+      "rotation": {
+        "x": 64,
+        "y": 96,
+        "z": 292
+      },
+      "size": {
+        "x": 1.03,
+        "y": 1.48,
+        "z": 1.03
+      },
+      "color": "#5F2727"
+    },
+    {
+      "id": "pagea_cube_099",
+      "type": "cube",
+      "position": {
+        "x": 9,
+        "y": 9,
+        "z": 5.0
+      },
+      "rotation": {
+        "x": 72,
+        "y": 108,
+        "z": 306
+      },
+      "size": {
+        "x": 0.7,
+        "y": 0.55,
+        "z": 0.7
+      },
+      "color": "#847ABC"
+    }
+  ]
+}

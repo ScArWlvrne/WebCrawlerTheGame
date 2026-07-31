@@ -1,9 +1,9 @@
 using UnityEngine;
+using TMPro;
 
 public class ContentLoader : MonoBehaviour
 {
-    [SerializeField ] private string contentFile = "LevelLoaderTest";
-    [SerializeField] private Transform contentRoot;
+    [SerializeField ] private string contentFile;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -11,27 +11,55 @@ public class ContentLoader : MonoBehaviour
        LoadContent(contentFile);
     }
 
-    public void LoadContent(string contentFile)
+    public float LoadContent(string contentFile)
     {
+        float startTime = Time.realtimeSinceStartup;
+
         TextAsset jsonFile = Resources.Load<TextAsset>($"PageContents/{contentFile}");
         if (jsonFile == null)
         {
             Debug.LogError($"Content file '{contentFile}' not found in Resources/PageContents.");
-            return;
+            return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
         }
 
         ContentDefinition content = JsonUtility.FromJson<ContentDefinition>(jsonFile.text);
         if (content?.elements == null)
         {
             Debug.LogError($"Invalid content definition: '{contentFile}'.");
-            return;
+            return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
         }
 
         ClearCurrentContent();
         foreach (ContentElement element in content.elements)
         {
             CreateElement(element);
-       }
+        }
+       return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
+    }
+
+    public float AddContent(string contentFile) // Just LoadContent, but it doesn't call ClearCurrentContent
+    {
+        float startTime = Time.realtimeSinceStartup;
+
+        TextAsset jsonFile = Resources.Load<TextAsset>($"PageContents/{contentFile}");
+        if (jsonFile == null)
+        {
+            Debug.LogError($"Content file '{contentFile}' not found in Resources/PageContents.");
+            return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
+        }
+
+        ContentDefinition content = JsonUtility.FromJson<ContentDefinition>(jsonFile.text);
+        if (content?.elements == null)
+        {
+            Debug.LogError($"Invalid content definition: '{contentFile}'.");
+            return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
+        }
+
+        foreach (ContentElement element in content.elements)
+        {
+            CreateElement(element);
+        }
+       return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
     }
     private void CreateElement(ContentElement element)
     {
@@ -45,7 +73,8 @@ public class ContentLoader : MonoBehaviour
 
         obj.name = element.id;
         ApplyTransform(obj, element);
-        ApplyMaterial(obj, element);
+        ApplyRenderer(obj, element);
+        ApplyText(obj, element);
     }
 
     private GameObject CreatePrimitive(ContentElement element)
@@ -74,6 +103,11 @@ public class ContentLoader : MonoBehaviour
                 obj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 break;
 
+            case "text":
+                obj = new GameObject("Text");
+                obj.AddComponent<TextMeshPro>();
+                break;
+
             default:
                 Debug.LogWarning($"Unknown element type: {element.type}");
                 break;
@@ -84,7 +118,7 @@ public class ContentLoader : MonoBehaviour
 
     private void ApplyTransform(GameObject obj, ContentElement element)
     {
-        obj.transform.SetParent(contentRoot, false);
+        obj.transform.SetParent(transform, false);
         obj.transform.localScale = element.size?.ToVector3() ?? Vector3.one;
         obj.transform.SetLocalPositionAndRotation(
                                                   element.position?.ToVector3() ?? Vector3.zero,
@@ -92,7 +126,7 @@ public class ContentLoader : MonoBehaviour
                                                   );
     }
 
-    private void ApplyMaterial(GameObject obj, ContentElement element)
+    private void ApplyRenderer(GameObject obj, ContentElement element)
     {
         Renderer renderer = obj.GetComponent<Renderer>();
         if (renderer != null)
@@ -109,9 +143,32 @@ public class ContentLoader : MonoBehaviour
         }
     }
 
+    private void ApplyText(GameObject obj, ContentElement element)
+    {
+        TextMeshPro tmp = obj.GetComponent<TextMeshPro>();
+        if (tmp != null)
+        {
+            tmp.text = element.text;
+            tmp.fontSize = element.fontSize;
+            TMP_FontAsset font = Resources.Load<TMP_FontAsset>($"TextMesh Pro/Fonts/{element.font}");
+            if (font != null)
+            {
+                tmp.font = font;
+            }
+            else
+            {
+                Debug.LogWarning($"Font '{element.font}' not found. Using default font.");
+            }
+            if (ColorUtility.TryParseHtmlString(element.color, out Color parsedColor))
+            {
+                tmp.color = parsedColor;
+            }
+        }
+    }
+
     private void ClearCurrentContent()
     {
-        foreach (Transform child in contentRoot)
+        foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }

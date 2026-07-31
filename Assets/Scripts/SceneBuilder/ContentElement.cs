@@ -13,4 +13,7 @@ public class ContentElement
     public string type;
     public string color;
     public string texture;
+    public string text;
+    public string font = "LiberationSans";
+    public int fontSize;
 }

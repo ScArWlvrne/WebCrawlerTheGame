@@ -49,7 +49,7 @@
       "rotation": { "x": 0, "y": 0, "z": 0 },
       "color": "#FFFFFF",
       "text": "Hello World!",
-      "font": "LiberationSans",
+      "font": "LiberationSans SDF",
       "fontSize": 36
     }
   ]

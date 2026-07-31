@@ -85,27 +85,33 @@ public class ContentLoader : MonoBehaviour
         {
             case "cube":
                 obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                Debug.Log($"Created cube for element with id: {element.id}");
                 break;
 
             case "panel":
                 obj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                Debug.Log($"Created panel for element with id: {element.id}");
                 break;
 
             case "sphere":
                 obj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                Debug.Log($"Created sphere for element with id: {element.id}");
                 break;
 
             case "capsule":
                 obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                Debug.Log($"Created capsule for element with id: {element.id}");
                 break;
 
             case "cylinder":
                 obj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                Debug.Log($"Created cylinder for element with id: {element.id}");
                 break;
 
             case "text":
                 obj = new GameObject("Text");
                 obj.AddComponent<TextMeshPro>();
+                Debug.Log($"Created text for element with id: {element.id}");
                 break;
 
             default:
@@ -150,7 +156,7 @@ public class ContentLoader : MonoBehaviour
         {
             tmp.text = element.text;
             tmp.fontSize = element.fontSize;
-            TMP_FontAsset font = Resources.Load<TMP_FontAsset>($"TextMesh Pro/Fonts/{element.font}");
+            TMP_FontAsset font = Resources.Load<TMP_FontAsset>($"Fonts & Materials/{element.font}");
             if (font != null)
             {
                 tmp.font = font;

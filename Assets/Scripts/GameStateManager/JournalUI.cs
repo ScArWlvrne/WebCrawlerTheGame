@@ -70,8 +70,8 @@ public class JournalUI : MonoBehaviour
         if (Keyboard.current == null)
             return;
 
-        if (IsDialogueBlockingJournal())
-            return;
+        // if (IsDialogueBlockingJournal())
+        //     return;
 
         if (Keyboard.current[toggleKey].wasPressedThisFrame)
             Toggle();
@@ -119,8 +119,8 @@ public class JournalUI : MonoBehaviour
 
     public void Show()
     {
-        if (IsDialogueBlockingJournal())
-            return;
+        // if (IsDialogueBlockingJournal())
+        //     return;
 
         Refresh();
         isVisible = true;
@@ -166,10 +166,10 @@ public class JournalUI : MonoBehaviour
         Debug.Log("EXIT JOURNAL MODE");
     }
 
-    private static bool IsDialogueBlockingJournal()
-    {
-        return DialogueUI.Instance != null && DialogueUI.Instance.IsDialogueActive;
-    }
+    // private static bool IsDialogueBlockingJournal()
+    // {
+    //     return DialogueUI.Instance != null && DialogueUI.Instance.IsDialogueActive;
+    // }
 
     private void EnsureUIReferences()
     {

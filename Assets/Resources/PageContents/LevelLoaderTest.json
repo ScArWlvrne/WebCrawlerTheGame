@@ -1,0 +1,45 @@
+{
+  "elements": [
+    {
+      "id": "redCube",
+      "type": "cube",
+      "position": { "x": -6, "y": 1, "z": 0 },
+      "size": { "x": 2, "y": 2, "z": 2 },
+      "rotation": { "x": 0, "y": 45, "z": 0 },
+      "color": "#FF4444"
+    },
+    {
+      "id": "iconPanel",
+      "type": "panel",
+      "position": { "x": -2, "y": 1, "z": 0 },
+      "size": { "x": 3, "y": 2, "z": 1 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "texture": "icon",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "blueSphere",
+      "type": "sphere",
+      "position": { "x": 2, "y": 1, "z": 0 },
+      "size": { "x": 2, "y": 2, "z": 2 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "color": "#4488FF"
+    },
+    {
+      "id": "yellowCapsule",
+      "type": "capsule",
+      "position": { "x": 6, "y": 1.5, "z": 0 },
+      "size": { "x": 1.5, "y": 3, "z": 1.5 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "color": "#FFFF44"
+    },
+    {
+      "id": "purpleCylinder",
+      "type": "cylinder",
+      "position": { "x": 10, "y": 1, "z": 0 },
+      "size": { "x": 2, "y": 2, "z": 2 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "color": "#AA44FF"
+    }
+  ]
+}

@@ -61,8 +61,10 @@ public class ContentLoader : MonoBehaviour
         }
        return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
     }
-    private void CreateElement(ContentElement element)
+    private void CreateElement(ContentElement element, Transform parent = null)
     {
+        parent ??= transform; // Use the provided parent or default to this transform
+
         GameObject obj = CreatePrimitive(element);
 
         if (obj == null)
@@ -72,9 +74,17 @@ public class ContentLoader : MonoBehaviour
         }
 
         obj.name = element.id;
-        ApplyTransform(obj, element);
+        ApplyTransform(obj, element, parent);
         ApplyRenderer(obj, element);
         ApplyText(obj, element);
+
+        if (element.elements?.elements != null)
+        {
+            foreach (ContentElement child in element.elements.elements)
+            {
+                CreateElement(child, obj.transform);
+            }
+        }
     }
 
     private GameObject CreatePrimitive(ContentElement element)
@@ -114,6 +124,11 @@ public class ContentLoader : MonoBehaviour
                 Debug.Log($"Created text for element with id: {element.id}");
                 break;
 
+            case "container":
+                obj = new GameObject("Container");
+                Debug.Log($"Created container for element with id: {element.id}");
+                break;
+
             default:
                 Debug.LogWarning($"Unknown element type: {element.type}");
                 break;
@@ -122,9 +137,11 @@ public class ContentLoader : MonoBehaviour
         return obj;
     }
 
-    private void ApplyTransform(GameObject obj, ContentElement element)
+    private void ApplyTransform(GameObject obj, ContentElement element, Transform parent = null)
     {
-        obj.transform.SetParent(transform, false);
+        parent ??= transform; // Use the provided parent or default to this transform
+
+        obj.transform.SetParent(parent, false);
         obj.transform.localScale = element.size?.ToVector3() ?? Vector3.one;
         obj.transform.SetLocalPositionAndRotation(
                                                   element.position?.ToVector3() ?? Vector3.zero,
@@ -141,10 +158,20 @@ public class ContentLoader : MonoBehaviour
             {
                 renderer.material.color = parsedColor;
             }
-            Texture2D texture = Resources.Load<Texture2D>($"Textures/{element.texture}");
-            if (texture != null)
+            
+            if (!string.IsNullOrEmpty(element.texture))
             {
-                renderer.material.mainTexture = texture;
+                Texture2D texture =
+                    Resources.Load<Texture2D>($"Textures/{element.texture}");
+
+                if (texture != null)
+                {
+                    renderer.material.mainTexture = texture;
+                }
+                else
+                {
+                    Debug.LogWarning($"Texture '{element.texture}' not found.");
+                }
             }
         }
     }
@@ -156,15 +183,22 @@ public class ContentLoader : MonoBehaviour
         {
             tmp.text = element.text;
             tmp.fontSize = element.fontSize;
-            TMP_FontAsset font = Resources.Load<TMP_FontAsset>($"Fonts & Materials/{element.font}");
-            if (font != null)
+            
+            if (!string.IsNullOrEmpty(element.font))
             {
-                tmp.font = font;
+                TMP_FontAsset font =
+                    Resources.Load<TMP_FontAsset>($"Fonts & Materials/{element.font}");
+
+                if (font != null)
+                {
+                    tmp.font = font;
+                }
+                else
+                {
+                    Debug.LogWarning($"Font '{element.font}' not found. Using default font.");
+                }
             }
-            else
-            {
-                Debug.LogWarning($"Font '{element.font}' not found. Using default font.");
-            }
+
             if (ColorUtility.TryParseHtmlString(element.color, out Color parsedColor))
             {
                 tmp.color = parsedColor;

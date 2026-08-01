@@ -16,4 +16,5 @@ public class ContentElement
     public string text;
     public string font = "LiberationSans";
     public int fontSize;
+    public ContentDefinition elements; // For nested elements in containers
 }

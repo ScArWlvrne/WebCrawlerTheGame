@@ -8,47 +8,31 @@ public class ContentLoader : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       LoadContent(contentFile);
+        if (string.IsNullOrEmpty(contentFile))
+        {
+            Debug.Log("Content file name is not set. No load on start.");
+            return;
+        }
+       LoadPage(contentFile);
     }
 
-    public float LoadContent(string contentFile)
+    public void LoadPage(string contentFile)
     {
-        float startTime = Time.realtimeSinceStartup;
-
-        TextAsset jsonFile = Resources.Load<TextAsset>($"PageContents/{contentFile}");
-        if (jsonFile == null)
-        {
-            Debug.LogError($"Content file '{contentFile}' not found in Resources/PageContents.");
-            return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
-        }
-
-        ContentDefinition content = JsonUtility.FromJson<ContentDefinition>(jsonFile.text);
-        if (content?.elements == null)
-        {
-            Debug.LogError($"Invalid content definition: '{contentFile}'.");
-            return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
-        }
-
         ClearCurrentContent();
-        foreach (ContentElement element in content.elements)
-        {
-            CreateElement(element);
-        }
-       return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
+        AddContent(contentFile);
     }
 
-    public float AddContent(string contentFile) // Just LoadContent, but it doesn't call ClearCurrentContent
+    public float AddContent(string contentFile)
     {
         float startTime = Time.realtimeSinceStartup;
 
-        TextAsset jsonFile = Resources.Load<TextAsset>($"PageContents/{contentFile}");
+        TextAsset jsonFile = LoadJson(contentFile);
         if (jsonFile == null)
         {
-            Debug.LogError($"Content file '{contentFile}' not found in Resources/PageContents.");
             return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
         }
 
-        ContentDefinition content = JsonUtility.FromJson<ContentDefinition>(jsonFile.text);
+        ContentDefinition content = ParseContent(jsonFile.text);
         if (content?.elements == null)
         {
             Debug.LogError($"Invalid content definition: '{contentFile}'.");
@@ -60,10 +44,34 @@ public class ContentLoader : MonoBehaviour
             CreateElement(element);
         }
        return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
+    }
+
+    private TextAsset LoadJson(string contentFile)
+    {
+        TextAsset jsonFile = Resources.Load<TextAsset>($"PageContents/{contentFile}");
+        if (jsonFile == null)
+        {
+            Debug.LogError($"Content file '{contentFile}' not found in Resources/PageContents.");
+            return null;
+        }
+        return jsonFile;
+    }
+
+    private ContentDefinition ParseContent(string json)
+    {
+        try
+        {
+            return JsonUtility.FromJson<ContentDefinition>(json);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"Failed to parse content JSON: {ex.Message}");
+            return null;
+        }
     }
     private void CreateElement(ContentElement element, Transform parent = null)
     {
-        parent ??= transform; // Use the provided parent or default to this transform
+        parent = parent != null ? parent : transform; // Use the provided parent or default to this transform
 
         GameObject obj = CreatePrimitive(element);
 
@@ -139,7 +147,7 @@ public class ContentLoader : MonoBehaviour
 
     private void ApplyTransform(GameObject obj, ContentElement element, Transform parent = null)
     {
-        parent ??= transform; // Use the provided parent or default to this transform
+        parent = parent != null ? parent : transform; // Use the provided parent or default to this transform
 
         obj.transform.SetParent(parent, false);
         obj.transform.localScale = element.size?.ToVector3() ?? Vector3.one;
@@ -181,8 +189,12 @@ public class ContentLoader : MonoBehaviour
         TextMeshPro tmp = obj.GetComponent<TextMeshPro>();
         if (tmp != null)
         {
+            Debug.Log($"Applying text settings for element with id: {element.id}");
+
             tmp.text = element.text;
+            Debug.Log($"Set text: {element.text}");
             tmp.fontSize = element.fontSize;
+            Debug.Log($"Set font size: {element.fontSize}");
             
             if (!string.IsNullOrEmpty(element.font))
             {
@@ -192,6 +204,7 @@ public class ContentLoader : MonoBehaviour
                 if (font != null)
                 {
                     tmp.font = font;
+                    Debug.Log($"Set font: {element.font}");
                 }
                 else
                 {
@@ -202,6 +215,7 @@ public class ContentLoader : MonoBehaviour
             if (ColorUtility.TryParseHtmlString(element.color, out Color parsedColor))
             {
                 tmp.color = parsedColor;
+                Debug.Log($"Set text color: {element.color}");
             }
         }
     }

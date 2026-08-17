@@ -1,9 +1,15 @@
 using UnityEngine;
 using TMPro;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 public class ContentLoader : MonoBehaviour
 {
     [SerializeField ] private string contentFile;
+    private readonly IDeserializer deserializer = new DeserializerBuilder()
+        .WithNamingConvention(CamelCaseNamingConvention.Instance)
+        .WithTypeConverter(new ElementVector3YamlConverter())
+        .Build();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,13 +32,13 @@ public class ContentLoader : MonoBehaviour
     {
         float startTime = Time.realtimeSinceStartup;
 
-        TextAsset jsonFile = LoadJson(contentFile);
-        if (jsonFile == null)
+        TextAsset yamlFile = LoadYaml(contentFile);
+        if (yamlFile == null)
         {
             return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
         }
 
-        ContentDefinition content = ParseContent(jsonFile.text);
+        ContentDefinition content = ParseContent(yamlFile.text);
         if (content?.elements == null)
         {
             Debug.LogError($"Invalid content definition: '{contentFile}'.");
@@ -46,26 +52,26 @@ public class ContentLoader : MonoBehaviour
        return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
     }
 
-    private TextAsset LoadJson(string contentFile)
+    private TextAsset LoadYaml(string contentFile)
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>($"PageContents/{contentFile}");
-        if (jsonFile == null)
+        TextAsset yamlFile = Resources.Load<TextAsset>($"PageContents/{contentFile}");
+        if (yamlFile == null)
         {
             Debug.LogError($"Content file '{contentFile}' not found in Resources/PageContents.");
             return null;
         }
-        return jsonFile;
+        return yamlFile;
     }
 
-    private ContentDefinition ParseContent(string json)
+    private ContentDefinition ParseContent(string yaml)
     {
         try
-        {
-            return JsonUtility.FromJson<ContentDefinition>(json);
+        {    
+            return deserializer.Deserialize<ContentDefinition>(yaml);
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"Failed to parse content JSON: {ex.Message}");
+            Debug.LogError($"Failed to parse content YAML: {ex.Message}");
             return null;
         }
     }
@@ -150,7 +156,9 @@ public class ContentLoader : MonoBehaviour
         parent = parent != null ? parent : transform; // Use the provided parent or default to this transform
 
         obj.transform.SetParent(parent, false);
-        obj.transform.localScale = element.size?.ToVector3() ?? Vector3.one;
+        obj.transform.localScale =  element.type is "container" or "text"
+                                    ? Vector3.one
+                                    : element.size?.ToVector3() ?? Vector3.one;
         obj.transform.SetLocalPositionAndRotation(
                                                   element.position?.ToVector3() ?? Vector3.zero,
                                                   Quaternion.Euler(element.rotation?.ToVector3() ?? Vector3.zero)
@@ -191,6 +199,8 @@ public class ContentLoader : MonoBehaviour
         {
             Debug.Log($"Applying text settings for element with id: {element.id}");
 
+            tmp.alignment = TextAlignmentOptions.Center;
+            Debug.Log($"Set alignment to center.");
             tmp.text = element.text;
             Debug.Log($"Set text: {element.text}");
             tmp.fontSize = element.fontSize;

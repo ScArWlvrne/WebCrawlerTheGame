@@ -15,9 +15,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private InteractionPromptUI interactionPromptUI;
     [SerializeField] private float interactAnimationTimeout = 1.25f;
+    [SerializeField] private PlayerInteractor playerInteractor;
     private IInteractable currentInteractable;
 
-    private bool isInteracting = false;
     private bool gameplayInputLocked = false;
     private bool usingGamepad = false;
 
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isInteracting || gameplayInputLocked)
+        if (playerInteractor.IsInteracting || gameplayInputLocked)
             return;
 
         UpdateCurrentInteractable();
@@ -113,121 +113,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsMoving", isMoving);
 
         controller.Move(moveSpeed * Time.deltaTime * move);
-    }
-
-    private void UpdateCurrentInteractable()
-    {
-        Collider[] hits = Physics.OverlapSphere(
-            transform.position,
-            interactRange,
-            interactableLayer
-        );
-
-        IInteractable bestInteractable = null;
-        currentInteractable = null;
-        float bestDistance = float.PositiveInfinity;
-
-        foreach (Collider hit in hits)
-        {
-            IInteractable interactable = hit.GetComponentInParent<IInteractable>();
-
-            if (interactable == null)
-                continue;
-
-            Vector3 targetPoint = hit.bounds.center;
-            Vector3 directionToTarget = targetPoint - transform.position;
-            directionToTarget.y = 0f;
-
-            float distance = directionToTarget.magnitude;
-
-            if (distance <= 0.001f)
-                continue;
-
-            float angle = Vector3.Angle(transform.forward, directionToTarget.normalized);
-
-            if (angle > interactAngle * 0.5f)
-                continue;
-
-            if (distance < bestDistance)
-            {
-                bestDistance = distance;
-                bestInteractable = interactable;
-            }
-        }
-
-        currentInteractable = bestInteractable;
-
-        if (currentInteractable != null)
-            ShowInteractionPrompt(usingGamepad, currentInteractable.GetPromptAnchor());
-        else
-            HideInteractionPrompt();
-    }
-
-    private void ShowInteractionPrompt(bool usingGamepad, Transform anchor)
-    {
-        if (interactionPromptUI == null || anchor == null)
-            return;
-
-        interactionPromptUI.Show(usingGamepad, anchor);
-    }
-
-    private void HideInteractionPrompt()
-    {
-        if (interactionPromptUI == null)
-            return;
-
-        interactionPromptUI.Hide();
-    }
-
-    private void TryInteract()
-    {
-        if (isInteracting || gameplayInputLocked)
-            return;
-
-        if (currentInteractable != null)
-        {
-            MonoBehaviour target = currentInteractable as MonoBehaviour;
-            string targetName = target != null ? target.gameObject.name : "unknown";
-            Debug.Log("Player interacting with: " + targetName);
-            StartCoroutine(PlayInteractAnimationThenInteract(currentInteractable));
-        }
-        else
-        {
-            Debug.Log("Nothing to interact with.");
-        }
-    }
-
-    private IEnumerator PlayInteractAnimationThenInteract(IInteractable interactable)
-    {
-        isInteracting = true;
-        HideInteractionPrompt();
-
-        bool waitForAnimationEvent = animator != null;
-        if (waitForAnimationEvent)
-        {
-            animator.SetBool("IsMoving", false);
-            animator.SetTrigger("Interact");
-        }
-
-        float elapsed = 0f;
-        while (isInteracting && waitForAnimationEvent && elapsed < interactAnimationTimeout)
-        {
-            elapsed += Time.deltaTime;
-            HideInteractionPrompt();
-            yield return null;
-        }
-
-        if (isInteracting)
-            Debug.LogWarning("Interact animation timed out — calling Interact() anyway.");
-
-        isInteracting = false;
-        interactable.Interact();
-    }
-
-    public void EndInteractionAnimation()
-    {
-        HideInteractionPrompt();
-        isInteracting = false;
     }
 
     private void OnDrawGizmos()

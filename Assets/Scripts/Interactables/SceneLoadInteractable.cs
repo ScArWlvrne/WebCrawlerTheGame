@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoadInteractable : MonoBehaviour, IInteractable
+public class SceneLoadInteractable : Interactable
 {
     [SerializeField] private string sceneName = "DesktopHub";
     [SerializeField] private Transform promptAnchor;
@@ -11,7 +11,7 @@ public class SceneLoadInteractable : MonoBehaviour, IInteractable
 
     private bool isLoading;
 
-    public void Interact()
+    public override void Interact()
     {
         if (isLoading)
             return;

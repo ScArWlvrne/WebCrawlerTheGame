@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-public class BrowserTabInteractable : MonoBehaviour, IInteractable
+public class BrowserTabInteractable : Interactable
 {
     [SerializeField] private Transform promptAnchor;
     [SerializeField] private Material activeTabMaterial;
@@ -13,7 +13,7 @@ public class BrowserTabInteractable : MonoBehaviour, IInteractable
     [SerializeField] private List<GameObject> contentToDeactivate;
     [SerializeField] private List<GameObject> tabsToDeactivate;
 
-    public void Interact()
+    public override void Interact()
     {
         Debug.Log("Interacted with " + gameObject.name);
 

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
+public class DesktopAppIconInteractable : Interactable
 {
     private static WaitForSeconds _waitForSeconds0_5 = new WaitForSeconds(0.5f);
     [Header("Scene")]
@@ -43,7 +43,7 @@ public class DesktopAppIconInteractable : MonoBehaviour, IInteractable
         return "Open";
     }
 
-    public void Interact()
+    public override void Interact()
     {
         if (isRunning)
             return;

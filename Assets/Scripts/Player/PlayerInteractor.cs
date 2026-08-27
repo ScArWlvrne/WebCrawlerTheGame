@@ -13,7 +13,7 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] private float interactAnimationTimeout = 1.25f;
 
     private PlayerController playerController;
-    public IInteractable currentInteractable;
+    public Interactable currentInteractable;
     private bool isInteracting;
     public bool IsInteracting => isInteracting;
 
@@ -43,16 +43,15 @@ public class PlayerInteractor : MonoBehaviour
             interactableLayer
         );
 
-        Debug.Log($"Hits: {hits.Length}");
+        // Debug.Log($"Hits: {hits.Length}");
 
-        IInteractable bestInteractable = null;
-        currentInteractable = null;
+        Interactable bestInteractable = null;
         float bestDistance = float.PositiveInfinity;
 
         foreach (Collider hit in hits)
         {
-            Debug.Log($"Hit: {hit.name}");
-            IInteractable interactable = hit.GetComponentInParent<IInteractable>();
+            // Debug.Log($"Hit: {hit.name}");
+            Interactable interactable = hit.GetComponentInParent<Interactable>();
 
             if (interactable == null)
                 continue;
@@ -77,18 +76,27 @@ public class PlayerInteractor : MonoBehaviour
                 bestInteractable = interactable;
             }
 
-            Debug.Log($"Interactable: {interactable}");
+            // Debug.Log($"Interactable: {interactable}");
+        }
+
+        if (currentInteractable != bestInteractable)
+        {
+            if (currentInteractable != null)
+            {
+                currentInteractable.Unhighlight();
+            }
         }
 
         currentInteractable = bestInteractable;
 
         if (currentInteractable != null)
         {
-            // Highlight interactable and change HUD
+            currentInteractable.Highlight();
+            // Update HUD to show interaction prompt
         }
         else
         {
-            // Remove highlight and reset HUD;
+            // Update HUD to hide interaction prompt
         }
     }
 
@@ -110,7 +118,7 @@ public class PlayerInteractor : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayInteractAnimationThenInteract(IInteractable interactable)
+    private IEnumerator PlayInteractAnimationThenInteract(Interactable interactable)
     {
         isInteracting = true;
 

@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 270f;
     [SerializeField] private float maxRotationSpeedMultiplier = 2.5f;
     [SerializeField] private Animator animator;
-    [SerializeField] private InteractionPromptUI interactionPromptUI;
     [SerializeField] private float interactAnimationTimeout = 1.25f;
 
     private PlayerInteractor playerInteractor;

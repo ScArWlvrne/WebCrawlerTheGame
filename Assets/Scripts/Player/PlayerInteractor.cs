@@ -9,7 +9,6 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] private float interactRange = 1.5f;
     [SerializeField] private float interactAngle = 60f;
     [SerializeField] private LayerMask interactableLayer;
-    [SerializeField] private InteractionPromptUI interactionPromptUI;
     [SerializeField] private Animator animator;
     [SerializeField] private float interactAnimationTimeout = 1.25f;
 

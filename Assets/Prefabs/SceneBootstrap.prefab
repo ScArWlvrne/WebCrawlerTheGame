@@ -1506,6 +1506,8 @@ GameObject:
   - component: {fileID: 3949481542077835686}
   - component: {fileID: 3861150911172737988}
   - component: {fileID: 3001232375346927546}
+  - component: {fileID: 5835506888899063453}
+  - component: {fileID: 4391730639872463057}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1570,11 +1572,6 @@ MonoBehaviour:
   rotationSpeed: 270
   maxRotationSpeedMultiplier: 2.5
   animator: {fileID: 4095618147368880586}
-  interactRange: 1.5
-  interactAngle: 60
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 8
   interactionPromptUI: {fileID: 0}
   interactAnimationTimeout: 1.25
 --- !u!114 &3001232375346927546
@@ -1590,10 +1587,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneTransitionEntry
   transition: {fileID: 7823648068418937761}
-  playerTransform: {fileID: 0}
+  playerTransform: {fileID: 4787230733979204004}
   spawnPoint: {fileID: 0}
   resetPlayerScale: 1
-  playerControllerScript: {fileID: 0}
+  playerControllerScript: {fileID: 3861150911172737988}
+--- !u!114 &5835506888899063453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7059786789279575576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7225a39b7d868c4c87cfd2793ceafe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+  interactRange: 1.5
+  interactAngle: 60
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  interactionPromptUI: {fileID: 0}
+  animator: {fileID: 0}
+  interactAnimationTimeout: 1.25
+--- !u!114 &4391730639872463057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7059786789279575576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04853c6286c2a24cad22ab265d8410c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationEvents
+  playerController: {fileID: 3861150911172737988}
 --- !u!1 &7078109690436703643
 GameObject:
   m_ObjectHideFlags: 0

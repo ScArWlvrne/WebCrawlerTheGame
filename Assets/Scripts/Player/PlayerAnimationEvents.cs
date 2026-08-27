@@ -6,6 +6,6 @@ public class PlayerAnimationEvents : MonoBehaviour
 
     public void EndInteractionAnimation()
     {
-        playerController.EndInteractionAnimation();
+        // Just need this method to exist for now to fix things. May or may not be implemented later lmao
     }
 }

@@ -1,19 +1,28 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(PlayerController))]
 public class PlayerInteractor : MonoBehaviour
 {
+    private static readonly int InteractHash = Animator.StringToHash("Interact");
+    private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
     [SerializeField] private float interactRange = 1.5f;
     [SerializeField] private float interactAngle = 60f;
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private InteractionPromptUI interactionPromptUI;
     [SerializeField] private Animator animator;
     [SerializeField] private float interactAnimationTimeout = 1.25f;
-    [SerializeField] private PlayerController playerController;
 
-    private IInteractable currentInteractable;
+    private PlayerController playerController;
+    public IInteractable currentInteractable;
     private bool isInteracting;
     public bool IsInteracting => isInteracting;
+
+
+    void Awake()
+    {
+        playerController = GetComponent<PlayerController>();
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,7 +33,7 @@ public class PlayerInteractor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateCurrentInteractable();
     }
 
     private void UpdateCurrentInteractable()
@@ -35,12 +44,15 @@ public class PlayerInteractor : MonoBehaviour
             interactableLayer
         );
 
+        Debug.Log($"Hits: {hits.Length}");
+
         IInteractable bestInteractable = null;
         currentInteractable = null;
         float bestDistance = float.PositiveInfinity;
 
         foreach (Collider hit in hits)
         {
+            Debug.Log($"Hit: {hit.name}");
             IInteractable interactable = hit.GetComponentInParent<IInteractable>();
 
             if (interactable == null)
@@ -65,6 +77,8 @@ public class PlayerInteractor : MonoBehaviour
                 bestDistance = distance;
                 bestInteractable = interactable;
             }
+
+            Debug.Log($"Interactable: {interactable}");
         }
 
         currentInteractable = bestInteractable;
@@ -81,7 +95,7 @@ public class PlayerInteractor : MonoBehaviour
 
     public void TryInteract()
     {
-        if (isInteracting || playerController.GameplayInputLocked)
+        if ( playerController != null && (IsInteracting || playerController.GameplayInputLocked))
             return;
 
         if (currentInteractable != null)
@@ -104,8 +118,8 @@ public class PlayerInteractor : MonoBehaviour
         bool waitForAnimationEvent = animator != null;
         if (waitForAnimationEvent)
         {
-            animator.SetBool("IsMoving", false);
-            animator.SetTrigger("Interact");
+            animator.SetBool(IsMovingHash, false);
+            animator.SetTrigger(InteractHash);
         }
 
         float elapsed = 0f;
@@ -122,8 +136,21 @@ public class PlayerInteractor : MonoBehaviour
         interactable.Interact();
     }
 
-    public void EndInteractionAnimation()
+    private void VisualizeInteractRange()
     {
-        isInteracting = false;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, interactRange);
+
+        Vector3 leftDir = Quaternion.Euler(0f, -interactAngle * 0.5f, 0f) * transform.forward;
+        Vector3 rightDir = Quaternion.Euler(0f, interactAngle * 0.5f, 0f) * transform.forward;
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawRay(transform.position, leftDir * interactRange);
+        Gizmos.DrawRay(transform.position, rightDir * interactRange);
+    }
+
+    private void OnDrawGizmos()
+    {
+        VisualizeInteractRange();
     }
 }

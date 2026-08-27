@@ -1,57 +1,44 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using System.Collections;
-
 [RequireComponent(typeof(CharacterController))]
+
+[RequireComponent(typeof(PlayerInteractor))]
 public class PlayerController : MonoBehaviour
 {
+    private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 270f;
     [SerializeField] private float maxRotationSpeedMultiplier = 2.5f;
     [SerializeField] private Animator animator;
-    [SerializeField] private float interactRange = 1.5f;
-    [SerializeField] private float interactAngle = 60f;
-    [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private InteractionPromptUI interactionPromptUI;
     [SerializeField] private float interactAnimationTimeout = 1.25f;
-    [SerializeField] private PlayerInteractor playerInteractor;
-    private IInteractable currentInteractable;
 
+    private PlayerInteractor playerInteractor;
     private bool gameplayInputLocked = false;
-    private bool usingGamepad = false;
+    public bool GameplayInputLocked => gameplayInputLocked;
+    private bool usingGamepad = false; // Move this to a HUD script eventually
+    public bool UsingGamepad => usingGamepad; // "
 
     private CharacterController controller;
 
-    void Start()
+    void Awake()
     {
+        playerInteractor = GetComponent<PlayerInteractor>();
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
     }
 
-    public void SetGameplayInputLocked(bool locked)
+    void Start()
     {
-        gameplayInputLocked = locked;
-
-        if (locked)
-        {
-            HideInteractionPrompt();
-            if (animator != null)
-                animator.SetBool("IsMoving", false);
-        }
-    }
-
-    public void SetDialogueLocked(bool locked)
-    {
-        SetGameplayInputLocked(locked);
+        
     }
 
     void Update()
     {
-        if (playerInteractor.IsInteracting || gameplayInputLocked)
+        if (playerInteractor != null && playerInteractor.IsInteracting || gameplayInputLocked)
             return;
 
-        UpdateCurrentInteractable();
         Vector2 input = Vector2.zero;
 
         if (Keyboard.current != null)
@@ -99,7 +86,8 @@ public class PlayerController : MonoBehaviour
             Gamepad.current != null && Gamepad.current.buttonWest.wasPressedThisFrame
         )
         {
-            TryInteract();
+            if (playerInteractor != null)
+                playerInteractor.TryInteract();
         }
 
         if (
@@ -110,21 +98,19 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("DesktopHub");
         }
 
-        animator.SetBool("IsMoving", isMoving);
+        animator.SetBool(IsMovingHash, isMoving);
 
         controller.Move(moveSpeed * Time.deltaTime * move);
     }
 
-    private void OnDrawGizmos()
+    public void SetGameplayInputLocked(bool locked)
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, interactRange);
+        gameplayInputLocked = locked;
 
-        Vector3 leftDir = Quaternion.Euler(0f, -interactAngle * 0.5f, 0f) * transform.forward;
-        Vector3 rightDir = Quaternion.Euler(0f, interactAngle * 0.5f, 0f) * transform.forward;
-
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawRay(transform.position, leftDir * interactRange);
-        Gizmos.DrawRay(transform.position, rightDir * interactRange);
+        if (locked)
+        {
+            if (animator != null)
+                animator.SetBool(IsMovingHash, false);
+        }
     }
 }

@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-[RequireComponent(typeof(CharacterController))]
 
+[RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInteractor))]
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float interactAnimationTimeout = 1.25f;
 
     private PlayerInteractor playerInteractor;
+    private PlayerControls controls;
     private bool gameplayInputLocked = false;
     public bool GameplayInputLocked => gameplayInputLocked;
     private bool usingGamepad = false; // Move this to a HUD script eventually
@@ -24,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        controls = new PlayerControls();
+
         playerInteractor = GetComponent<PlayerInteractor>();
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
@@ -36,27 +39,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (playerInteractor != null && playerInteractor.IsInteracting || gameplayInputLocked)
+        if (playerInteractor.IsInteracting || gameplayInputLocked)
             return;
 
-        Vector2 input = Vector2.zero;
-
-        if (Keyboard.current != null)
-        {
-            input.x = Keyboard.current.aKey.isPressed ? -1 : Keyboard.current.dKey.isPressed ? 1 : 0;
-            input.y = Keyboard.current.wKey.isPressed ? 1 : Keyboard.current.sKey.isPressed ? -1 : 0;
-
-            if (Keyboard.current.anyKey.isPressed)
-            {
-                usingGamepad = false;
-            }
-        }
-
-        if (Gamepad.current != null && Gamepad.current.leftStick.ReadValue().magnitude > 0.2f && input == Vector2.zero)
-        {
-            input = Gamepad.current.leftStick.ReadValue();
-            usingGamepad = true;
-        }
+        Vector2 input = controls.Gameplay.Move.ReadValue<Vector2>();
 
         input = Vector2.ClampMagnitude(input, 1f);
 
@@ -81,19 +67,12 @@ public class PlayerController : MonoBehaviour
             );
         }
 
-        if (
-            Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame ||
-            Gamepad.current != null && Gamepad.current.buttonWest.wasPressedThisFrame
-        )
-        {
-            if (playerInteractor != null)
-                playerInteractor.TryInteract();
+        if (controls.Gameplay.Interact.triggered)
+        {   
+            playerInteractor.TryInteract();
         }
 
-        if (
-            Keyboard.current != null && Keyboard.current.qKey.wasPressedThisFrame ||
-            Gamepad.current != null && Gamepad.current.dpad.down.wasPressedThisFrame
-        )
+        if (controls.Gameplay.ReturnToDesktop.triggered)
         {
             SceneManager.LoadScene("DesktopHub");
         }
@@ -112,5 +91,15 @@ public class PlayerController : MonoBehaviour
             if (animator != null)
                 animator.SetBool(IsMovingHash, false);
         }
+    }
+
+    private void OnEnable()
+    {
+        controls.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Gameplay.Disable();
     }
 }

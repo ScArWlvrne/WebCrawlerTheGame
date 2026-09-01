@@ -168,6 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e658de162ad301049b89f2940c9201bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DesktopAppIconInteractable
+  outlineThickness: 0.03
+  outlineMaterial: {fileID: 2100000, guid: 0131b72bb81b7d740a871affaf4ac54e, type: 2}
   sceneName: Browser
   playerControllerScript: {fileID: 1431453136}
   playerTransform: {fileID: 1431453135}
@@ -4953,6 +4955,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e658de162ad301049b89f2940c9201bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DesktopAppIconInteractable
+  outlineThickness: 0.03
+  outlineMaterial: {fileID: 0}
   sceneName: DesktopHub
   playerControllerScript: {fileID: 0}
   playerTransform: {fileID: 0}
@@ -8529,6 +8533,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e658de162ad301049b89f2940c9201bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DesktopAppIconInteractable
+  outlineThickness: 0.03
+  outlineMaterial: {fileID: 0}
   sceneName: Terminal
   playerControllerScript: {fileID: 0}
   playerTransform: {fileID: 0}

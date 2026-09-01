@@ -1,15 +1,21 @@
 using UnityEngine;
 
-public class TestInteractable : MonoBehaviour, IInteractable
+public class TestInteractable : Interactable
 {
-    [SerializeField] private Transform promptAnchor;
-    public void Interact()
+    private bool highlighted = false;
+
+    public override void Interact()
     {
         Debug.Log("Interacted with " + gameObject.name);
-    }
 
-    public Transform GetPromptAnchor()
-    {
-        return promptAnchor;
+        if (!highlighted)
+        {
+            Highlight();
+        }
+        else
+        {
+            Unhighlight();
+        }
+        highlighted = !highlighted;
     }
 }

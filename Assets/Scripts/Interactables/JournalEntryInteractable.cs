@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class JournalEntryInteractable : MonoBehaviour, IInteractable
+[RequireComponent(typeof(Collider))]
+public class JournalEntryInteractable : Interactable
 {
     [Header("Journal File")]
     [SerializeField] private JournalPaths.JournalOwner journalOwner = JournalPaths.JournalOwner.Test;
@@ -20,17 +21,19 @@ public class JournalEntryInteractable : MonoBehaviour, IInteractable
 
     private Collider interactionCollider;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         interactionCollider = GetComponent<Collider>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         ApplyExhaustedStateIfNeeded();
     }
 
-    public void Interact()
+    public override void Interact()
     {
         Debug.Log("JournalEntryInteractable.Interact() on " + gameObject.name);
 

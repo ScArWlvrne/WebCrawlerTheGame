@@ -1,0 +1,137 @@
+elements:
+  - id: redCube
+    type: cube
+    position: [-6, 1, 0]
+    size: [2, 2, 2]
+    rotation: [0, 45, 0]
+    color: "#FF4444"
+
+  - id: iconPanel
+    type: panel
+    position: [-2, 1, 0]
+    size: [3, 2, 1]
+    rotation: [0, 0, 0]
+    texture: icon
+    color: "#FFFFFF"
+
+  - id: blueSphere
+    type: sphere
+    position: [2, 1, 0]
+    size: [2, 2, 2]
+    rotation: [0, 0, 0]
+    color: "#4488FF"
+
+  - id: yellowCapsule
+    type: capsule
+    position: [6, 1.5, 0]
+    size: [1.5, 3, 1.5]
+    rotation: [0, 0, 0]
+    color: "#FFFF44"
+
+  - id: purpleCylinder
+    type: cylinder
+    position: [10, 1, 0]
+    size: [2, 2, 2]
+    rotation: [0, 0, 0]
+    color: "#AA44FF"
+
+  - id: textElement
+    type: text
+    position: [0, 3, 0]
+    size: [1, 1, 1]
+    rotation: [0, 0, 0]
+    color: "#FFFFFF"
+    text: "Hello World!"
+    font: "LiberationSans SDF"
+    fontSize: 36
+
+  - id: testContainer
+    type: container
+    position: [15, 0, 5]
+    rotation: [0, 0, 15]
+    size: [5, 5, 5]
+    elements:
+      elements:
+        - id: background
+          type: panel
+          position: [0, 0, 0]
+          rotation: [0, 0, 0]
+          size: [6, 4, 1]
+          color: "#FFFFFF"
+
+        - id: title
+          type: text
+          position: [0, 0, -0.01]
+          text: "Container 1 Test"
+          fontSize: 12
+          color: "#000000"
+
+        - id: icon
+          type: panel
+          position: [-1.6, -0.2, -0.02]
+          rotation: [0, 0, 0]
+          size: [1, 1, 1]
+          texture: icon
+
+        - id: cube
+          type: cube
+          position: [1.5, -0.2, -0.5]
+          rotation: [30, 45, 0]
+          size: [0.75, 0.75, 0.75]
+          color: "#FF8800"
+
+        - id: testContainer2
+          type: container
+          position: [0, -5, 0]
+          rotation: [0, 0, 0]
+          size: [1, 1, 1]
+          elements:
+            elements:
+              - id: background
+                type: panel
+                position: [0, 0, 0]
+                rotation: [0, 0, 0]
+                size: [6, 4, 1]
+                color: "#303030"
+
+              - id: title
+                type: text
+                position: [0, 0, -0.01]
+                text: "Nested Container 2 Test"
+                fontSize: 12
+                color: "#FFFFFF"
+
+              - id: icon
+                type: panel
+                position: [-1.6, -0.2, -0.02]
+                rotation: [0, 0, 0]
+                size: [1, 1, 1]
+                texture: icon
+
+              - id: cube
+                type: cube
+                position: [1.5, -0.2, -0.5]
+                rotation: [30, 45, 0]
+                size: [0.75, 0.75, 0.75]
+                color: "#FF8800"
+
+  - id: testContainer3
+    type: container
+    position: [-15, 0, 0]
+    rotation: [0, 0, 0]
+    size: [1, 1, 1]
+    elements:
+      elements:
+        - id: background
+          type: panel
+          position: [0, 0, 0]
+          rotation: [0, 0, 0]
+          size: [6, 4, 1]
+          color: "#303030"
+
+        - id: title
+          type: text
+          position: [0, 0, -0.01]
+          text: "Container 3 Test"
+          fontSize: 6
+          color: "#FFFFFF"

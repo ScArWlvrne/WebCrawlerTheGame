@@ -1,0 +1,48 @@
+contentId: "interactableTest"
+elements:
+  - id: "desktopButton"
+    type: "cube"
+    position: [2, 1, 2]
+    rotation: [0, 0, 0]
+    size: [1, 1, 0.1]
+    color: "#00FF00"
+    interactable:
+      type: "scene"
+      sceneName: "DesktopHub"
+      
+  - id: "contentButton"
+    type: "cube"
+    position: [-2, 1, 2]
+    rotation: [0, 0, 0]
+    size: [1, 1, 0.1]
+    color: "#0000FF"
+    interactable:
+      type: "content"
+      operations:
+        - action: "toggle"
+          content:
+            contentId: "interactableTest.textContent" 
+            elements:
+              - id: "contentText"
+                type: "text"
+                position: [0, 0, 0]
+                rotation: [0, 0, 0]
+                fontSize: 4
+                color: "#FFFFFF"
+                text: "This is the content loaded from the content button."
+
+  - id: "unloadButton"
+    type: "cube"
+    position: [0, 1, 2]
+    rotation: [0, 0, 0]
+    size: [1, 1, 0.1]
+    color: "#FF0000"
+    interactable:
+      type: "content"
+      operations: 
+        - action: "unload"
+          content: 
+            contentId: "interactableTest"
+        - action: "unload"
+          content: 
+            contentId: "interactableTest.textContent"

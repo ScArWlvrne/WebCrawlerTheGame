@@ -1,12 +1,21 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using System;
 
 public class ContentLoader : MonoBehaviour
 {
     [SerializeField ] private string contentFile;
+
+    public Dictionary<string, ContentDefinition> contentDefinitions = new Dictionary<string, ContentDefinition>();
+    
     private readonly IDeserializer deserializer = new DeserializerBuilder()
+        .WithNamingConvention(CamelCaseNamingConvention.Instance)
+        .WithTypeConverter(new ElementVector3YamlConverter())
+        .Build();
+    private readonly ISerializer serializer = new SerializerBuilder()
         .WithNamingConvention(CamelCaseNamingConvention.Instance)
         .WithTypeConverter(new ElementVector3YamlConverter())
         .Build();
@@ -24,8 +33,67 @@ public class ContentLoader : MonoBehaviour
 
     public void LoadPage(string contentFile)
     {
-        ClearCurrentContent();
+        ClearAllContent();
         AddContent(contentFile);
+    }
+    public void LoadPage(ContentDefinition content)
+    {
+        ClearAllContent();
+        AddContent(content);
+    }
+
+    public void UnloadPage(string contentFile)
+    {
+        UnloadContent(contentFile);
+    }
+
+    public void UnloadPage(ContentDefinition content)
+    {
+        UnloadContent(content);
+    }
+
+    
+
+    public float AddContent(ContentDefinition content)
+    {
+        float startTime = Time.realtimeSinceStartup;
+
+
+
+        if (content?.elements == null)
+        {
+            Debug.LogError($"Invalid content definition: '{contentFile}'.");
+            return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
+        }
+
+        foreach (ContentElement element in content.elements)
+        {
+            CreateElement(element);
+        }
+
+        content.isLoaded = true; // Mark the content as loaded
+
+       return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
+    }
+
+    public float UnloadContent(ContentDefinition content)
+    {
+        float startTime = Time.realtimeSinceStartup;
+        foreach (Transform child in transform)
+        {
+            foreach (ContentElement element in content.elements)
+            {
+                if (child.name == element.id)
+                {
+                    Destroy(child.gameObject);
+                    break;
+                }
+            }
+        }
+
+        content.isLoaded = false; // Mark the content as unloaded
+
+        return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
     }
 
     public float AddContent(string contentFile)
@@ -39,17 +107,33 @@ public class ContentLoader : MonoBehaviour
         }
 
         ContentDefinition content = ParseContent(yamlFile.text);
-        if (content?.elements == null)
+        AddContent(content);
+
+        return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
+    }
+
+    public float UnloadContent(string contentFile)
+    {
+        float startTime = Time.realtimeSinceStartup;
+
+        TextAsset yamlFile = LoadYaml(contentFile);
+        if (yamlFile == null)
         {
-            Debug.LogError($"Invalid content definition: '{contentFile}'.");
             return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
         }
 
-        foreach (ContentElement element in content.elements)
+        ContentDefinition content = ParseContent(yamlFile.text);
+        UnloadContent(content);
+
+        return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
+    }
+
+    private void ClearAllContent()
+    {
+        foreach (Transform child in transform)
         {
-            CreateElement(element);
+            Destroy(child.gameObject);
         }
-       return (Time.realtimeSinceStartup - startTime) * 1000f; // Return elapsed time in milliseconds
     }
 
     private TextAsset LoadYaml(string contentFile)
@@ -65,15 +149,26 @@ public class ContentLoader : MonoBehaviour
 
     private ContentDefinition ParseContent(string yaml)
     {
+        ContentDefinition parsedContent = null;
+
         try
         {    
-            return deserializer.Deserialize<ContentDefinition>(yaml);
+            parsedContent = deserializer.Deserialize<ContentDefinition>(yaml);
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"Failed to parse content YAML: {ex.Message}");
+            Debug.LogError($"Failed to parse content YAML: {ex}");
             return null;
         }
+
+        if (parsedContent == null)
+        {
+            Debug.LogError("Parsed content is null.");
+            return null;
+        }
+
+        RegisterContent(parsedContent); // Register the content for future reference
+        return parsedContent;
     }
     private void CreateElement(ContentElement element, Transform parent = null)
     {
@@ -91,6 +186,7 @@ public class ContentLoader : MonoBehaviour
         ApplyTransform(obj, element, parent);
         ApplyRenderer(obj, element);
         ApplyText(obj, element);
+        ApplyInteractable(obj, element.interactable);
 
         if (element.elements?.elements != null)
         {
@@ -230,11 +326,112 @@ public class ContentLoader : MonoBehaviour
         }
     }
 
-    private void ClearCurrentContent()
+    private void ApplyInteractable(GameObject obj, InteractableDefinition interactable)
     {
-        foreach (Transform child in transform)
+        Debug.Log($"Attempting to apply interactable settings for element with id: {obj.name}");
+
+        if (interactable != null)
         {
-            Destroy(child.gameObject);
+            Debug.Log($"Applying interactable of type '{interactable.type}' to object '{obj.name}'.");
+            Interactable component = null;
+
+            switch (interactable.type)
+            {
+                case "file": // TODO: Implement FileInteractable class and uncomment the lines below
+                    // component = obj.AddComponent<FileInteractable>();
+                    // ((FileInteractable)component).filePath = interactable.filePath;
+                    // ((FileInteractable)component).fileContent = interactable.fileContent;
+                    break;
+                case "scene":
+                    component = obj.AddComponent<SceneLoadInteractable>();
+                    ((SceneLoadInteractable)component).sceneName = interactable.sceneName;
+                    break;
+                case "content":
+                    component = obj.AddComponent<ContentInteractable>();
+                    ((ContentInteractable)component).operations = interactable.operations;;
+                    ((ContentInteractable)component).contentLoader = this;
+                    break;
+                case "flag": // TODO: Implement FlagInteractable class and uncomment the lines below
+                    // component = obj.AddComponent<FlagInteractable>();
+                    // ((FlagInteractable)component).flagName = interactable.flagName;
+                    break;
+                default:
+                    Debug.LogWarning($"Unknown interactable type: {interactable.type}");
+                    break;
+            }
+
+            if (component != null)
+            {
+                component.exhaustible = interactable.exhaustible;
+                obj.layer = LayerMask.NameToLayer("Interactable");
+
+                Debug.Log($"Added Interactable component to object '{obj.name}' with type '{interactable.type}'.");
+                return;
+            }
+            else
+            {
+                Debug.LogWarning($"Failed to add Interactable component to object '{obj.name}' for type '{interactable.type}'.");
+                return;
+            }
         }
+        Debug.Log($"No interactable settings to apply for element with id: {obj.name}");
+    }
+
+    private ContentDefinition RegisterContent(ContentDefinition content, string parentId = null)
+    {
+        if (content == null)
+            return null;
+
+        if (string.IsNullOrEmpty(content.contentId) && string.IsNullOrEmpty(parentId))
+        {
+            Debug.LogWarning("Attempted to register root content with no contentId. Root content must have a unique contentId to be registered.");
+            return null;
+        }
+
+        bool isReferenceOnly =
+            !string.IsNullOrEmpty(content.contentId)
+            && content.elements == null;
+
+        if (isReferenceOnly)
+        {
+            if (!contentDefinitions.ContainsKey(content.contentId))
+            {
+                Debug.LogWarning($"Content reference with id '{content.contentId}' does not exist in the registry.");
+                return null;
+            }
+            return contentDefinitions[content.contentId];
+        }
+
+        string registryId = !string.IsNullOrEmpty(content.contentId)
+            ? content.contentId
+            : $"{parentId}.{Guid.NewGuid()}";
+
+        if (contentDefinitions.TryGetValue(registryId, out ContentDefinition existingContent))
+        {
+            Debug.LogWarning($"Content with id '{registryId}' is already registered.");
+            return existingContent;
+        }
+
+        contentDefinitions.Add(registryId, content);
+
+        if (content.elements == null)
+            return content;
+
+        foreach (ContentElement element in content.elements)
+        {
+            if (element.elements != null)
+                element.elements = RegisterContent(element.elements, registryId);
+
+            if (element.interactable?.operations != null)
+            {       
+                foreach (ContentOperation operation in element.interactable.operations)
+                {
+                    if (operation.content != null)
+                        operation.content = RegisterContent(operation.content, registryId);
+                }
+            }
+        }
+
+        return content;
     }
 }

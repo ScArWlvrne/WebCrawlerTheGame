@@ -4,8 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoadInteractable : Interactable
 {
-    [SerializeField] private string sceneName = "DesktopHub";
-    [SerializeField] private Transform promptAnchor;
+    [SerializeField] public string sceneName = "DesktopHub";
     [SerializeField] private CircleHoleTransition circleTransition;
     [SerializeField] private float transitionDelay = 0.2f;
 
@@ -19,10 +18,6 @@ public class SceneLoadInteractable : Interactable
         StartCoroutine(LoadSceneSequence());
     }
 
-    public Transform GetPromptAnchor()
-    {
-        return promptAnchor != null ? promptAnchor : transform;
-    }
 
     private IEnumerator LoadSceneSequence()
     {

@@ -11,6 +11,9 @@ public abstract class Interactable : MonoBehaviour
     private MeshFilter outlineMeshFilter;
     private bool isHighlighted;
 
+    public bool exhaustible = false; // If true, the interactable can only be used once
+    public bool IsExhausted { get; private set; } = false;
+
     protected virtual void Awake()
     {
         MeshFilter sourceMeshFilter = GetComponent<MeshFilter>();

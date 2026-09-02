@@ -85,7 +85,7 @@ public class JournalEntryInteractable : Interactable
         return promptAnchor != null ? promptAnchor : transform;
     }
 
-    private bool IsExhausted()
+    private new bool IsExhausted() // This shit won't exist eventually. Just supressing the warning for now. The base class has a property called IsExhausted, but we need to check the GameStateManager for this specific interactable.
     {
         return exhaustAfterUse &&
                GameStateManager.Instance != null &&

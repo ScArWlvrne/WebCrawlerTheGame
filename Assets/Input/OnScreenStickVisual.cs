@@ -20,6 +20,11 @@ public class OnScreenStickVisual : MonoBehaviour, IPointerDownHandler, IPointerU
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (eventData.position.x > Screen.width / 2) // TODO: Find a more elegant check for this
+        {
+            return;
+        }
+
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             touchArea, 
             eventData.position, 
